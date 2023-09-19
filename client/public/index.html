@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>React App</title>
+    <style>
+      *{
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+
+    <script>
+      //על מנת לעקוף את מדניות הפעלת השמע של הדפדפנים
+      document.addEventListener("click",()=>{
+        let elm =  document.getElementsByTagName("audio")[0];
+        <!-- if(false && elm)elm.play() -->
+            
+      })
+
+
+      document.body.addEventListener("wheel",()=> {
+        let elemResult = document.getElementById("resultGrid");
+        if(elemResult){
+          elemResult.innerHTML=""
+        }
+      })
+
+    </script>
+    </body>
+</html>
+
