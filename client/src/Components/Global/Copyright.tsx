@@ -1,24 +1,11 @@
-import { ConvertPoint } from "../../importAll";
+import {GlobalStyle } from "../../importAll";
 
 export default function Copyright(props:ICopyrightProps){
-    let style :React.CSSProperties={
-        textAlign:"center",
-        gridColumn:`${ConvertPoint(props.start)[0]}/${ConvertPoint(props.end)[0]}`,
-        gridRow : `${ConvertPoint(props.start)[1]}/${ConvertPoint(props.end)[1]}`,
-        border :"1px solid",
-
-    }
     return(
-        <div style={style} className={props.className}>
+        <div style={GlobalStyle(props,"flex",{XYcenter:true})} className={props.className}>
             {props.value ||"כל הזכויות שמורות"}
         </div>
     )
 }
 
-interface ICopyrightProps{
-    value?:string;
-    className?:string;
-    start? : string;
-    end?:string;
-    border? :boolean;
-}
+interface ICopyrightProps extends IGlobalProps{}

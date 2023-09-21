@@ -7,17 +7,13 @@ const GameCreateAvatar = memo((props :IGameSelectAvatarProps)=>{
 
     if(mainPage != "Game") return <>אין לך גישה </>
 
-  
-
 
     return(
-        <Container Grid className="Guest" width="110vh" height="90vh" rows={49} columns={49} margin="10px auto"  marginTop={10} border >
-            
-            
+        < >
             
 
             <Copyright/>
-        </Container>
+        </>
     )
 
 });

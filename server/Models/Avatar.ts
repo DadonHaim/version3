@@ -1,4 +1,4 @@
-import { AvatarsModel, Database, Inventory, User } from "./../importAll";
+import { AvatarsModel, Database, Inventory, Magic, User } from "./../importAll";
 
 export default class Avatar extends Database<TAvatars>{ 
     //#region Fields
@@ -25,7 +25,7 @@ export default class Avatar extends Database<TAvatars>{
     //#region Refferences
         private user                :   User;   //{get;}   
         private activeMission       :   any; //  Mission;    //{get;}           
-        private magicType           :   any; //  Magic;      //{get;}     
+        private magic               :   Magic; //  Magic;      //{get;}     
         private page                :   any; //  Page;       //{get;}   
     //#endregion
 
@@ -41,7 +41,7 @@ export default class Avatar extends Database<TAvatars>{
         public GetInventory     = ():Inventory  => this.inventory    ;
         public GetUser          = ():User       => this.user         ;
         public GetActiveMission = ()            => this.activeMission;
-        public GetMagicType     = ()            => this.magicType    ;
+        public GetMagic         = ():Magic      => this.magic        ;
         public GetPage          = ()            => this.page         ;
     //#endregion
 
@@ -59,6 +59,7 @@ export default class Avatar extends Database<TAvatars>{
                 this.createdDate = avatarObj.createdDate;
                 this.inventory   = new Inventory(this)  ;
                 this.isExist     = true                 ;
+                this.magic       = Magic.GetMagicById(avatarObj.magicID);
             }
             if(user)
                 this.user = user;
@@ -84,7 +85,6 @@ export default class Avatar extends Database<TAvatars>{
     //#region statics
     public static GetAvatarsByUserId(user:User):Avatar[]{
         let avatars:Avatar[] = [];
-
         new Database().SelectSync<TAvatars>({
             Fields  : ["id","name","userID","createdDate","exp","gold","silver","redPowder","diamond","freeze","magicID","missionID"],
             from    : "avatars",

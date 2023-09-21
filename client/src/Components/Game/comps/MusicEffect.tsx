@@ -8,10 +8,10 @@ export default function MusicEffect(){
         if(music)
             return ( 
                 <>
-                <audio id="bgAudio">
-                    <source src={bgMusic} type="audio/mpeg" />
-                    Your browser does not support the audio element.
-                </audio>
+                    <audio id="bgAudio">
+                        <source src={bgMusic} type="audio/mpeg" />
+                        Your browser does not support the audio element.
+                    </audio>
                 </>
             )
         else

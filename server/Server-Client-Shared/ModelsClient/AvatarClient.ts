@@ -11,9 +11,9 @@ export default class AvatarClient{
     public redPowder    ? :number | null;
     public diamond      ? :number | null;
     public createdDate  ? :string | null;
+    public magicName    ? :MagicNameType | null;
 
     constructor(obj:AvatarClient){
-       
        this.id           = (obj.id          )?obj.id           :null;                        
        this.name         = (obj.name        )?obj.name         :null;                          
        this.exp          = (obj.exp         )?obj.exp          :null;                       
@@ -25,7 +25,8 @@ export default class AvatarClient{
        this.hp           = (obj.hp          )?obj.hp           :null;                                           
        this.energy       = (obj.energy      )?obj.energy       :null;                                           
        this.damage       = (obj.damage      )?obj.damage       :null;                                           
-       this.refillEnergy = (obj.refillEnergy)?obj.refillEnergy :null;                                                             
+       this.refillEnergy = (obj.refillEnergy)?obj.refillEnergy :null;         
+       this.magicName    = (obj.magicName   )?obj.magicName    :null;   
     }
 
 }

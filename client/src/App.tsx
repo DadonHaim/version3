@@ -42,7 +42,6 @@ const App = memo(()=>{
             {mainPage=="Game" ?<Game/> :"" }
             <ConsoleDebug/>
             <GridDebug />
-            <GridBtn top={1} ForClassName="container" />
         </>
       )
 
@@ -55,5 +54,8 @@ export default App
 function ConsoleDebug(){
     let allStore = useSelector<any,any>(store=>store)
     let styles :React.CSSProperties = {position:"absolute",top:0,left:0}
-    return <button style={styles} onClick={()=>console.log(allStore)}>store</button>
+    return <button style={styles} onClick={()=>{
+        console.log(allStore)
+        console.log("token:"+sessionStorage.getItem("token"))
+    }}>store</button>
 }

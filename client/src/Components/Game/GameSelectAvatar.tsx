@@ -1,8 +1,6 @@
 import { GridBtn } from "../../devComponent";
-import { Container, memo, useSelector ,Copyright, Div ,Header, Lable, Main, Button, AvatarClient, ControllerAudio,AvatarView} from "./../../importAll";
+import { Container, memo, useSelector ,Copyright, Div ,Header, Lable, Main, Button, AvatarClient, ControllerAudio,AvatarView, Flex} from "./../../importAll";
 import AvatarSelector from "./comps/AvatarSelector";
-let bgTemp = ""; 
-bgTemp = require("../../Images/Backgrounds/bg.png") 
 
 const GameSelectAvatar = memo((props :IGameSelectAvatarProps)=>{
     let mainPage    = useSelector<IStore,any>(store=>store.mainPage)
@@ -12,25 +10,20 @@ const GameSelectAvatar = memo((props :IGameSelectAvatarProps)=>{
     if(mainPage != "Game") return <>אין לך גישה </>
     
     return(
-        <Container Grid className="GameSelectAvatar" width="110vh" height="90vh" rows={49} columns={49} margin="10px auto"  marginTop={10} border bgImg={bgTemp}> 
-            <Lable align="center" underline fSize="200%" rtl start="28,1" end="39,3" border>בחר אווטאר:</Lable>
+        <>
+            <Lable rtl underline fSize="200%" position="28,1|39,3">בחר אווטאר:</Lable>
             
-            <ControllerAudio  start="2,2" end="7,4"/>
-            <AvatarView className="AvatarView" start="2,4" end="15,38" border/>
+            <ControllerAudio position="2,2|7,4" />
+            <AvatarView className="AvatarView" position="2,4|15,38" border/>
 
-            <Main Flex flexDirection="column" start="15,4" end="48,47" border scroll>
-                {
-                    allAvatars.map(ava=>{
-                        return <AvatarSelector key={ava.id} avatar={ava} border/>
-                    })
-                }
-            </Main>
+            <Flex flexDirection="column" position="15,4|48,47" start="15,4" end="48,47" border scroll>
+                { allAvatars.map(ava=><AvatarSelector key={ava.id} avatar={ava} border/>) }
+            </Flex>
         
-            <Button value="למשחק" start="3,39" end="13,46" border/>
-            <Copyright start="1,48" end="50,50"/>
-            <GridBtn top={2} ForClassName="AvatarView" />
-            <GridBtn top={2} ForClassName="avatarSelector" />
-        </Container>
+            <Button position="3,39|13,46" value="למשחק"/>
+            <Copyright position="1,48|50,50"/>
+
+        </>
     )
 });
 

@@ -11,8 +11,9 @@ interface IGlobalProps{
     end         ? : string;
     
     center?:boolean;
+    wrap?:boolean;
     
-    
+    family ?: string;
     border?: boolean;
     bgColor     ? : boolean |string;
     bgImg       ? : any;
@@ -24,7 +25,11 @@ interface IGlobalProps{
     align  ? : "center"|"left"|"right";
 
     columns?:number;
+    cols?:number;
     rows?:number;
+    grid?:string;
+    Grid?:number;
+    position?:string;
 
     gap?:number |string;
     rtl?:boolean;
@@ -32,7 +37,7 @@ interface IGlobalProps{
     scroll?:boolean;
 
 
-    margin    ? :string;
+    margin    ? :number|string;
     marginTop  ? :number|string;
     marginLeft? :number|string;
     marginRight? :number|string;

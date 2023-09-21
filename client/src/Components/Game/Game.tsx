@@ -1,12 +1,12 @@
-import {memo, useSelector, GameCreateAvatar ,GameSelectAvatar, useEffect, socket, useStore,AvatarClient, useState, useEffectV2} from "./../../importAll";
+import {memo, useSelector, GameCreateAvatar ,GameSelectAvatar, useEffect, socket, useStore,AvatarClient, useState, useEffectV2, Container} from "./../../importAll";
 import MusicEffect from "./comps/MusicEffect";
 
 
 const Game = memo((props :IGameProps)=>{
-    let mainPage              = useSelector<IStore,any>(store=>store.mainPage)
-    let subPage :AllGamePage  = useSelector<IStore,any>(store=>store.subPage)
-    let {actions,dispatch} = useStore();
-    let [isloading , setIsLoading] = useState<boolean>(true);
+    let mainPage                    = useSelector<IStore,any>(store=>store.mainPage)
+    let subPage :AllGamePage        = useSelector<IStore,any>(store=>store.subPage)
+    let {actions,dispatch}          = useStore();
+    let [isloading , setIsLoading]  = useState<boolean>(true);
     
 
     useEffectV2("Game",()=>{
@@ -21,12 +21,12 @@ const Game = memo((props :IGameProps)=>{
     if(isloading) return <>Wait</>
 
     return( 
-        <>
+         <Container Grid={49} width="110vh" height="90vh" margin="10px auto" border> 
             {(mainPage != "Game"              )? <>אין לך גישה </>  :""}
             {(subPage  == "Game-SelectAvatar" )? <GameSelectAvatar/> :""}
             {(subPage  == "Game-CreateAvatar" )? <GameCreateAvatar/> :""}
             <MusicEffect/>
-        </>
+        </Container>
     )
 });
 

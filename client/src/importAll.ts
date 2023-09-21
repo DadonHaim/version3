@@ -1,5 +1,6 @@
 import React,{useEffect,useState,memo}                      from "react";
-import {Container,Div,Flex,Footer,Grid,Header,Aside,Main ,Lable}   from "./Components/Global/Container";
+import {Container,Div,Flex,Footer,Grid,Header,Aside,Main ,Lable,Icon,Name,Button,Img,Box}   from "./Components/Global/Container";
+import { Avatar , Dress }                                   from "./Components/Game/comps/cloths";
 import { Choice, Menu }                                     from "./Components/Global/Menu";
 import LoginValidation                                      from "./Validations/LoginValidation";
 import RegisterValidation                                   from "./Validations/RegisterValidation";
@@ -11,18 +12,18 @@ import GuestLogin                                           from "./Components/G
 import GuestRegister                                        from "./Components/Guest/GuestRegister";
 import Guest                                                from "./Components/Guest/Guest";
 import User                                                 from "./Models/User";
-import Button                                               from "./Components/Global/Button";
 import Debug                                                from "./Server-Client-Shared/Dev/Debug";
 import { Provider }                                         from "react-redux";
-import {SocketProvider}                                     from "./Socket/Socket"
 import myStore                                              from "./Store/Store"
 import GlobalStyle                                          from "./Components/Global/GlobalStyle";
 import { useSelector }                                      from "react-redux"
 import useEffectV2                                          from "./Hooks/useEffectV2"
 import AvatarView                                           from "./Components/Game/comps/AvatarView";
+import AvatarMinView                                        from "./Components/Game/comps/AvatarMinView";
 import { useDispatch }                                      from "react-redux";
 import {LoginSettings,RegisterSettings}                     from "./Server-Client-Shared/Settings"
 import ConvertPoint                                         from "./Functions/ConvertPoint";
+import RandomString                                         from "./Functions/RandomString";
 import App                                                  from './App';
 import ReactDOM                                             from 'react-dom/client';
 import ResultValid                                          from "./Server-Client-Shared/ResultValid";
@@ -33,15 +34,21 @@ import GameSelectAvatar                                     from "./Components/G
 import AvatarClient                                         from "./Server-Client-Shared/ModelsClient/AvatarClient";
 import ControllerAudio                                      from "./Components/Game/comps/ControllerAudio";                                             
 
-
-
 const HeaderBackground = require("./Images/Backgrounds/headerGuest.jpg")
 const FooterBackground = require("./Images/Backgrounds/headerGuest.jpg")
 
 export { AvatarClient        } 
+export { Img                 } 
+export { Avatar              } 
+export { Dress               } 
+export { Box                 } 
+export { Icon                } 
 export { Game                }
+export { Name                }
 export { AvatarView          } 
+export { RandomString         } 
 export { useEffectV2         } 
+export { AvatarMinView       } 
 export { GameCreateAvatar    } 
 export { GameSelectAvatar    } 
 export { socket              } 

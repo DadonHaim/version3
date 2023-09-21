@@ -17,11 +17,11 @@ const reducers = {
     setMainPage : (state:IStore , action:IAction<AllMainPages>) => {
         state.mainPage = action.payload;
         if(action.payload == "Game")
-            state.subPage  = "Guest-Home"
-        if(action.payload == "Guest")
             state.subPage  = "Game-SelectAvatar"
+        if(action.payload == "Guest")
+            state.subPage  = "Guest-Home"
     },
-    setSubPage  : (state:IStore , action:IAction<AllSubPage>)   => {state.subPage  = action.payload},
+    setSubPage  : (state:IStore , action:IAction<AllSubPages>)   => {state.subPage  = action.payload},
 
     setAllAvatars         : (state:IStore , action:IAction<AvatarClient[]>) => {state.allAvatars     = action.payload},
     setActiveAvatars      : (state:IStore , action:IAction<AvatarClient>)   => {state.activeAvatars  = action.payload},

@@ -86,14 +86,17 @@ export default class User extends Database<TUser>{
                 this.token        = (obj.token        )? obj.token        : null;        
             }
             this.isExist = (this.id && this.username)? true :false;
-            if(login){
-                this .isLogin =  true;
-                this.avatars = Avatar.GetAvatarsByUserId(this);
-            }
+            if(login)
+                this.ILogin();
             else
                 this.isLogin = false;
         }
           
+        private ILogin(){
+            this .isLogin =  true;
+            this.avatars = Avatar.GetAvatarsByUserId(this);
+        }
+
         public Logout():User{
             this.validation("Login").Valid(()=>{
                 this.removeToken();
@@ -176,7 +179,8 @@ export default class User extends Database<TUser>{
                         gold        : ava.GetGold(),
                         diamond     : ava.GetDiamond(),
                         redPowder   : ava.GetRedPowder(),
-                        createdDate : ava.GetCreatedDate()
+                        createdDate : ava.GetCreatedDate(),
+                        magicName   : ava.GetMagic().GetName() as MagicNameType,
                     })
                 )
             })

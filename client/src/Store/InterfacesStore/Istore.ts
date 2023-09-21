@@ -2,7 +2,7 @@ interface IStore<>{
     isLogin         : boolean;
     user            : IUser;
     mainPage        : AllMainPages;
-    subPage         : AllSubPage;
+    subPage         : AllSubPages;
     allAvatars      : any;
     activeAvatars   : any;
 

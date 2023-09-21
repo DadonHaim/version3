@@ -4,4 +4,4 @@ type AllGamePage = "Game-SelectAvatar"|"Game-CreateAvatar";
 type AllMainPages = "Guest" | "Game";
 
 
-type AllSubPage = AllGamePage|AllGuestPage;
+type AllSubPages = AllGamePage|AllGuestPage;

@@ -21,10 +21,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "node ../copy.js client && react-scripts start",
-    "debug": "node ../copy.js client && react-scripts start",
-    "build": "node ../copy.js client && react-scripts build",
-    "test": "node ../copy.js client && react-scripts test",
+    "start": "react-scripts start",
+    "debug": "react-scripts start",
+    "build": "react-scripts build",
+    "test":  "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

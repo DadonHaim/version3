@@ -42,7 +42,7 @@ interface IChiceProps extends IGlobalProps{
     onSelected?:React.CSSProperties;
     selected? : boolean;
     toPage?:AllMainPages;
-    toSubPage?:AllSubPage;
+    toSubPage?:AllSubPages;
     value?:string;
 }
 

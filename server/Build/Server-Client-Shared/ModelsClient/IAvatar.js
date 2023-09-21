@@ -1,0 +1,1 @@
+//# sourceMappingURL=IAvatar.js.map

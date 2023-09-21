@@ -3,7 +3,7 @@ import { Button, Flex, memo,useSelector, useStore ,} from "../../../importAll";
 
 const EnableMusicIcon =  require("../../../Images/icons/32px/musicOn32.png");
 const EnableSoundIcon =  require("../../../Images/icons/32px/soundOn32.png");
-// const logoutIcon      =  require("../../../Images/icons/32/logout.png");
+const logoutIcon      =  require("../../../Images/icons/32px/logout32.png");
 
 const DisableMusicIcon =  require("../../../Images/icons/32px/musicOff32.png");
 const DisableSoundIcon =  require("../../../Images/icons/32px/soundOff32.png");
@@ -33,9 +33,9 @@ const ControllerAudio = memo((props:IControllerAudioProps)=>{
 
     return(
         <Flex {...props}>
-            <Button className="logoutIcon" width={24} height={24} icon={EnableSoundIcon} onClick={logoutIconClick}/>
-            <Button className="musicIcon"  width={24} height={24} icon={musicIcon}  onClick={musicIconClick}/>
-            <Button className="soundIcon"  width={24} height={24} icon={soundIcon}  onClick={soundIconClick}/>
+            <Button className="logoutIcon" width={20} height={20} bgImg={logoutIcon} onClick={logoutIconClick}/>
+            <Button className="musicIcon"  width={20} height={20} bgImg={musicIcon}  onClick={musicIconClick}/>
+            <Button className="soundIcon"  width={20} height={20} bgImg={soundIcon}  onClick={soundIconClick}/>
         </Flex>
     )
 })

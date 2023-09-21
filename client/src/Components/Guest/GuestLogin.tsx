@@ -27,7 +27,7 @@ const GuestLogin = memo((props:IGuestHomeProps)=>{
     
     if(isLogin) return <>אין לך הרשאה להיכנס לפה! צא החוצה יא אגוז!!</>
     else return(
-        <Main  Grid start="1,11" end="50,41" border>
+        <Main   start="1,11" end="50,41" border>
             <label>username:</label>
             <input ref={usernameRef} name="username" type="text"/>
             <span className="validation">{validationMsgs.username}</span>
