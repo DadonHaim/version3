@@ -2,24 +2,26 @@ import { AvatarsModel, Database, Inventory, Magic, User } from "./../importAll";
 
 export default class Avatar extends Database<TAvatars>{ 
     //#region Fields
-        private name        :string     |null =null;    //{get;}
-        private exp         :number     |null =null;    //{get;}
-        private silver      :number     |null =null;    //{get;}
-        private gold        :number     |null =null;    //{get;}
-        private redPowder   :number     |null =null;    //{get;}
-        private diamond     :number     |null =null;    //{get;}
-        private createdDate :string     |null =null;    //{get;}
-        private inventory   :Inventory  |null =null; //לערוך
+        private name        :string             |null           =null;    //{get;}
+        private exp         :number             |null           =null;    //{get;}
+        private silver      :number             |null           =null;    //{get;}
+        private gold        :number             |null           =null;    //{get;}
+        private redPowder   :number             |null           =null;    //{get;}
+        private diamond     :number             |null           =null;    //{get;}
+        private createdDate :string             |null           =null;    //{get;}
+        private gender      :"boy"|"girl"|"all" |null           =null;    //{get;}
+        private inventory   :Inventory          |null           =null; //לערוך
 
 
     //#endregion
 
     //#region Flags
-        private isExist          :boolean   = false;   
-        private isActive         :boolean   = false;   
-        private isSelectMission  :boolean   = false;           
-        private isFreeze         :boolean   = false;       
-        private inPage           :string    = 'home';   
+        private isExist          :boolean           = false;   
+        private isActive         :boolean           = false;   
+        private isSelectMission  :boolean           = false;           
+        private isFreeze         :boolean           = false;       
+        private mainPage         :AllMainPagesType  = 'Game';   
+        private subPage          :AllSubPagesType   = 'Guest-Home';   
     //#endregion
 
     //#region Refferences
@@ -43,6 +45,7 @@ export default class Avatar extends Database<TAvatars>{
         public GetActiveMission = ()            => this.activeMission;
         public GetMagic         = ():Magic      => this.magic        ;
         public GetPage          = ()            => this.page         ;
+        public GetGender        = ()            => this.gender       ;
     //#endregion
 
     //#region Method
@@ -60,6 +63,9 @@ export default class Avatar extends Database<TAvatars>{
                 this.inventory   = new Inventory(this)  ;
                 this.isExist     = true                 ;
                 this.magic       = Magic.GetMagicById(avatarObj.magicID);
+                this.gender      = avatarObj.gender;
+                this.mainPage     = avatarObj.mainPage; 
+                this.subPage      = avatarObj.subPage; 
             }
             if(user)
                 this.user = user;
@@ -86,7 +92,7 @@ export default class Avatar extends Database<TAvatars>{
     public static GetAvatarsByUserId(user:User):Avatar[]{
         let avatars:Avatar[] = [];
         new Database().SelectSync<TAvatars>({
-            Fields  : ["id","name","userID","createdDate","exp","gold","silver","redPowder","diamond","freeze","magicID","missionID"],
+            Fields  : ["id","name","userID","createdDate","exp","gold","gender" ,"mainPage" ,"subPage","silver","redPowder","diamond","freeze","magicID","missionID"],
             from    : "avatars",
             where   : `userID='${user.GetId()}'`
         })

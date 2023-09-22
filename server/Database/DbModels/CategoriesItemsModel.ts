@@ -1,15 +1,17 @@
 export default class CategoriesItemsModel{
     public id?            :number;  
     public name?          :string;      
-    public description?   :string;          
-    public freeze?        :string;      
+    public ending?        :string;          
+    public positionGrid?   :string;      
+    public gender?   : "boy"|"girl"|"all";      
 
     public constructor(obj?:CategoriesItemsModel){
         if(obj){
-            this.id          = obj.id;
-            this.description = obj.description;
-            this.freeze      = obj.freeze;
-            this.name        = obj.name;
+            this.id             = obj.id;
+            this.name           = obj.name;
+            this.ending         = obj.ending;
+            this.positionGrid   = obj.positionGrid;
+            this.gender         = obj.gender;
         }
     }
 }

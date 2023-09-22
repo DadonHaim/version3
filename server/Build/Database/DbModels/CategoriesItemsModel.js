@@ -4,9 +4,10 @@ var CategoriesItemsModel = /** @class */ (function () {
     function CategoriesItemsModel(obj) {
         if (obj) {
             this.id = obj.id;
-            this.description = obj.description;
-            this.freeze = obj.freeze;
             this.name = obj.name;
+            this.ending = obj.ending;
+            this.positionGrid = obj.positionGrid;
+            this.gender = obj.gender;
         }
     }
     return CategoriesItemsModel;

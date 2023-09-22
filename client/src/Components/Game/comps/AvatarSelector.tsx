@@ -1,5 +1,5 @@
 import {AvatarClient, Button, Img, Flex, Grid, Lable, memo, Icon,Name, AvatarView, AvatarMinView} from "../../../importAll";
-import GetImage from "../../../Functions/GetImage"
+import GetImage from "../../../Server-Client-Shared/Functions/GetImage"
 let hpIcon           :any = GetImage("icon","hp","png");          
 let strongIcon       :any = GetImage("icon","strong");              
 let energyIcon       :any = GetImage("icon","energy");              
@@ -13,7 +13,7 @@ let trashIcon        :any = GetImage("icon","trash");
 const AvatarSelector = memo((props:IAvatarSelectorProps)=>{
     const deleteAvatar = ()=>{}
     return (
-        <Grid className="avatarSelector" {...props} rows={50} columns={50} width="95%" height="15%" margin="10px auto" >
+        <Grid Grid={50}  width="95%" height="15%" margin="10px auto" {...props} >
             <Name family="cursive" rtl position="18,2|33,14"> {props.avatar.name}</Name>
 
             <AvatarMinView position="39,2|50,50" border/>

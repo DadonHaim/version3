@@ -29,9 +29,9 @@ import MonsterRankPower               from "./Database/JsonModels/MonsterRankPow
 import Labyrinth                      from "./Database/JsonModels/Labyrinth.json"         ;          
 import AvatarLog                      from "./Database/JsonModels/AvatarLog.json"         ;      
 
-import Debug ,{DebugSocket}           from "./Server-Client-Shared/Dev/Debug"                                  ;
+import Debug ,{DebugSocket}           from "./Server-Client-Shared/Dev/Debug"             ;
 
-import RandomString                   from "./Functions/RandomString"                     ;
+import RandomString                   from "./Server-Client-Shared/Functions/RandomString";
 import CrossMidlleWare                from "./MiddleWares/Cross"                          ;
 
 import Item                           from "./Models/Item"                                ;
@@ -60,8 +60,8 @@ import {ILoginTest ,IRegisterTest}            from "./Tests/Test";
 
         
 import ResultValid                    from "./Server-Client-Shared/ResultValid";
-import LoginValidation                from "./Validations/LoginValidation";
-import RegisterValidation             from "./Validations/RegisterValidation";
+import LoginValidation                from "./Server-Client-Shared/Validations/LoginValidation";
+import RegisterValidation             from "./Server-Client-Shared/Validations/RegisterValidation";
 
 
  

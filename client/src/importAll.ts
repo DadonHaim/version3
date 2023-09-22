@@ -1,29 +1,34 @@
-import React,{useEffect,useState,memo}                      from "react";
-import {Container,Div,Flex,Footer,Grid,Header,Aside,Main ,Lable,Icon,Name,Button,Img,Box}   from "./Components/Global/Container";
-import { Avatar , Dress }                                   from "./Components/Game/comps/cloths";
-import { Choice, Menu }                                     from "./Components/Global/Menu";
-import LoginValidation                                      from "./Validations/LoginValidation";
-import RegisterValidation                                   from "./Validations/RegisterValidation";
+import React,{useEffect,useState,memo}                                                                          from "react";
+import {Container,Div,Flex,Footer,Grid,Header,Aside,Main ,Lable,Icon,Name,Button,Img,Box,Copyright,Choice,Menu} from "./Components/Containers";
+import {Avatar,Cloth,Dress,Shoes,Shirt}                                                                         from "./Components/Game/comps/cloths";
+
+
+import LoginValidation                                      from "./Server-Client-Shared/Validations/LoginValidation";
+import RegisterValidation                                   from "./Server-Client-Shared/Validations/RegisterValidation";
+
+import UserClient                                                 from "./Server-Client-Shared/ModelsClient/UserClient";
+
+import ConvertPoint                                         from "./Server-Client-Shared/Functions/ConvertPoint";
+import RandomString                                         from "./Server-Client-Shared/Functions/RandomString";
+
 import useStore                                             from "./Hooks/useStore";
 import useRefV2                                             from "./Hooks/useRefV2";
-import Copyright                                            from "./Components/Global/Copyright";
+
 import GuestHome                                            from "./Components/Guest/GuestHome";
 import GuestLogin                                           from "./Components/Guest/GuestLogin";
 import GuestRegister                                        from "./Components/Guest/GuestRegister";
-import Guest                                                from "./Components/Guest/Guest";
-import User                                                 from "./Models/User";
+import Guest                                                from "./Components/Guest/Guest"
+;
 import Debug                                                from "./Server-Client-Shared/Dev/Debug";
 import { Provider }                                         from "react-redux";
 import myStore                                              from "./Store/Store"
-import GlobalStyle                                          from "./Components/Global/GlobalStyle";
+import GlobalStyle                                          from "./Components/GlobalStyle";
 import { useSelector }                                      from "react-redux"
 import useEffectV2                                          from "./Hooks/useEffectV2"
 import AvatarView                                           from "./Components/Game/comps/AvatarView";
 import AvatarMinView                                        from "./Components/Game/comps/AvatarMinView";
 import { useDispatch }                                      from "react-redux";
 import {LoginSettings,RegisterSettings}                     from "./Server-Client-Shared/Settings"
-import ConvertPoint                                         from "./Functions/ConvertPoint";
-import RandomString                                         from "./Functions/RandomString";
 import App                                                  from './App';
 import ReactDOM                                             from 'react-dom/client';
 import ResultValid                                          from "./Server-Client-Shared/ResultValid";
@@ -38,15 +43,18 @@ const HeaderBackground = require("./Images/Backgrounds/headerGuest.jpg")
 const FooterBackground = require("./Images/Backgrounds/headerGuest.jpg")
 
 export { AvatarClient        } 
+export { Shoes               } 
 export { Img                 } 
 export { Avatar              } 
+export { Cloth              } 
 export { Dress               } 
+export { Shirt               } 
 export { Box                 } 
 export { Icon                } 
 export { Game                }
 export { Name                }
 export { AvatarView          } 
-export { RandomString         } 
+export { RandomString        } 
 export { useEffectV2         } 
 export { AvatarMinView       } 
 export { GameCreateAvatar    } 
@@ -87,7 +95,7 @@ export { Guest               }
 export { GuestHome           }      
 export { LoginValidation     }              
 export { RegisterValidation  }              
-export { User                }              
+export { UserClient          }              
 export { Button              }              
 export { Debug               }              
 export { GlobalStyle         }              

@@ -1,5 +1,6 @@
 import { Choice, Container, Copyright, Name, Footer,  GuestRegister,GuestHome, GuestLogin,  Header, HeaderBackground, Menu,FooterBackground, useSelector, Main } from "../../importAll";
 
+const selectStyle:React.CSSProperties ={backgroundColor:"yellow"}
 
 export default function Guest(props:IGuestProps){
     let subPage  = useSelector<any,any>(store=>store.subPage)
@@ -16,11 +17,11 @@ export default function Guest(props:IGuestProps){
                 </Header>
 
                 <Menu rtl position="1,5|50,11" border>
-                    <Choice selected={subPage=="Guest-Home"    } toSubPage="Guest-Home"      value="בית"      />
-                    <Choice selected={subPage=="Guest-About"   } toSubPage="Guest-About"     value="אודות"    />
-                    <Choice selected={subPage=="Guest-Login"   } toSubPage="Guest-Login"     value="התחברות"  />
-                    <Choice selected={subPage=="Guest-Register"} toSubPage="Guest-Register"  value="הרשמה"     />
-                    <Choice selected={subPage=="Guest-Guide"   } toSubPage="Guest-Guide"     value="מדריך"    />
+                    <Choice selected={subPage=="Guest-Home"    } onSelectedStyle={selectStyle} toSubPage="Guest-Home"      value="בית"      />
+                    <Choice selected={subPage=="Guest-About"   } onSelectedStyle={selectStyle} toSubPage="Guest-About"     value="אודות"    />
+                    <Choice selected={subPage=="Guest-Login"   } onSelectedStyle={selectStyle} toSubPage="Guest-Login"     value="התחברות"  />
+                    <Choice selected={subPage=="Guest-Register"} onSelectedStyle={selectStyle} toSubPage="Guest-Register"  value="הרשמה"     />
+                    <Choice selected={subPage=="Guest-Guide"   } onSelectedStyle={selectStyle} toSubPage="Guest-Guide"     value="מדריך"    />
                 </Menu>
 
         <Main position="1,11|50,40" Grid={19}>

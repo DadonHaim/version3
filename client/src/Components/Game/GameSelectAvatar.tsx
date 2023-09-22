@@ -16,7 +16,7 @@ const GameSelectAvatar = memo((props :IGameSelectAvatarProps)=>{
             <ControllerAudio position="2,2|7,4" />
             <AvatarView className="AvatarView" position="2,4|15,38" border/>
 
-            <Flex flexDirection="column" position="15,4|48,47" start="15,4" end="48,47" border scroll>
+            <Flex flexDirection="column" position="15,4|48,47" border scroll>
                 { allAvatars.map(ava=><AvatarSelector key={ava.id} avatar={ava} border/>) }
             </Flex>
         

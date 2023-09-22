@@ -139,7 +139,7 @@ var User = /** @class */ (function (_super) {
     User.prototype.Register = function (obj) {
         var _this = this;
         this.validation("Guest").Valid(function () {
-            (0, importAll_1.RegisterValidation)(obj).Valid(function () {
+            (0, importAll_1.RegisterValidation)(obj, "server").Valid(function () {
                 _this.isExist = true;
                 _this.isLogin = false;
                 _this.username = obj.username;

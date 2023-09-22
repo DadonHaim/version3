@@ -11,4 +11,8 @@ export default class AvatarsModel{
     public userID?          :number;
     public missionID?       :number;
     public magicID?         :number;   
+    public gender?          :"boy"|"girl"|"all";
+    public mainPage ?       :AllMainPagesType;
+    public subPage  ?       :AllSubPagesType ;
+    
 }

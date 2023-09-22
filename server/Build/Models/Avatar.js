@@ -30,6 +30,7 @@ var Avatar = /** @class */ (function (_super) {
         _this.redPowder = null; //{get;}
         _this.diamond = null; //{get;}
         _this.createdDate = null; //{get;}
+        _this.gender = null; //{get;}
         _this.inventory = null; //לערוך
         //#endregion
         //#region Flags
@@ -37,7 +38,8 @@ var Avatar = /** @class */ (function (_super) {
         _this.isActive = false;
         _this.isSelectMission = false;
         _this.isFreeze = false;
-        _this.inPage = 'home';
+        _this.mainPage = 'Game';
+        _this.subPage = 'Guest-Home';
         //#endregion
         //#region Gets      
         _this.GetId = function () { return _this.id; };
@@ -53,6 +55,7 @@ var Avatar = /** @class */ (function (_super) {
         _this.GetActiveMission = function () { return _this.activeMission; };
         _this.GetMagic = function () { return _this.magic; };
         _this.GetPage = function () { return _this.page; };
+        _this.GetGender = function () { return _this.gender; };
         if (avatarObj) {
             _this.id = avatarObj.id;
             _this.name = avatarObj.name;
@@ -65,6 +68,9 @@ var Avatar = /** @class */ (function (_super) {
             _this.inventory = new importAll_1.Inventory(_this);
             _this.isExist = true;
             _this.magic = importAll_1.Magic.GetMagicById(avatarObj.magicID);
+            _this.gender = avatarObj.gender;
+            _this.mainPage = avatarObj.mainPage;
+            _this.subPage = avatarObj.subPage;
         }
         if (user)
             _this.user = user;
@@ -87,7 +93,7 @@ var Avatar = /** @class */ (function (_super) {
     Avatar.GetAvatarsByUserId = function (user) {
         var avatars = [];
         new importAll_1.Database().SelectSync({
-            Fields: ["id", "name", "userID", "createdDate", "exp", "gold", "silver", "redPowder", "diamond", "freeze", "magicID", "missionID"],
+            Fields: ["id", "name", "userID", "createdDate", "exp", "gold", "gender", "mainPage", "subPage", "silver", "redPowder", "diamond", "freeze", "magicID", "missionID"],
             from: "avatars",
             where: "userID='".concat(user.GetId(), "'")
         })

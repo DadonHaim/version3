@@ -14,7 +14,7 @@ export default function LoginSocket(socket:SocketVer2  ){
 
 
     //LoginForm 
-    socket.On<client,ILogin>("Login-Me",(data)=>{ console.log(33)
+    socket.On<client,ILogin>("Login-Me",(data)=>{ 
         if(socket.user.IsLogin()) 
             socket.Emit("Login-You-Are-Already");
         else{ 

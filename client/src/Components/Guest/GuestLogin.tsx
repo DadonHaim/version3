@@ -1,4 +1,4 @@
-import { LoginValidation, Main, User, memo, useRefV2, useSelector, socket, useState, useStore } from "../../importAll";
+import { LoginValidation, Main, UserClient, memo, useRefV2, useSelector, socket, useState, useStore } from "../../importAll";
 
 const GuestLogin = memo((props:IGuestHomeProps)=>{
     let [usernameRef    , passwordRef      ] = useRefV2();
@@ -15,8 +15,8 @@ const GuestLogin = memo((props:IGuestHomeProps)=>{
             socket.emit <ILogin>            ('Login-Me'               , send)
             socket.on   <server,ILoginMsgs> ("Login-You-Are-Already"  , (msgs:ILoginMsgs) =>  setValidationMsgs(msgs))
             socket.on   <server,ILoginMsgs> ("Login-No-Valid"         , (msgs:ILoginMsgs) =>  setValidationMsgs(msgs))
-            socket.on   <server,User>       ("Login-You"              , (user:User)       =>  {
-                User.CreateToken(user.token)
+            socket.on   <server,UserClient> ("Login-You"              , (user:UserClient) =>  {
+                UserClient.CreateToken(user.token)
                 dispatch(actions.setIsLogin(true))
                 dispatch(actions.setUser(user))
                 dispatch(actions.setMainPage("Game"))

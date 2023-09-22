@@ -1,4 +1,4 @@
-import { AvatarClient, User } from "../importAll";
+import { AvatarClient, UserClient } from "../importAll";
 
 const reducers = {
     setIsLogin : (state:IStore , action:IAction<boolean>)=>{
@@ -10,21 +10,21 @@ const reducers = {
         else{
             state.mainPage  = "Guest";
             state.subPage   = "Guest-Home";
-            User.KillToken();
+            UserClient.KillToken();
         }
     },
-    setUser     : (state:IStore , action:IAction<User>)         => {state.user     = action.payload},
-    setMainPage : (state:IStore , action:IAction<AllMainPages>) => {
+    setUser     : (state:IStore , action:IAction<UserClient>)       => {state.user     = action.payload},
+    setMainPage : (state:IStore , action:IAction<AllMainPagesType>) => {
         state.mainPage = action.payload;
         if(action.payload == "Game")
             state.subPage  = "Game-SelectAvatar"
         if(action.payload == "Guest")
             state.subPage  = "Guest-Home"
     },
-    setSubPage  : (state:IStore , action:IAction<AllSubPages>)   => {state.subPage  = action.payload},
+    setSubPage  : (state:IStore , action:IAction<AllSubPagesType>)   => {state.subPage  = action.payload},
 
-    setAllAvatars         : (state:IStore , action:IAction<AvatarClient[]>) => {state.allAvatars     = action.payload},
-    setActiveAvatars      : (state:IStore , action:IAction<AvatarClient>)   => {state.activeAvatars  = action.payload},
+    setAllAvatars         : (state:IStore , action:IAction<AvatarClient[]>) => {state.allAvatars           = action.payload},
+    setActiveAvatars      : (state:IStore , action:IAction<AvatarClient>)   => {state.activeAvatars        = action.payload},
     setAvatarName         : (state:IStore , action:IAction<string>)         => {state.avatarName           = action.payload},
     setAvatarExp          : (state:IStore , action:IAction<number>)         => {state.avatarExp            = action.payload},
     setAvatarHp           : (state:IStore , action:IAction<number>)         => {state.avatarHp             = action.payload},

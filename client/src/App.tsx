@@ -7,7 +7,7 @@ import {
     useSelector,
     Guest,
     memo,
-    User,
+    UserClient,
     socket,
     Game,
 } from "./importAll"
@@ -21,12 +21,12 @@ const App = memo(()=>{
         let token = sessionStorage.getItem("token");
         if(token)
             socket.emit<string>("Start-With-Token",token)
-        socket.on<server,User>("Start-Token-Valid",(user)=>{
+        socket.on<server,UserClient>("Start-Token-Valid",(user)=>{
             dispatch(actions.setIsLogin(true));
             dispatch(actions.setUser(user));
         })
         socket.on("ForceLogout",(msg)=>{
-            User.KillToken();
+            UserClient.KillToken();
             dispatch(actions.setIsLogin(false));
             dispatch(actions.setUser({}));
             dispatch(actions.setMainPage("Guest"));

@@ -6,7 +6,7 @@ import RegisterSocket from "./RegisterSocket";
 
 export default (socket:SocketVer2)=>{
     LoginSocket(socket);
-    // RegisterSocket(socket,user);
+    RegisterSocket(socket);
     AvatarSocket(socket)
 }
 

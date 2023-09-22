@@ -6,6 +6,7 @@ const GuestRegister = memo((props:IGuestHomeProps)=>{
     let isLogin = useSelector<IStore,boolean>(store=>store.isLogin)
 
     const submit = ()=>{
+        console.log(333)
         let send:IRegister = {
             username    : usernameRef.current.value,
             password    : passwordRef.current.value,
@@ -13,7 +14,8 @@ const GuestRegister = memo((props:IGuestHomeProps)=>{
             firstName   : fristNameRef.current.value,
             lastName    : lastNameRef.current.value,
         }
-        RegisterValidation(send).Valid(()=>{ 
+        RegisterValidation(send,"client").Valid(()=>{ 
+            console.log(333)
             socket.emit <IRegister>            ("Register-Me"        ,send);
             socket.on   <server,IRegisterMsgs> ("Register-Not-Valid" ,(msgs:IRegisterMsgs)=>setValidationMsgs(msgs))
             socket.on   <server,IRegisterMsgs> ("Register-You"       ,(msgs:IRegisterMsgs)=>setValidationMsgs(msgs)) 
@@ -27,7 +29,7 @@ const GuestRegister = memo((props:IGuestHomeProps)=>{
             <span className="validation">{validationMsgs.username}</span>
             <br/>
             <label>password:</label>
-            <input ref={passwordRef} name="password" type="text"/>
+            <input ref={passwordRef} name="password" type="password"/>
             <span className="validation">{validationMsgs.password}</span>
             <br/>
             <label>email:</label>
@@ -39,7 +41,7 @@ const GuestRegister = memo((props:IGuestHomeProps)=>{
             <span className="validation">{validationMsgs.firstName}</span>
             <br/>
             <label>lastName:</label>
-            <input ref={lastNameRef} name="lastName" type="password"/>
+            <input ref={lastNameRef} name="lastName" type="text"/>
             <span className="validation">{validationMsgs.lastName}</span>
             <br/>
             <input type="button" onClick={submit} value="Register"/>

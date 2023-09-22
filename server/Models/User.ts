@@ -131,7 +131,7 @@ export default class User extends Database<TUser>{
         
         public Register(obj:IRegister):User{ 
             this.validation("Guest").Valid(()=>{
-                RegisterValidation(obj).Valid(()=>{
+                RegisterValidation(obj,"server").Valid(()=>{
                     this.isExist = true;
                     this.isLogin = false;
                     this.username = obj.username;
@@ -181,6 +181,7 @@ export default class User extends Database<TUser>{
                         redPowder   : ava.GetRedPowder(),
                         createdDate : ava.GetCreatedDate(),
                         magicName   : ava.GetMagic().GetName() as MagicNameType,
+                        
                     })
                 )
             })

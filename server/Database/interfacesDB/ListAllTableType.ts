@@ -16,6 +16,8 @@ type listAllTableType =
     "avatars_cards"      |  
     "avatars_monsters"   |  
     "avatars_labyrinths" |
+    "avatar_model"       |
+    "category_items"      |
     "none" ;
 
 //   DROP TABLE users             
@@ -35,3 +37,5 @@ type listAllTableType =
 //   DROP TABLE avatars_cards     
 //   DROP TABLE avatars_monsters  
 //   DROP TABLE avatars_labyrinths
+//   DROP TABLE avatar_model
+//   DROP TABLE category_items

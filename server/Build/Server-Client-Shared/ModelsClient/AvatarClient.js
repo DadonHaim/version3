@@ -16,6 +16,13 @@ var AvatarClient = /** @class */ (function () {
         this.refillEnergy = (obj.refillEnergy) ? obj.refillEnergy : null;
         this.magicName = (obj.magicName) ? obj.magicName : null;
     }
+    AvatarClient.CreateToken = function (token) {
+        if (token)
+            sessionStorage.setItem("token", token);
+    };
+    AvatarClient.KillToken = function () {
+        sessionStorage.removeItem("token");
+    };
     return AvatarClient;
 }());
 exports.default = AvatarClient;

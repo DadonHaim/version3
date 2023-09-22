@@ -15,4 +15,6 @@
 //   DROP TABLE avatars_cards     
 //   DROP TABLE avatars_monsters  
 //   DROP TABLE avatars_labyrinths
+//   DROP TABLE avatar_model
+//   DROP TABLE category_items
 //# sourceMappingURL=ListAllTableType.js.map

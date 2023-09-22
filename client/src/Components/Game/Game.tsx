@@ -4,7 +4,7 @@ import MusicEffect from "./comps/MusicEffect";
 
 const Game = memo((props :IGameProps)=>{
     let mainPage                    = useSelector<IStore,any>(store=>store.mainPage)
-    let subPage :AllGamePage        = useSelector<IStore,any>(store=>store.subPage)
+    let subPage :AllGamePageType    = useSelector<IStore,any>(store=>store.subPage)
     let {actions,dispatch}          = useStore();
     let [isloading , setIsLoading]  = useState<boolean>(true);
     

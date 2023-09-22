@@ -12,7 +12,6 @@ function LoginSocket(socket) {
     });
     //LoginForm 
     socket.On("Login-Me", function (data) {
-        console.log(33);
         if (socket.user.IsLogin())
             socket.Emit("Login-You-Are-Already");
         else {
