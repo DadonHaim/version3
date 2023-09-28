@@ -13,17 +13,35 @@ CREATE TABLE users (
     "token"         NVARCHAR(MAX)
 );
 
+CREATE TABLE global_settings (
+    gameName VARCHAR(50),
+    "description" NVARCHAR(MAX) DEFAULT 'no description',
+    enablePvp TINYINT DEFAULT 0,
+    avatarsPerUser INT DEFAULT 3,
+    maxUpgrade INT DEFAULT 4
+);
 
-CREATE TABLE avatar_model(
-    "id"    INT IDENTITY(1,1) PRIMARY KEY,
-    "name"  VARCHAR(50) NOT NULL UNIQUE,
-    "grid"  VARCHAR(20),
-    "rows"  INT DEFAULT 500,
-    "cols"  INT DEFAULT 100,
-    "positionGrid" VARCHAR(20) DEFAULT '20,25|90,500' ,
-    "positionView" VARCHAR(20) DEFAULT '1,6|30,30' 
+CREATE TABLE settings_client(
+    "CONTAINER_APP_GRID"            VARCHAR(20),
+    "GUEST_HEADER_POSITION"         VARCHAR(20),
+    "GUEST_MENU_POSITION"           VARCHAR(20),
+    "GUEST_MAIN_POSITION"           VARCHAR(20),
+    "GUEST_FOOTER_POSITION"         VARCHAR(20),
+    "GUEST_COPYRIGHT_POSITION"      VARCHAR(20),
 
+    "AVATAR_VIEW_GRID"              VARCHAR(20),
+    "GIRL_AVATAR_BODY_POSITION"     VARCHAR(20),
+    "GIRL_SHIRT_POSITION"           VARCHAR(20),
+    "GIRL_SHOES_POSITION"           VARCHAR(20),
+    "GIRL_PANTS_POSITION"           VARCHAR(20),
+    "BOY_AVATAR_BODY_POSITION"      VARCHAR(20),
+    "BOY_SHIRT_POSITION"            VARCHAR(20),
+    "BOY_SHOES_POSITION"            VARCHAR(20),
+    "BOY_PANTS_POSITION"            VARCHAR(20)
 )
+
+
+
 CREATE TABLE category_items(
     "id"    INT IDENTITY(1,1) PRIMARY KEY,
     "name"  VARCHAR(50) NOT NULL UNIQUE,
@@ -32,13 +50,7 @@ CREATE TABLE category_items(
     "genderAvatar" VARCHAR(10) DEFAULT 'all'
 )
 
-CREATE TABLE global_settings (
-    gameName VARCHAR(50),
-    "description" NVARCHAR(MAX) DEFAULT 'no description',
-    enablePvp TINYINT DEFAULT 0,
-    avatarsPerUser INT DEFAULT 3,
-    maxUpgrade INT DEFAULT 4
-);
+
 
 CREATE TABLE rank_settings (
     id INT IDENTITY(1,1) PRIMARY KEY,
@@ -87,12 +99,13 @@ CREATE TABLE items (
     sale                NVARCHAR(MAX),
     upgrade             NVARCHAR(MAX),
     minAvatarRank INT DEFAULT 1,
-    categoryItem        VARCHAR,                                     
+    categoryItem        VARCHAR(20),                                     
     magicID             INT,
-    categoriesItemsID             INT,
+    "stats"             NVARCHAR(MAX),
+    categoryItemID             INT,
     maxUpgrade  INT DEFAULT 3
 
-    -- FOREIGN KEY (categoryItemID) REFERENCES categories_items(id),
+    FOREIGN KEY (categoryItemID) REFERENCES categories_items(id),
     FOREIGN KEY (magicID) REFERENCES magics(id)
 );
 
@@ -100,16 +113,18 @@ CREATE TABLE cards (
     id INT IDENTITY(1,1) PRIMARY KEY,
     "name" VARCHAR(50) NOT NULL UNIQUE,
     "description" NVARCHAR(MAX) DEFAULT 'no description',
-    "type" VARCHAR(50),
     price NVARCHAR(MAX),
     "move" NVARCHAR(MAX),
     attack NVARCHAR(MAX),
     "delay" INT,
     minAvatarRank INT DEFAULT 1,
     upgrade NVARCHAR(MAX),
+    "stats" NVARCHAR(MAX),
     maxUpgrade  INT DEFAULT 3,
     freeze TINYINT DEFAULT 0,
     magicID INT,
+    categoryCardID INT
+    FOREIGN KEY (categoryCardID) REFERENCES categories_cards(id),
     FOREIGN KEY (magicID) REFERENCES magics(id)
 );
 
@@ -139,6 +154,17 @@ CREATE TABLE missions (
     FOREIGN KEY (labyrinthsID) REFERENCES labyrinths(id)
 );
 
+CREATE TABLE levels{
+    "id" INT IDENTITY(1,1) PRIMARY KEY,
+    "level" INT UNIQUE,
+    "startExp" INT,
+    "damage" INT,
+    "energy" INT,
+    "refillEnergy" INT 
+    "priceLevenUp" TEXT  
+
+
+}
 
 CREATE TABLE avatars (
     id INT IDENTITY(1,1) PRIMARY KEY,
@@ -282,4 +308,46 @@ Values                      (1,0,1,1),
                             (1,1,2,1)
 
 
- 
+ Insert Into settings_client 
+(
+    "CONTAINER_APP_GRID",
+    "GUEST_HEADER_POSITION",
+    "GUEST_MENU_POSITION",
+    "GUEST_MAIN_POSITION",
+    "GUEST_FOOTER_POSITION",
+    "GUEST_COPYRIGHT_POSITION",
+
+
+    "AVATAR_VIEW_GRID",           
+    "GIRL_AVATAR_BODY_POSITION",  
+    "GIRL_SHIRT_POSITION",        
+    "GIRL_SHOES_POSITION",        
+    "GIRL_PANTS_POSITION",        
+    "BOY_AVATAR_BODY_POSITION",   
+    "BOY_SHIRT_POSITION",         
+    "BOY_SHOES_POSITION",         
+    "BOY_PANTS_POSITION"       
+    )
+Values
+(                     
+    '49,49',             --"CONTAINER_APP_GRID",
+    '1,1|50,5',          --"GUEST_HEADER_POSITION",
+    '1,5|50,11',         --"GUEST_MENU_POSITION",
+    '1,11|50,40',        --"GUEST_MAIN_POSITION",
+    '1,41|50,48',        --"GUEST_FOOTER_POSITION",
+    '1,48|50,50',        --"GUEST_COPYRIGHT_POSITION",
+
+
+    '100,500',      --"AVATAR_VIEW_GRID",           
+    '20,25|90,500',      --"GIRL_AVATAR_BODY_POSITION",  
+    '25,100|90,200',      --"GIRL_SHIRT_POSITION",        
+    '20,376|84,505',      --"GIRL_SHOES_POSITION",        
+    '30,215|65,300',      --"GIRL_PANTS_POSITION",        
+    ''    ,  --"BOY_AVATAR_BODY_POSITION",   
+    ''    ,  --"BOY_SHIRT_POSITION",         
+    ''    ,  --"BOY_SHOES_POSITION",         
+    ''      --"BOY_PANTS_POSITION"               
+)
+
+
+

@@ -1,109 +1,144 @@
-import React,{useEffect,useState,memo}                                                                          from "react";
+//libs
+import React,{useEffect,useState,memo}     from "react";
+import { Provider }                        from "react-redux";
+import ReactDOM                            from 'react-dom/client';
+
+
+//global
 import {Container,Div,Flex,Footer,Grid,Header,Aside,Main ,Lable,Icon,Name,Button,Img,Box,Copyright,Choice,Menu} from "./Components/Containers";
-import {Avatar,Cloth,Dress,Shoes,Shirt}                                                                         from "./Components/Game/comps/cloths";
+import GlobalStyle                        from "./Components/GlobalStyle";
+import myStore                            from "./Store/Store"
+import {socket}                           from "./Socket/Socket";
+import Component                          from "./Components/ComponentLib";
+
+//server-client
+import LoginValidation                    from "./Server-Client-Shared/Validations/LoginValidation";
+import RegisterValidation                 from "./Server-Client-Shared/Validations/RegisterValidation";
+import UserClient                         from "./Server-Client-Shared/ModelsClient/UserClient";
+import ConvertPoint                       from "./Server-Client-Shared/Functions/ConvertPoint";
+import RandomString                       from "./Server-Client-Shared/Functions/RandomString";
+import Debug                              from "./Server-Client-Shared/Dev/Debug";
+import AvatarClient                       from "./Server-Client-Shared/ModelsClient/AvatarClient";
+import { Settings }                       from "./Server-Client-Shared/Settings";
+import ResultValid                        from "./Server-Client-Shared/ResultValid";
+import {LoginSettings,RegisterSettings}   from "./Server-Client-Shared/Settings"
 
 
-import LoginValidation                                      from "./Server-Client-Shared/Validations/LoginValidation";
-import RegisterValidation                                   from "./Server-Client-Shared/Validations/RegisterValidation";
+//components 
+import App                                from './App';
 
-import UserClient                                                 from "./Server-Client-Shared/ModelsClient/UserClient";
+//components - guest
+import GuestHome                          from "./Components/Guest/GuestHome";
+import GuestLogin                         from "./Components/Guest/GuestLogin";
+import GuestRegister                      from "./Components/Guest/GuestRegister";
+import Guest                              from "./Components/Guest/Guest"
 
-import ConvertPoint                                         from "./Server-Client-Shared/Functions/ConvertPoint";
-import RandomString                                         from "./Server-Client-Shared/Functions/RandomString";
+//components - game
+import Game                               from "./Components/Game/Game";          
+import GameCreateAvatar                   from "./Components/Game/GameCreateAvatar";      
+import GameSelectAvatar                   from "./Components/Game/GameSelectAvatar";      
+import ControllerAudio                    from "./Components/Game/comps/ControllerAudio";        
+import AvatarView                         from "./Components/Game/comps/AvatarView";
+import AvatarMinView                      from "./Components/Game/comps/AvatarMinView";
+import {Avatar,Cloth,Dress,Shoes,Shirt}   from "./Components/Game/comps/cloths";
+import AvatarCreatorView                  from "./Components/Game/comps/AvatarCreatorView";
+import AvatarSelector                     from "./Components/Game/comps/AvatarSelector";
 
-import useStore                                             from "./Hooks/useStore";
-import useRefV2                                             from "./Hooks/useRefV2";
 
-import GuestHome                                            from "./Components/Guest/GuestHome";
-import GuestLogin                                           from "./Components/Guest/GuestLogin";
-import GuestRegister                                        from "./Components/Guest/GuestRegister";
-import Guest                                                from "./Components/Guest/Guest"
-;
-import Debug                                                from "./Server-Client-Shared/Dev/Debug";
-import { Provider }                                         from "react-redux";
-import myStore                                              from "./Store/Store"
-import GlobalStyle                                          from "./Components/GlobalStyle";
-import { useSelector }                                      from "react-redux"
-import useEffectV2                                          from "./Hooks/useEffectV2"
-import AvatarView                                           from "./Components/Game/comps/AvatarView";
-import AvatarMinView                                        from "./Components/Game/comps/AvatarMinView";
-import { useDispatch }                                      from "react-redux";
-import {LoginSettings,RegisterSettings}                     from "./Server-Client-Shared/Settings"
-import App                                                  from './App';
-import ReactDOM                                             from 'react-dom/client';
-import ResultValid                                          from "./Server-Client-Shared/ResultValid";
-import {socket}                                             from "./Socket/Socket";
-import Game                                                 from "./Components/Game/Game";          
-import GameCreateAvatar                                     from "./Components/Game/GameCreateAvatar";      
-import GameSelectAvatar                                     from "./Components/Game/GameSelectAvatar";      
-import AvatarClient                                         from "./Server-Client-Shared/ModelsClient/AvatarClient";
-import ControllerAudio                                      from "./Components/Game/comps/ControllerAudio";                                             
 
+//hooks
+import useStore                           from "./Hooks/useStore";
+import useRefV2                           from "./Hooks/useRefV2";
+import { useSelector ,useDispatch}        from "react-redux"
+import useEffectV2                        from "./Hooks/useEffectV2"
+import usePermission                      from "./Hooks/usePermission";  
+
+
+//sockets:
+import { Get_All_Setting }               from "./Socket/SettingSocket"
+import {Force_Logout, Start_With_Token } from "./Socket/UserSocket"
+import {Avatar_Give_Me_List } from "./Socket/AvatarSocket"
+
+//img                                     
 const HeaderBackground = require("./Images/Backgrounds/headerGuest.jpg")
 const FooterBackground = require("./Images/Backgrounds/headerGuest.jpg")
 
-export { AvatarClient        } 
-export { Shoes               } 
-export { Img                 } 
-export { Avatar              } 
-export { Cloth              } 
-export { Dress               } 
-export { Shirt               } 
-export { Box                 } 
-export { Icon                } 
-export { Game                }
-export { Name                }
-export { AvatarView          } 
-export { RandomString        } 
-export { useEffectV2         } 
-export { AvatarMinView       } 
-export { GameCreateAvatar    } 
-export { GameSelectAvatar    } 
-export { socket              } 
-export { ControllerAudio     } 
-export { LoginSettings       } 
-export { RegisterSettings    } 
-export { Provider            }   
-export { myStore             }  
-export { useDispatch         }  
-export { Lable               }  
-export { App                 }  
-export { ResultValid         }  
-export { ReactDOM            }  
-export { ConvertPoint        }  
-export { useSelector         }  
-export { GuestRegister       }  
-export { GuestLogin          }      
-export { React               }  
-export { memo                }  
-export { useRefV2            }      
-export { useState            }      
-export { useEffect           }      
-export { useStore            }      
-export { Container           }      
-export { Div                 }  
-export { Flex                }  
-export { Footer              }  
-export { Grid                }  
-export { Aside               }  
-export { Header              }  
-export { Main                }  
-export { Copyright           }      
-export { Choice              }  
-export { Menu                }  
-export { Guest               }  
-export { GuestHome           }      
-export { LoginValidation     }              
-export { RegisterValidation  }              
-export { UserClient          }              
-export { Button              }              
-export { Debug               }              
-export { GlobalStyle         }              
+//libs              
+export  {React                       }                  
+export  {ReactDOM                    }                      
+export  {useEffect,useState,memo     }                                      
+export  {Provider                    }                      
+
+//global
+export  {Container,Div,Flex,Footer,Grid,Header,Aside,Main ,Lable,Icon,Name,Button,Img,Box,Copyright,Choice,Menu     }                                                                                                                                
+export  {GlobalStyle                                                                                                }                                           
+export  {myStore                                                                                                    }                                           
+export  {socket                                                                                                     }                               
+export  {Component                                                                                                     }                               
+
+//server-client
+export {LoginValidation                             }                                   
+export {RegisterValidation                          }                                   
+export {UserClient                                  }                                   
+export {ConvertPoint                                }                                   
+export {RandomString                                }                                   
+export {Debug                                       }                                   
+export {AvatarClient                                }                                   
+export {Settings                                    }                           
+export {ResultValid                                 }                                   
+export {LoginSettings,RegisterSettings              }                               
+
+//components 
+export  {App}
+
+//components - guest
 
 
 
+export  {GuestHome                }                         
+export  {GuestLogin               }                         
+export  {GuestRegister            }                         
+export  {Guest                    }                         
+
+
+//components - game
+export  {Game                                            }                               
+export  {GameCreateAvatar                                }                              
+export  {GameSelectAvatar                                }                              
+export  {ControllerAudio                                 }                              
+export  {AvatarView                                      }                              
+export  {AvatarMinView                                   }                              
+export  {AvatarSelector                                  }                              
+export  {AvatarCreatorView                               }                              
+export  {Avatar,Cloth,Dress,Shoes,Shirt                  }                          
+
+
+//hooks
+export  {useStore                           }                                            
+export  {useRefV2                           }                                            
+export  {useSelector ,useDispatch           }                                        
+export  {useEffectV2                        }                            
+export  {usePermission                      }                            
+    
+//sockets:
+export  {Get_All_Setting                            }                            
+export  {Force_Logout,Start_With_Token              }                                        
+export  {Avatar_Give_Me_List            }                                        
+
+
+//images
 export {HeaderBackground}
 export {FooterBackground}
+
+
+class ResultSql{
+    public ValidDB(s:any){}
+    public NoValidDB(s:any){}
+}
+class Database{
+    public QuerySync(s:string):ResultSql{return new ResultSql()}
+}
+export {Database}
 
 
 

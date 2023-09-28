@@ -5,7 +5,6 @@ import sync      from "synchronized-promise";
 
 export default  class Database<Model=any>{
     protected tableName :listAllTableType = "none";
-    protected id        :number|null   = -8;
     public static connection : string = "server=HAIM\\SQLEXPRESS;Database=GameProject;Trusted_Connection=Yes;Driver={SQL Server Native Client 11.0}";
 
 
@@ -27,7 +26,8 @@ export default  class Database<Model=any>{
     public Select<T=any>(obj:ISelect<T>){
         return this.Query(this._select(obj));
     }
-    public SelectSync<Table=any>(obj:ISelect<Table>):ResultSql{
+    public SelectSync<Table=any>(obj:ISelect<Table>,print?:boolean):ResultSql{
+        if(print) console.log(this._select(obj))
         return this.QuerySync(this._select(obj));
     }
 
@@ -36,6 +36,7 @@ export default  class Database<Model=any>{
         return this.Query(this._update(obj));
     }
     public UpdateSync<Table=any>(obj:IUpdate<Table>):ResultSql{
+        console.log(this._update(obj))
         return this.QuerySync(this._update(obj));
     }
 
@@ -59,8 +60,8 @@ export default  class Database<Model=any>{
         if(And && join)  
             Fields.push(And.map(v=>join+"."+v));
         let res =(join && on)?
-            `SELECT ${Fields.toString()} FROM ${from} INNER JOIN ${join} ON ${on}  where ${where ||from+'.id='+this.id}` :
-            `SELECT ${Fields.toString()} FROM ${from} where ${where||from+'.id='+this.id}`;
+            `SELECT ${Fields.toString()} FROM ${from} INNER JOIN ${join} ON ${on}  where ${where}` :
+            `SELECT ${Fields.toString()} FROM ${from} where ${where}`;
         Debug(res)
         return res
     }
@@ -68,8 +69,8 @@ export default  class Database<Model=any>{
         let set :string[] = []
         for(let key in update)
             set.push(`${key}='${update[key]}'`)
-        Debug(`Update ${from||this.tableName} SET ${set.toString()} where ${where||'id='+this.id}`)
-        return `Update ${from||this.tableName} SET ${set.toString()} where ${where||'id='+this.id}`
+        Debug(`Update ${from||this.tableName} SET ${set.toString()} where ${where}`)
+        return `Update ${from||this.tableName} SET ${set.toString()} where ${where}`
     }
     public _insert({from,insert}:IInsert){
         let keys :string[] = []
@@ -82,8 +83,8 @@ export default  class Database<Model=any>{
         return `Insert Into ${from||this.tableName} (${keys.toString()}) Values (${vals})`
     }
     public _delete({from,where}:IDelete){
-        Debug(`Delete From ${from||this.tableName} where ${where||'id='+this.id}`)
-        return `Delete From ${from||this.tableName} where ${where||'id='+this.id}`
+        Debug(`Delete From ${from||this.tableName}  where ${where}`)
+        return `Delete From ${from||this.tableName} where ${where}`
     }
  
 

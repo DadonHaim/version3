@@ -15,6 +15,9 @@ var AvatarClient = /** @class */ (function () {
         this.damage = (obj.damage) ? obj.damage : null;
         this.refillEnergy = (obj.refillEnergy) ? obj.refillEnergy : null;
         this.magicName = (obj.magicName) ? obj.magicName : null;
+        this.gender = (obj.gender) ? obj.gender : null;
+        this.mainPage = (obj.mainPage) ? obj.mainPage : null;
+        this.subPage = (obj.subPage) ? obj.subPage : null;
     }
     AvatarClient.CreateToken = function (token) {
         if (token)

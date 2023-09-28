@@ -1,0 +1,4 @@
+{
+    "watch": ["copy.js", "Server-Client-Shared/"],
+    "ext": "ts,tsx,js, css"
+  }

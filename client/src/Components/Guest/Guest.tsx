@@ -1,42 +1,38 @@
-import { Choice, Container, Copyright, Name, Footer,  GuestRegister,GuestHome, GuestLogin,  Header, HeaderBackground, Menu,FooterBackground, useSelector, Main } from "../../importAll";
-
+import {Choice,Container,Copyright,Name,Footer,GuestRegister,GuestHome,GuestLogin,Header,HeaderBackground,Menu,FooterBackground,useSelector,Settings, Component, Main, useEffect} from "../../importAll";
 const selectStyle:React.CSSProperties ={backgroundColor:"yellow"}
 
-export default function Guest(props:IGuestProps){
-    let subPage  = useSelector<any,any>(store=>store.subPage)
-    let mainPage = useSelector<IStore,any>(store=>store.mainPage)
+let _Guest = new Component(()=>{
+    console.log("Guest-Component")
+    let settings   = useSelector<IStore,Settings>(store=>store.settings)
+    let subPage   = useSelector<IStore,any>(store=>store.subPage)
+    return(
+        <Container grid={settings.CONTAINER_APP_GRID} width="110vh" height="90vh" margin="10px auto" border >
+            <Header position={settings.GUEST_HEADER_POSITION} bgImg={HeaderBackground}> 
+                <Name>שם המשחק</Name>
+            </Header>
 
-    if(mainPage != "Guest") 
-        return <>אין לך גישה </>
-    else
-        return(
-            <Container Grid={49} width="110vh" height="90vh" margin="10px auto" border >
+            <Menu rtl position={settings.GUEST_MENU_POSITION} border>
+                <Choice selected={subPage=="Guest-Home"    } onSelectedStyle={selectStyle} toSubPage="Guest-Home"      value="בית"      />
+                <Choice selected={subPage=="Guest-About"   } onSelectedStyle={selectStyle} toSubPage="Guest-About"     value="אודות"    />
+                <Choice selected={subPage=="Guest-Login"   } onSelectedStyle={selectStyle} toSubPage="Guest-Login"     value="התחברות"  />
+                <Choice selected={subPage=="Guest-Register"} onSelectedStyle={selectStyle} toSubPage="Guest-Register"  value="הרשמה"     />
+                <Choice selected={subPage=="Guest-Guide"   } onSelectedStyle={selectStyle} toSubPage="Guest-Guide"     value="מדריך"    />
+            </Menu>
 
-                <Header position="1,1|50,5" bgImg={HeaderBackground}> 
-                    <Name>שם המשחק</Name>
-                </Header>
+            <Main Empty>
+                <GuestHome/>    
+                <GuestLogin/>   
+                <GuestRegister/>
+            </Main>
 
-                <Menu rtl position="1,5|50,11" border>
-                    <Choice selected={subPage=="Guest-Home"    } onSelectedStyle={selectStyle} toSubPage="Guest-Home"      value="בית"      />
-                    <Choice selected={subPage=="Guest-About"   } onSelectedStyle={selectStyle} toSubPage="Guest-About"     value="אודות"    />
-                    <Choice selected={subPage=="Guest-Login"   } onSelectedStyle={selectStyle} toSubPage="Guest-Login"     value="התחברות"  />
-                    <Choice selected={subPage=="Guest-Register"} onSelectedStyle={selectStyle} toSubPage="Guest-Register"  value="הרשמה"     />
-                    <Choice selected={subPage=="Guest-Guide"   } onSelectedStyle={selectStyle} toSubPage="Guest-Guide"     value="מדריך"    />
-                </Menu>
+            <Footer    position={settings.GUEST_FOOTER_POSITION} bgImg={FooterBackground} border></Footer> 
+            <Copyright position={settings.GUEST_COPYRIGHT_POSITION}/>
+            
+        </Container>
+    )
+})
+_Guest.SetLoading(()=><>wait...</>)
+let Guest = _Guest.Get({Logout:true})
+export default Guest;
 
-        <Main position="1,11|50,40" Grid={19}>
-              {subPage=="Guest-Home"     ? <GuestHome/>     : '' } 
-              {subPage=="Guest-About"    ? <GuestHome/>     : '' } 
-              {subPage=="Guest-Login"    ? <GuestLogin/>    : '' } 
-              {subPage=="Guest-Register" ? <GuestRegister/> : '' } 
-              {subPage=="Guest-Guide"    ? <GuestHome/>     : '' }  
-        </Main>
 
-                <Footer position="1,41|50,48" bgImg={FooterBackground} border></Footer> 
-                <Copyright position="1,48|50,50"/>
-            </Container>
-        )
-}
-
- 
-interface IGuestProps{}

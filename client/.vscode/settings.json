@@ -10,13 +10,21 @@
         "node_modules": true,
         "package-lock.json": true,
         "src/Server-Client-Shared": true,
-        ".vscode": true
+        ".vscode": true,
+        "public": true,
+        "package.json": true,
+        "tsconfig.json": true,
+        "src/.vscode": true
     },
     "hide-files.files": [
         ".gitignore",
         "node_modules",
         "package-lock.json",
         "src/Server-Client-Shared",
-        ".vscode"
+        ".vscode",
+        "public",
+        "package.json",
+        "tsconfig.json",
+        "src/.vscode"
     ]
 }

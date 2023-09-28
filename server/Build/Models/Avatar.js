@@ -18,11 +18,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var importAll_1 = require("./../importAll");
 var Avatar = /** @class */ (function (_super) {
     __extends(Avatar, _super);
-    //#endregion
-    //#region Method
     function Avatar(avatarObj, user) {
         var _this = _super.call(this, { tableName: "avatars" }) || this;
-        //#region Fields
+        _this.id = null; //{get;}                       
         _this.name = null; //{get;}
         _this.exp = null; //{get;}
         _this.silver = null; //{get;}
@@ -31,17 +29,12 @@ var Avatar = /** @class */ (function (_super) {
         _this.diamond = null; //{get;}
         _this.createdDate = null; //{get;}
         _this.gender = null; //{get;}
-        _this.inventory = null; //לערוך
-        //#endregion
-        //#region Flags
         _this.isExist = false;
         _this.isActive = false;
         _this.isSelectMission = false;
         _this.isFreeze = false;
         _this.mainPage = 'Game';
         _this.subPage = 'Guest-Home';
-        //#endregion
-        //#region Gets      
         _this.GetId = function () { return _this.id; };
         _this.GetName = function () { return _this.name; };
         _this.GetExp = function () { return _this.exp; };
@@ -50,28 +43,14 @@ var Avatar = /** @class */ (function (_super) {
         _this.GetRedPowder = function () { return _this.redPowder; };
         _this.GetDiamond = function () { return _this.diamond; };
         _this.GetCreatedDate = function () { return _this.createdDate; };
-        _this.GetInventory = function () { return _this.inventory; };
         _this.GetUser = function () { return _this.user; };
         _this.GetActiveMission = function () { return _this.activeMission; };
         _this.GetMagic = function () { return _this.magic; };
-        _this.GetPage = function () { return _this.page; };
         _this.GetGender = function () { return _this.gender; };
-        if (avatarObj) {
-            _this.id = avatarObj.id;
-            _this.name = avatarObj.name;
-            _this.exp = avatarObj.exp;
-            _this.silver = avatarObj.silver;
-            _this.gold = avatarObj.gold;
-            _this.redPowder = avatarObj.redPowder;
-            _this.diamond = avatarObj.diamond;
-            _this.createdDate = avatarObj.createdDate;
-            _this.inventory = new importAll_1.Inventory(_this);
-            _this.isExist = true;
-            _this.magic = importAll_1.Magic.GetMagicById(avatarObj.magicID);
-            _this.gender = avatarObj.gender;
-            _this.mainPage = avatarObj.mainPage;
-            _this.subPage = avatarObj.subPage;
-        }
+        _this.GetmainPage = function () { return _this.mainPage; };
+        _this.GetsubPage = function () { return _this.subPage; };
+        for (var key in avatarObj)
+            _this[key] = avatarObj[key];
         if (user)
             _this.user = user;
         return _this;
@@ -88,8 +67,23 @@ var Avatar = /** @class */ (function (_super) {
         this.user.UpdateActiveAvatar(null);
         this.isActive = false;
     };
-    //#endregion
-    //#region statics
+    Avatar.prototype.GetModelClient = function () {
+        var result = new importAll_1.AvatarClient({
+            id: this.GetId(),
+            name: this.GetName(),
+            exp: this.GetExp(),
+            silver: this.GetSilver(),
+            gold: this.GetGold(),
+            diamond: this.GetDiamond(),
+            redPowder: this.GetRedPowder(),
+            createdDate: this.GetCreatedDate(),
+            magicName: (this.magic) ? this.GetMagic().GetName() : "fire",
+            gender: this.gender,
+            mainPage: this.mainPage,
+            subPage: this.subPage,
+        });
+        return result;
+    };
     Avatar.GetAvatarsByUserId = function (user) {
         var avatars = [];
         new importAll_1.Database().SelectSync({

@@ -1,0 +1,1 @@
+{"version":3,"file":"SettingsSocket.js","sourceRoot":"","sources":["../../Socket/SettingsSocket.ts"],"names":[],"mappings":";;AAAA,4CAA4D;AAG5D,SAAwB,cAAc,CAAC,MAAiB;IAEpD,MAAM,CAAC,EAAE,CAAC,wBAAwB,EAAC;QAC/B,IAAI,OAAO,GAAI,IAAI,oBAAQ,EAAE,CAAC;QAE9B,MAAM,CAAC,IAAI,CAAW,oBAAoB,EAAC,OAAO,CAAC,CAAA;IACvD,CAAC,CAAC,CAAA;AAGN,CAAC;AATD,iCASC"}

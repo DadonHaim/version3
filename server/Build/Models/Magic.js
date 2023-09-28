@@ -20,19 +20,16 @@ var Magic = /** @class */ (function (_super) {
     __extends(Magic, _super);
     function Magic(obj) {
         var _this = _super.call(this, { tableName: "magics" }) || this;
+        _this.id = null; //{get;}                       
         _this.isExist = false;
         _this.GetId = function () { return _this.id; };
         _this.GetName = function () { return _this.name; };
         _this.GetDescription = function () { return _this.description; };
         _this.IsFreeze = function () { return _this.freeze; };
         _this.IsExist = function () { return _this.isExist; };
-        if (obj) {
-            _this.id = (obj.id) ? obj.id : null;
-            _this.name = (obj.name) ? obj.name : null;
-            _this.description = (obj.description) ? obj.description : null;
-            _this.freeze = (obj.freeze) ? obj.freeze : null;
-            _this.isExist = (_this.id && _this.name) ? true : false;
-        }
+        if (obj)
+            for (var key in obj)
+                _this[key] = obj[key];
         return _this;
     }
     Magic.prototype.GetAllItems = function (sync) {

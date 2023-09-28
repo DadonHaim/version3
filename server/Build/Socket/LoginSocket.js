@@ -3,23 +3,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var importAll_1 = require("./../importAll");
 function LoginSocket(socket) {
     //Token 
-    socket.On("Start-With-Token", function (token) {
+    socket.on("Start-With-Token", function (token) {
         socket.user = importAll_1.User.GetUserByToken(token);
         if (socket.user.IsLogin())
-            socket.Emit("Start-Token-Valid", socket.user.SendToClinet());
+            socket.emit("Start-Token-Valid", socket.user.GetModelClient());
         else
-            socket.Emit("Start-Token-No-Valid");
+            socket.emit("Start-Token-No-Valid", socket.user.message.login);
     });
     //LoginForm 
-    socket.On("Login-Me", function (data) {
+    socket.on("Login-Me", function (data) {
         if (socket.user.IsLogin())
-            socket.Emit("Login-You-Are-Already");
+            socket.emit("Login-You-Are-Already");
         else {
             socket.user.Login(data);
             if (socket.user.IsLogin())
-                socket.Emit("Login-You", socket.user.SendToClinet());
+                socket.emit("Login-You", socket.user.GetModelClient());
             else
-                socket.Emit("Login-No-Valid", socket.user.message.login);
+                socket.emit("Login-No-Valid", socket.user.message.login);
         }
     });
 }

@@ -20,7 +20,7 @@ var Item = /** @class */ (function (_super) {
     __extends(Item, _super);
     function Item(obj, avatar) {
         var _this = _super.call(this, { tableName: "items" }) || this;
-        //#region Fields
+        _this.id = null; //{get;}                       
         _this.name = null;
         _this.description = null;
         _this.freeze = null;
@@ -32,12 +32,8 @@ var Item = /** @class */ (function (_super) {
         _this.rank = null;
         _this.minAvatarRank = null;
         _this.maxUpgrade = null;
-        //#endregion
-        //#region Flags
         _this.isExist = false;
         _this.isActive = false;
-        //#endregion
-        //#region Gets
         _this.GetId = function () { return _this.id; };
         _this.GetName = function () { return _this.name; };
         _this.GetDescription = function () { return _this.description; };
@@ -54,22 +50,9 @@ var Item = /** @class */ (function (_super) {
         _this.GetMaxUpgrade = function () { return _this.maxUpgrade; };
         _this.IsExist = function () { return _this.isExist; };
         _this.IsActive = function () { return _this.isActive; };
-        if (obj && obj) {
-            _this.id = (obj.id) ? obj.id : null;
-            _this.name = (obj.name) ? obj.name : null;
-            _this.description = (obj.description) ? obj.description : null;
-            _this.freeze = (obj.freeze) ? obj.freeze : null;
-            _this.color = (obj.color) ? obj.color : null;
-            _this.price = (obj.price) ? new importAll_1.Price(obj.price) : null;
-            _this.sale = (obj.sale) ? new importAll_1.Sale(obj.sale) : null;
-            _this.upgrade = (obj.upgrade) ? new importAll_1.UpgradeItems(obj.upgrade) : null;
-            _this.categoryItem = (obj.categoryItem) ? obj.categoryItem : null;
-            _this.minAvatarRank = (obj.minAvatarRank) ? obj.minAvatarRank : null;
-            _this.magic = (obj.magicID) ? importAll_1.Magic.GetMagicById(obj.magicID) : null;
-            _this.maxUpgrade = (obj.maxUpgrade) ? obj.maxUpgrade : null;
-            _this.isActive = (obj.active) ? true : false;
-            _this.isExist = (_this.id && !_this.freeze) ? true : false;
-        }
+        if (obj)
+            for (var key in obj)
+                _this[key] = obj[key];
         if (avatar)
             _this.SelectSync({
                 Fields: ["rank", "active"],
@@ -86,8 +69,6 @@ var Item = /** @class */ (function (_super) {
             });
         return _this;
     }
-    //#endregion
-    //#region Method
     Item.prototype.RankUp = function (num) {
         if (num === void 0) { num = 1; }
         if (!this.avatar || !this.id)
@@ -101,8 +82,6 @@ var Item = /** @class */ (function (_super) {
             });
         }
     };
-    //#endregion 
-    //#region statics
     Item.getAllItemsByAvatar = function (avatar) {
         return new Promise(function (resolve, reject) {
             var items = [];

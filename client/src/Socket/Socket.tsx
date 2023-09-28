@@ -23,7 +23,7 @@ class Socket{
   }
 
 
-  on<T=any,R=any>(id:T , callback:(data:R)=>void){
+  on<R=any>(id:server , callback:(data:R)=>void){
     this.connection.on(id,(data?:any)=>{
         if(data){
             if(data as R)

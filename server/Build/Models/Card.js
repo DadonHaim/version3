@@ -20,6 +20,7 @@ var Card = /** @class */ (function (_super) {
     __extends(Card, _super);
     function Card(obj, avatar) {
         var _this = _super.call(this, { tableName: "cards" }) || this;
+        _this.id = null; //{get;}                       
         _this.name = null;
         _this.description = null;
         _this.type = null;
@@ -51,21 +52,9 @@ var Card = /** @class */ (function (_super) {
         _this.GetRank = function () { return _this.rank; };
         _this.GetAvatar = function () { return _this.avatar; };
         _this.GetMaxUpgrade = function () { return _this.maxUpgrade; };
-        if (obj) {
-            _this.name = (obj.name) ? obj.name : null;
-            _this.description = (obj.description) ? obj.description : null;
-            _this.type = (obj.type) ? obj.type : null;
-            _this.delay = (obj.delay) ? obj.delay : null;
-            _this.freeze = (obj.freeze) ? obj.freeze : null;
-            _this.minAvatarRank = (obj.minAvatarRank) ? obj.minAvatarRank : null;
-            _this.maxUpgrade = (obj.maxUpgrade) ? obj.maxUpgrade : null;
-            _this.price = (obj.price) ? new importAll_1.Price(obj.price) : null;
-            _this.move = (obj.move) ? new importAll_1.Move(obj.move) : null;
-            _this.attack = (obj.attack) ? new importAll_1.Attack(obj.attack) : null;
-            _this.upgrade = (obj.upgrade) ? new importAll_1.UpgradeCards(obj.upgrade) : null;
-            _this.magic = (obj.magicID) ? importAll_1.Magic.GetMagicById(obj.magicID) : null;
-            _this.isExist = (_this.id && _this.name) ? true : false;
-        }
+        if (obj)
+            for (var key in obj)
+                _this[key] = obj[key];
         if (avatar)
             _this.SelectSync({
                 Fields: ["rank"],

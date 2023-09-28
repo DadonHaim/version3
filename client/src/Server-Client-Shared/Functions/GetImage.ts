@@ -11,10 +11,10 @@ export default function GetImage(type:any,name:string , ending:string="png"):str
             break;
         case "magic":
             folder = "magicsLogo"; 
-            break;
+            break; 
     }
     try{
-        _image = require(`../Images/${folder}/${name}.${ending}`);
+        _image = require(`../../Images/${folder}/${name}.${ending}`);
     }
     catch{
         console.log("image not found")
@@ -22,3 +22,20 @@ export default function GetImage(type:any,name:string , ending:string="png"):str
     }
     return _image;
 }
+
+
+export function GetIcon(name:string , ending:string="png"){
+    let _image :any;
+    try{
+        _image = require(`../../Images`);
+    }
+    catch{
+        console.log("image not found")
+        _image = ""
+    }
+    return _image;
+}
+export function GetBackground(){}
+export function GetBackLogo(){}
+export function GetGirlImg(){}
+export function GetBoyImg(){}

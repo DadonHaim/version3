@@ -1,36 +1,28 @@
-import { GridBtn } from "../../../devComponent";
-import {Shirt, Shoes,Avatar,Grid,Name, memo, useSelector ,Cloth} from "../../../importAll";
+import {Avatar,Grid,Name, memo, useSelector ,Cloth, Settings, AvatarClient} from "../../../importAll";
+import { GetGirlImg } from "../../../Images/Images";
 
 
+const girl  = GetGirlImg('girlAvatar')
+const shirt = GetGirlImg('shirt/shirt4')
+const shoes = GetGirlImg('/shoes1')
+const pants = GetGirlImg('/pants1')
 
 
-const CONTAINER_AVATAR_VIEW_GRID = "30,30";
-
-
-const AVATAR_VIEW_GRID ="100,500";
-
-const AVATAR_VIEW_POSITION  = "1,6|30,30";
-const AVATAR_POSITION       = "20,25|90,500";
-const SHIRT_POSITION        = "25,100|90,200";
-const SHOES_POSITION        = "20,376|84,505";
-const PANTS_POSITION        = "30,215|65,300";
-
-
-
-const girl  = require("../../../Images/girl/girlAvatar.png")
-const shirt = require("../../../Images/girl/shirt/shirt4.png")
-const shoes = require("../../../Images/girl/shoes/shoes1.png")
-const pants = require("../../../Images/girl/pants/pants1.png")
 
 const AvatarView = memo((props:IAvatarViewProps)=>{
-    let avatarName = useSelector<IStore,string>(store=>store.avatarName)
+    let settings   = useSelector<IStore,Settings>(store=>store.settings)
+
+    const AVATAR_VIEW_GRID      = settings.AVATAR_VIEW_GRID;
+    const AVATAR_BODY_POSITION  = props.avatar.gender=="girl"? settings.GIRL_AVATAR_BODY_POSITION   : settings.BOY_AVATAR_BODY_POSITION ;
+    const SHIRT_POSITION        = props.avatar.gender=="girl"? settings.GIRL_SHIRT_POSITION         : settings.BOY_SHIRT_POSITION       ;
+    const SHOES_POSITION        = props.avatar.gender=="girl"? settings.GIRL_SHOES_POSITION         : settings.BOY_SHOES_POSITION       ;
+    const PANTS_POSITION        = props.avatar.gender=="girl"? settings.GIRL_PANTS_POSITION         : settings.BOY_PANTS_POSITION       ;
+    
     return(
-        <Grid  grid={CONTAINER_AVATAR_VIEW_GRID}{...props} >
-
-            <Name  fSize="150%" position="1,2|30,4">{avatarName||"avatar name"}</Name>
-
-            <Grid className="view" grid={AVATAR_VIEW_GRID} position={AVATAR_VIEW_POSITION} >
-                <Avatar src={girl}  zIndex={1} position={AVATAR_POSITION} />
+        <Grid  grid="30,30" {...props} >
+            <Name  fSize="150%" position="1,2|30,4">{props.avatar.name||"avatar name"}</Name>
+            <Grid className="view" grid={AVATAR_VIEW_GRID} position="1,6|30,30" >
+                <Avatar src={girl}  zIndex={1} position={AVATAR_BODY_POSITION} />
                 <Cloth  src={shirt} zIndex={3} position={SHIRT_POSITION } />
                 <Cloth  src={shoes} zIndex={4} position={SHOES_POSITION } />
                 <Cloth  src={pants} zIndex={2} position={PANTS_POSITION} />
@@ -40,7 +32,9 @@ const AvatarView = memo((props:IAvatarViewProps)=>{
 })
 
 
-interface IAvatarViewProps extends IGlobalProps{}
+interface IAvatarViewProps extends IGlobalProps{
+    avatar : AvatarClient;
+}
 
 export default AvatarView
 

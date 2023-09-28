@@ -1,59 +1,51 @@
-import { Avatar, AvatarsItemsModel, Database, ItemsModel, Magic, Price, Sale, UpgradeItems } from "./../importAll";
+import { Avatar, Database, Magic } from "./../importAll";
 
-export default class Item extends Database<TItems>{
-    
-    //#region Fields
+export default class Item extends Database<IItemsDB>{
+    private id               :number  | null =null;  //{get;}                       
+
         private name            : string        |null  = null;   
         private description     : string        |null  = null;   
         private freeze          : boolean       |null  = null;   
-        private price           : Price         |null  = null;   
+        private price           : IPrice        |null  = null;   
         private color           : string        |null  = null;   
-        private sale            : Sale          |null  = null;   
-        private upgrade         : UpgradeItems  |null  = null;   
-        private categoryItem    : string        |null  = null;   
+        private sale            : ISale         |null  = null;   
+        private upgrade         : IUpgradeItem  |null  = null;   
+        private categoryItem    : ICategoryItems|null  = null;   
         private rank            : number        |null  = null;   
         private minAvatarRank   : number        |null  = null;       
         private maxUpgrade      : number        |null  = null;       
-      //#endregion
     
-    //#region Flags
         private isExist  :boolean = false;
         private isActive :boolean = false;
-    //#endregion
         
-    //#region Refferences
         private magic        : Magic;
         private avatar       : Avatar;
 
-    //#endregion
 
-    //#region Gets
-        public GetId              = ():number       => this.id              ;
-        public GetName            = ():string       => this.name            ;
-        public GetDescription     = ():string       => this.description     ;
-        public GetFreeze          = ():boolean      => this.freeze          ;
-        public GetPrice           = ():Price        => this.price           ;
-        public GetColor           = ():string       => this.color           ;
-        public GetSale            = ():Sale         => this.sale            ;
-        public GetUpgrade         = ():UpgradeItems => this.upgrade         ;
-        public GetCategoryItem    = ():string       => this.categoryItem    ;
-        public GetRank            = ():number       => this.rank            ;
-        public GetminAvatarRank   = ():number       => this.minAvatarRank  ;
-        public GetAvatar          = ():Avatar       => this.avatar          ;
-        public GetMagic           = ():Magic        => this.magic           ;
-        public GetMaxUpgrade      = ():number       => this.maxUpgrade      ;
-        public IsExist            = ():boolean      => this.isExist         ;
-        public IsActive           = ():boolean      => this.isActive        ;
-    //#endregion
+        public GetId              = ():number           => this.id              ;
+        public GetName            = ():string           => this.name            ;
+        public GetDescription     = ():string           => this.description     ;
+        public GetFreeze          = ():boolean          => this.freeze          ;
+        public GetPrice           = ():IPrice            => this.price           ;
+        public GetColor           = ():string           => this.color           ;
+        public GetSale            = ():ISale            => this.sale            ;
+        public GetUpgrade         = ():IUpgradeItem     => this.upgrade         ;
+        public GetCategoryItem    = ():ICategoryItems   => this.categoryItem    ;
+        public GetRank            = ():number           => this.rank            ;
+        public GetminAvatarRank   = ():number           => this.minAvatarRank  ;
+        public GetAvatar          = ():Avatar           => this.avatar          ;
+        public GetMagic           = ():Magic            => this.magic           ;
+        public GetMaxUpgrade      = ():number           => this.maxUpgrade      ;
+        public IsExist            = ():boolean          => this.isExist         ;
+        public IsActive           = ():boolean          => this.isActive        ;
 
 
-    //#region Method
 
     public RankUp(num:number = 1){
         if(!this.avatar||!this.id) return;
         if(this.rank < this.maxUpgrade){
             this.rank +=num;
-            this.Update<AvatarsItemsModel>({
+            this.Update({
                 update:{rank:this.rank},
                 from:"avatars_items",
                 where:`itemID=${this.id} and avatarID=${this.avatar.GetId()}`
@@ -61,27 +53,14 @@ export default class Item extends Database<TItems>{
         }
     }
 
-        public constructor(obj?:ItemsModel, avatar?:Avatar){
+        public constructor(obj?:IItemsDB, avatar?:Avatar){
             super({tableName:"items"});
 
-            if(obj && obj as ItemsModel){ 
-                this.id               = (obj.id                 ) ? obj.id                          :null;
-                this.name             = (obj.name               ) ? obj.name                        :null;
-                this.description      = (obj.description        ) ? obj.description                 :null;
-                this.freeze           = (obj.freeze             ) ? obj.freeze                      :null;
-                this.color            = (obj.color              ) ? obj.color                       :null;
-                this.price            = (obj.price              ) ? new Price(obj.price)            :null;
-                this.sale             = (obj.sale               ) ? new Sale(obj.sale)              :null;
-                this.upgrade          = (obj.upgrade            ) ? new UpgradeItems(obj.upgrade)   :null;
-                this.categoryItem     = (obj.categoryItem       ) ? obj.categoryItem                :null;
-                this.minAvatarRank    = (obj.minAvatarRank      ) ? obj.minAvatarRank                :null;
-                this.magic            = (obj.magicID            ) ? Magic.GetMagicById(obj.magicID) :null;
-                this.maxUpgrade       = (obj.maxUpgrade         ) ? obj.maxUpgrade                  :null;
-                this.isActive         = (obj.active             ) ? true                            :false;
-                this.isExist          = (this.id && !this.freeze) ? true                            :false;
-            }
+            if(obj)
+                for(let key in obj)
+                    this[key] = obj[key];
             if(avatar)
-                this.SelectSync<TAvatarsItems>({
+                this.SelectSync({
                     Fields : ["rank","active"],
                     from   : "avatars_items",
                     where  : `itemID = ${this.id} and avatarID=${avatar.GetId()}`
@@ -95,9 +74,10 @@ export default class Item extends Database<TItems>{
                     this.avatar = null;
                 })
         }
-    //#endregion 
-  
-    //#region statics
+
+        
+
+
         public static getAllItemsByAvatar(avatar:Avatar) : Promise<Item[]>{
             return new Promise((resolve,reject)=>{
                 let items : Item[] = [];
@@ -109,7 +89,7 @@ export default class Item extends Database<TItems>{
                     join   : "avatars_items",
                     on     : `avatars_items.avatarID = ${avatar.GetId()} and avatars_items.itemID = items.id`
                 })
-                .ValidDB<ItemsModel[]>(data=>{
+                .ValidDB<IItemsDB[]>(data=>{
                     data.forEach(item =>items.push(new Item(item)));
                     resolve(items)
                 })
@@ -122,7 +102,7 @@ export default class Item extends Database<TItems>{
                 from: 'items',
                 where :`id = ${itemID}`
             })
-            .ValidDB<ItemsModel[]>(data => item = new Item(data[0]))
+            .ValidDB<IItemsDB[]>(data => item = new Item(data[0]))
             return item;
         }
         public static GetItemByName(itemName:string):Item{
@@ -132,7 +112,7 @@ export default class Item extends Database<TItems>{
                 from: 'items',
                 where :`name = ${itemName}`
             })
-            .ValidDB<ItemsModel[]>(data => item = new Item(data[0]))
+            .ValidDB<IItemsDB[]>(data => item = new Item(data[0]))
             return item;
         }
         public static GetItemsByAvatar(avatar:Avatar):Promise<Item[]>{
@@ -143,7 +123,7 @@ export default class Item extends Database<TItems>{
                     from:"items",
                     join:"avatars_items",
                     on: `avatars_items.avatarID = ${avatar.GetId()}`,
-                }).ValidDB<ItemsModel[]>(data=>{
+                }).ValidDB<IItemsDB[]>(data=>{
                     data.forEach(item=> items.push(new Item(item)))
                     resolve(items)
                 })
@@ -157,7 +137,7 @@ export default class Item extends Database<TItems>{
                 join:"avatars_items",
                 on: `avatars_items.avatarID = ${avatar.GetId()}`,
             })
-            .ValidDB<ItemsModel[]>(data=>{
+            .ValidDB<IItemsDB[]>(data=>{
                 data.forEach(i => items.push(new Item(i)))
             })
             return items;
@@ -170,7 +150,7 @@ export default class Item extends Database<TItems>{
                     from:"items",
                     where:`magicID=${magic.GetId()}`
                 })
-                .ValidDB<ItemsModel[]>(data=>{
+                .ValidDB<IItemsDB[]>(data=>{
                     data.forEach(i => items.push(new Item(i)))
                     resolve(items)
                 })
@@ -183,7 +163,7 @@ export default class Item extends Database<TItems>{
                 from:"items",
                 where:`magicID=${magic.GetId()}`
             })
-            .ValidDB<ItemsModel[]>(data=>{
+            .ValidDB<IItemsDB[]>(data=>{
                 data.forEach(i => items.push(new Item(i)))
             })
             return items;
@@ -196,7 +176,7 @@ export default class Item extends Database<TItems>{
                     from:"items",
                     where:`type=${type}`
                 })
-                .ValidDB<ItemsModel[]>(data=>{
+                .ValidDB<IItemsDB[]>(data=>{
                     data.forEach(i => items.push(new Item(i)))
                     resolve(items)
                 })
@@ -209,10 +189,10 @@ export default class Item extends Database<TItems>{
                 from:"items",
                 where:`type=${type}`
             })
-            .ValidDB<ItemsModel[]>(data=>{
+            .ValidDB<IItemsDB[]>(data=>{
                 data.forEach(i => items.push(new Item(i)))
             })
             return items;
         }
-     //#endregion
+
 }

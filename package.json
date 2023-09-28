@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "main": "copy.js",
   "scripts": {
+    "1": "cd ./server && npm run watch",
+    "2": "cd ./server && npm run DebugSocket",
+    "3": "cd ./client && npm start",
+    "4": "nodemon ./copy.js",
+    "ServerClient": "nodemon ./copy.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,3 +26,4 @@
     "nodemon": "^3.0.1"
   }
 }
+ 

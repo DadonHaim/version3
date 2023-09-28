@@ -17,6 +17,7 @@ type listAllTableType =
     "avatars_monsters"   |  
     "avatars_labyrinths" |
     "avatar_model"       |
+    "settings_client"    |
     "category_items"      |
     "none" ;
 
@@ -39,3 +40,4 @@ type listAllTableType =
 //   DROP TABLE avatars_labyrinths
 //   DROP TABLE avatar_model
 //   DROP TABLE category_items
+//   DROP TABLE settings_client

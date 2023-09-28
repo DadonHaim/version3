@@ -1,39 +1,29 @@
-import { LoginValidation, Main, UserClient, memo, useRefV2, useSelector, socket, useState, useStore } from "../../importAll";
+import { Login_Me } from "../../Socket/UserSocket";
+import { LoginValidation, Main, Component, useRefV2, useSelector, useState,Settings, useStore, usePermission } from "../../importAll";
 
-const GuestLogin = memo((props:IGuestHomeProps)=>{
-    let [usernameRef    , passwordRef      ] = useRefV2();
-    let {dispatch       , actions          } = useStore();
+const GuestLogin = new Component(()=>{
+    console.log("Guest-Login")
+    let settings                             = useSelector<IStore,Settings>(store=>store.settings)
+    let [uRef, pRef]                         = useRefV2();
     let [validationMsgs , setValidationMsgs] = useState<ILoginMsgs>({username:"" ,password:"",status:"" });
-    let isLogin                              = useSelector<IStore,boolean>(store=>store.isLogin)
+    let store                                = useStore();;
 
-    const submit = ()=>{
-        let send:ILogin = {
-            username : usernameRef.current.value,
-            password : passwordRef.current.value,
-        }
-        LoginValidation(send).Valid(()=>{
-            socket.emit <ILogin>            ('Login-Me'               , send)
-            socket.on   <server,ILoginMsgs> ("Login-You-Are-Already"  , (msgs:ILoginMsgs) =>  setValidationMsgs(msgs))
-            socket.on   <server,ILoginMsgs> ("Login-No-Valid"         , (msgs:ILoginMsgs) =>  setValidationMsgs(msgs))
-            socket.on   <server,UserClient> ("Login-You"              , (user:UserClient) =>  {
-                UserClient.CreateToken(user.token)
-                dispatch(actions.setIsLogin(true))
-                dispatch(actions.setUser(user))
-                dispatch(actions.setMainPage("Game"))
-                setValidationMsgs({status:"Valid"})
-            })
-        }).NoValid((msgs:any)=>setValidationMsgs(msgs))
+    function submit(){
+        let send = {username: uRef.current.value , password:pRef.current.value} as ILogin;
+        LoginValidation(send)
+            .Valid(()=> Login_Me(store,send,setValidationMsgs))
+            .NoValid((msgs)=>setValidationMsgs(msgs))
     }
     
-    if(isLogin) return <>אין לך הרשאה להיכנס לפה! צא החוצה יא אגוז!!</>
-    else return(
-        <Main   start="1,11" end="50,41" border>
+
+    return(
+        <Main position={settings.GUEST_MAIN_POSITION}  start="1,11" end="50,41" border>
             <label>username:</label>
-            <input ref={usernameRef} name="username" type="text"/>
+            <input ref={uRef} name="username" type="text"/>
             <span className="validation">{validationMsgs.username}</span>
             <br/>
             <label>password:</label>
-            <input ref={passwordRef} name="password" type="password"/>
+            <input ref={pRef} name="password" type="password"/>
             <span className="validation">{validationMsgs.password}</span>
             <br/>
             <input type="button" onClick={submit} value="Login"/>
@@ -43,9 +33,5 @@ const GuestLogin = memo((props:IGuestHomeProps)=>{
     )
 }) 
 
-
-
-interface IGuestHomeProps{}
-
-export default GuestLogin;
+export default GuestLogin.Get({Logout:true,subPage:"Guest-Login"});
 

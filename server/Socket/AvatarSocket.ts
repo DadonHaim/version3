@@ -1,13 +1,19 @@
-import AvatarClient from "Server-Client-Shared/ModelsClient/AvatarClient";
-import { SocketVer2, User, UserModel } from "./../importAll";
-
+import MustLogin from "../MiddleWares/MustLoginSocket";
+import { SocketVer2, UserClient } from "./../importAll";
+import LimitAvatars from "../MiddleWares/LimitAvatarsSocket";
 
 export default function AvatarSocket(socket:SocketVer2 ){
     //send all user avatars:
-    socket.On<client>("Avatar-Give-Me-List",()=>{
-        socket.Emit<AvatarClient[]>("Avatar-Get-List",socket.user.GetAvatarsForClients())
+    socket.on("Avatar-Give-Me-List",()=>{
+        socket.emit<UserClient[]>("Avatar-Get-List",socket.user.GetAvatarsClient())
     })
 
+
+    socket.On("Avatar-Create",{MustLogin,LimitAvatars},()=>{
+
+
+
+    })
 } 
 
 
@@ -15,3 +21,4 @@ export default function AvatarSocket(socket:SocketVer2 ){
 
 
 
+  

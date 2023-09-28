@@ -1,6 +1,8 @@
-import { Database, MagicsModel, ResultSql } from "./../importAll";
+import { Database, ResultSql } from "./../importAll";
 
-export default class Magic extends Database<TMagics>{
+export default class Magic extends Database<IMagicsDB>{
+    private id               :number  | null =null;  //{get;}                       
+
     private name        : string;
     private description : string;
     private freeze      : boolean;
@@ -12,15 +14,11 @@ export default class Magic extends Database<TMagics>{
     public IsFreeze       = ():boolean => this.freeze;
     public IsExist        = ():boolean => this.isExist;
 
-    constructor(obj?: MagicsModel){
+    constructor(obj?: IMagicsDB){
         super({tableName:"magics"})
-        if(obj){
-            this.id          = (obj.id              )? obj.id         :null;      
-            this.name        = (obj.name            )? obj.name       :null;  
-            this.description = (obj.description     )? obj.description:null;  
-            this.freeze      = (obj.freeze          )? obj.freeze     :null;  
-            this.isExist     = (this.id && this.name)? true           :false;
-        }
+        if(obj)
+            for(let key in obj)
+                this[key] = obj[key];     
     }
 
     public GetAllItems(sync?:boolean) :ResultSql|Promise<any>{
@@ -82,7 +80,7 @@ export default class Magic extends Database<TMagics>{
             from: 'magics',
             where :`id = ${magicId}`
         })
-        .ValidDB<MagicsModel[]>(data => magic=new Magic(data[0]))
+        .ValidDB<IMagicsDB[]>(data => magic=new Magic(data[0]))
         return magic;
     }
     public static GetMagicByName(magicName:string):Magic{
@@ -92,7 +90,7 @@ export default class Magic extends Database<TMagics>{
             from: 'magics',
             where :`name = '${magicName}'`
         })
-        .ValidDB<MagicsModel[]>(data => magic=new Magic(data[0]))
+        .ValidDB<IMagicsDB[]>(data => magic=new Magic(data[0]))
         return magic;
     }
     public static GetListMagics():Magic[]{
@@ -101,7 +99,7 @@ export default class Magic extends Database<TMagics>{
             Fields:["id","name","description","freeze"],
             from: 'magics'
         })
-        .ValidDB<MagicsModel[]>(data => data.forEach(magic => magics.push(new Magic(magic))))
+        .ValidDB<IMagicsDB[]>(data => data.forEach(magic => magics.push(new Magic(magic))))
         return magics;
     }
     public static GetAllByMagic(magic:Magic, sync=false){

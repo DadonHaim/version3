@@ -1,7 +1,7 @@
-import { AvatarsModel, Database, Inventory, Magic, User } from "./../importAll";
+import { AvatarClient, Database, Magic, User } from "./../importAll";
 
-export default class Avatar extends Database<TAvatars>{ 
-    //#region Fields
+export default class Avatar extends Database<IAvatarDB>{
+        private id          :number             |null           =null;  //{get;}                       
         private name        :string             |null           =null;    //{get;}
         private exp         :number             |null           =null;    //{get;}
         private silver      :number             |null           =null;    //{get;}
@@ -10,63 +10,38 @@ export default class Avatar extends Database<TAvatars>{
         private diamond     :number             |null           =null;    //{get;}
         private createdDate :string             |null           =null;    //{get;}
         private gender      :"boy"|"girl"|"all" |null           =null;    //{get;}
-        private inventory   :Inventory          |null           =null; //לערוך
 
-
-    //#endregion
-
-    //#region Flags
         private isExist          :boolean           = false;   
         private isActive         :boolean           = false;   
         private isSelectMission  :boolean           = false;           
         private isFreeze         :boolean           = false;       
         private mainPage         :AllMainPagesType  = 'Game';   
         private subPage          :AllSubPagesType   = 'Guest-Home';   
-    //#endregion
 
-    //#region Refferences
-        private user                :   User;   //{get;}   
-        private activeMission       :   any; //  Mission;    //{get;}           
-        private magic               :   Magic; //  Magic;      //{get;}     
-        private page                :   any; //  Page;       //{get;}   
-    //#endregion
+        private user             :   User;   //{get;}   
+        private activeMission    :   any;  //  Mission;    //{get;}           
+        private magic            :   Magic; //  Magic;      //{get;}     
 
-    //#region Gets      
-        public GetId            = ():number     => this.id           ;
-        public GetName          = ():string     => this.name         ;
-        public GetExp           = ():number     => this.exp          ;
-        public GetSilver        = ():number     => this.silver       ;
-        public GetGold          = ():number     => this.gold         ;
-        public GetRedPowder     = ():number     => this.redPowder    ;
-        public GetDiamond       = ():number     => this.diamond      ;
-        public GetCreatedDate   = ():string     => this.createdDate  ;
-        public GetInventory     = ():Inventory  => this.inventory    ;
-        public GetUser          = ():User       => this.user         ;
-        public GetActiveMission = ()            => this.activeMission;
-        public GetMagic         = ():Magic      => this.magic        ;
-        public GetPage          = ()            => this.page         ;
-        public GetGender        = ()            => this.gender       ;
-    //#endregion
+        public GetId            = ():number           => this.id           ;
+        public GetName          = ():string           => this.name         ;
+        public GetExp           = ():number           => this.exp          ;
+        public GetSilver        = ():number           => this.silver       ;
+        public GetGold          = ():number           => this.gold         ;
+        public GetRedPowder     = ():number           => this.redPowder    ;
+        public GetDiamond       = ():number           => this.diamond      ;
+        public GetCreatedDate   = ():string           => this.createdDate  ;
+        public GetUser          = ():User             => this.user         ;
+        public GetActiveMission = ()                  => this.activeMission;
+        public GetMagic         = ():Magic            => this.magic        ;
+        public GetGender        = ()                  => this.gender       ;
+        public GetmainPage      = ():AllMainPagesType => this.mainPage     ;
+        public GetsubPage       = ():AllSubPagesType  => this.subPage      ;
 
-    //#region Method
-        public constructor(avatarObj?:AvatarsModel , user?:User){
+
+        public constructor(avatarObj:IAvatarDB,user?:User){
             super({tableName:"avatars"})
-            if(avatarObj){
-                this.id          = avatarObj.id         ;
-                this.name        = avatarObj.name       ;
-                this.exp         = avatarObj.exp        ;
-                this.silver      = avatarObj.silver     ;
-                this.gold        = avatarObj.gold       ;
-                this.redPowder   = avatarObj.redPowder  ;
-                this.diamond     = avatarObj.diamond    ;
-                this.createdDate = avatarObj.createdDate;
-                this.inventory   = new Inventory(this)  ;
-                this.isExist     = true                 ;
-                this.magic       = Magic.GetMagicById(avatarObj.magicID);
-                this.gender      = avatarObj.gender;
-                this.mainPage     = avatarObj.mainPage; 
-                this.subPage      = avatarObj.subPage; 
-            }
+            for(let key in avatarObj)
+                this[key] = avatarObj[key];
             if(user)
                 this.user = user;
         }
@@ -85,10 +60,27 @@ export default class Avatar extends Database<TAvatars>{
         }
     
 
+        public GetModelClient():AvatarClient{
+            let result :AvatarClient = new AvatarClient(
+                {
+                    id          :this.GetId(),
+                    name        :this.GetName(),
+                    exp         :this.GetExp(),
+                    silver      :this.GetSilver(),
+                    gold        :this.GetGold(),
+                    diamond     :this.GetDiamond(),
+                    redPowder   :this.GetRedPowder(),
+                    createdDate :this.GetCreatedDate(),
+                    magicName   :(this.magic)?this.GetMagic().GetName() as MagicNameType : "fire",
+                    gender      :this.gender,
+                    mainPage    :this.mainPage,
+                    subPage     :this.subPage,
+                }
+            );
+            return result;
+        }
 
-    //#endregion
 
-    //#region statics
     public static GetAvatarsByUserId(user:User):Avatar[]{
         let avatars:Avatar[] = [];
         new Database().SelectSync<TAvatars>({
@@ -96,7 +88,7 @@ export default class Avatar extends Database<TAvatars>{
             from    : "avatars",
             where   : `userID='${user.GetId()}'`
         })
-        .ValidDB<AvatarsModel[]>(data =>{
+        .ValidDB<IAvatarDB[]>(data =>{
             data.forEach((avatar)=>{
                 avatars.push(new Avatar(avatar,user));
             })
@@ -104,7 +96,5 @@ export default class Avatar extends Database<TAvatars>{
         .NoValidDB(err =>{})
         return avatars;
     }
-  
-    //#endregion
-
- }
+    
+ }  

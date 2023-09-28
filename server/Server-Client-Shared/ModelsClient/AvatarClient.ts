@@ -12,9 +12,11 @@ export default class AvatarClient{
     public diamond      ? :number | null;
     public createdDate  ? :string | null;
     public magicName    ? :MagicNameType  | null;
-    public gender       ? :"boy"|"girl"|"all";
+    public gender       ? :"boy"|"girl"|"all" |null;
+    public mainPage     ? : AllMainPagesType |null;
+    public subPage      ? : AllSubPagesType|null;
 
-    constructor(obj:AvatarClient){
+    constructor(obj:AvatarClient){ 
        
        this.id           = (obj.id          )?obj.id           :null;                        
        this.name         = (obj.name        )?obj.name         :null;                          
@@ -29,6 +31,9 @@ export default class AvatarClient{
        this.damage       = (obj.damage      )?obj.damage       :null;                                           
        this.refillEnergy = (obj.refillEnergy)?obj.refillEnergy :null;         
        this.magicName    = (obj.magicName   )?obj.magicName    :null;   
+       this.gender       = (obj.gender      )?obj.gender       :null;   
+       this.mainPage     = (obj.mainPage    )?obj.mainPage     :null;   
+       this.subPage      = (obj.subPage     )?obj.subPage      :null;   
        
     }
 

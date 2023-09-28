@@ -2,20 +2,18 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DebugSocket = void 0;
 function Debug(str) {
-    if (process.env.npm_lifecycle_event === 'Debug' ||
-        process.env.npm_lifecycle_event === 'DebugTest') {
-        var file = __filename.split('\\');
-        var index = file.length - 1;
-        console.log("Debug:\t ".concat(file[index - 2], "\\").concat(file[index - 1], "\\").concat(file[index], ":\t ").concat(str));
+    if (true) {
+        // let file = __filename.split('\\')
+        // let index = file.length-1
+        // console.log( `Debug:\t ${file[index-2]}\\${file[index-1]}\\${file[index]}:\t ${str}` )
     }
-    else if (process.env.npm_lifecycle_event === 'Debug' && process.argv[2] == "client") {
+    else {
         console.log(str);
     }
 }
 exports.default = Debug;
 function DebugSocket(str) {
-    if (process.env.npm_lifecycle_event === 'Debug' ||
-        process.env.npm_lifecycle_event === 'DebugSocket') {
+    if (true) {
         console.log("Debug: ".concat(str));
     }
 }

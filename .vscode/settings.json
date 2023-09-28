@@ -1,4 +1,15 @@
 {
+    "hide-files.files": [
+        "node_modules",
+        ".gitignore",
+        "nodemon.json",
+        "package-lock.json",
+        "package.json",
+        ".vscode",
+        "client/node_modules",
+        "client/.vscode",
+        "importAll.ts"
+    ],
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
@@ -6,35 +17,14 @@
         "**/CVS": true,
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
+        "node_modules": true,
+        ".gitignore": true,
+        "nodemon.json": true,
+        "package-lock.json": true,
+        "package.json": true,
         ".vscode": true,
-        "server/node_modules": true,
         "client/node_modules": true,
         "client/.vscode": true,
-        "client/package-lock.json": true,
-        "client/tsconfig.json": true,
-        ".gitignore": true,
-        "package.json": true,
-        "copy.js": true,
-        "Server-Client-Shared/.vscode": true,
-        "client/package.json": true,
-        "server/.vscode": true,
-        "server/package-lock.json": true,
-        "server/Build": true
-    },
-    "hide-files.files": [
-        ".vscode",
-        "server/node_modules",
-        "client/node_modules",
-        "client/.vscode",
-        "client/package-lock.json",
-        "client/tsconfig.json",
-        ".gitignore",
-        "package.json",
-        "copy.js",
-        "Server-Client-Shared/.vscode",
-        "client/package.json",
-        "server/.vscode",
-        "server/package-lock.json",
-        "server/Build"
-    ]
+        "importAll.ts": true
+    }
 }

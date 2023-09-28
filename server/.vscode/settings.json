@@ -6,10 +6,21 @@
         "**/CVS": true,
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
-        ".vscode": true
+        ".vscode": true,
+        "node_modules": true,
+        "Build": true,
+        "package-lock.json": true,
+        "package.json": true,
+        "test.ts": true,
+        "tsconfig.json": true
     },
     "hide-files.files": [
-        ".vscode"
+        "node_modules",
+        "Build",
+        "package-lock.json",
+        "package.json",
+        "test.ts",
+        "tsconfig.json"
     ],
     "editor.fontSize": 14,
     "editor.fontFamily": "Consolas, 'Courier New', monospace"

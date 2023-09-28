@@ -1,29 +1,30 @@
-import { SocketVer2, User, UserModel } from "./../importAll";
+import { SocketVer2, User, UserClient } from "./../importAll";
 
 
-export default function LoginSocket(socket:SocketVer2  ){
+export default function LoginSocket(socket:SocketVer2){
  
     //Token 
-    socket.On<client,string>("Start-With-Token",(token)=>{
+    socket.on<string>("Start-With-Token",(token)=>{
         socket.user = User.GetUserByToken(token); 
         if(socket.user.IsLogin())
-            socket.Emit<UserModel>("Start-Token-Valid" , socket.user.SendToClinet())
+            socket.emit<UserClient>("Start-Token-Valid" , socket.user.GetModelClient())
         else
-            socket.Emit("Start-Token-No-Valid")
+            socket.emit("Start-Token-No-Valid",socket.user.message.login)
     })  
 
 
     //LoginForm 
-    socket.On<client,ILogin>("Login-Me",(data)=>{ 
+    socket.on<ILogin>("Login-Me",(data)=>{ 
         if(socket.user.IsLogin()) 
-            socket.Emit("Login-You-Are-Already");
+            socket.emit("Login-You-Are-Already");
         else{ 
             socket.user.Login(data); 
             if(socket.user.IsLogin()) 
-                socket.Emit<UserModel>("Login-You",socket.user.SendToClinet())
+                socket.emit<UserClient>("Login-You",socket.user.GetModelClient())
             else 
-                socket.Emit<ILoginMsgs>("Login-No-Valid",socket.user.message.login)
+                socket.emit<ILoginMsgs>("Login-No-Valid",socket.user.message.login)
         }
     })
 
 }
+  

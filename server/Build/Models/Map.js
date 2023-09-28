@@ -20,6 +20,7 @@ var Map = /** @class */ (function (_super) {
     __extends(Map, _super);
     function Map(obj) {
         var _this = _super.call(this, { tableName: "maps" }) || this;
+        _this.id = null; //{get;}                       
         _this.GetId = function () { return _this.id; };
         _this.GetName = function () { return _this.name; };
         _this.GetDescription = function () { return _this.description; };

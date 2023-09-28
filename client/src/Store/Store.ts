@@ -8,7 +8,7 @@ const initialState :IStore = {
     mainPage            : "Guest",
     subPage             : "Guest-Home",
     allAvatars          : [{}],
-    activeAvatars       : {},
+    activeAvatar       : {},
 
     avatarName          : "",
     avatarHp            : 0,
@@ -26,6 +26,26 @@ const initialState :IStore = {
     music : true,
     sound : true, 
     tempAudioRef : null,
+
+    settings:{
+        CONTAINER_APP_GRID           : "",
+        GUEST_HEADER_POSITION        : "",
+        GUEST_MENU_POSITION          : "",
+        GUEST_MAIN_POSITION          : "",
+        GUEST_FOOTER_POSITION        : "",
+        GUEST_COPYRIGHT_POSITION     : "",
+        AVATAR_VIEW_GRID             : "",
+        GIRL_AVATAR_BODY_POSITION    : "",
+        GIRL_SHIRT_POSITION          : "",
+        GIRL_SHOES_POSITION          : "",
+        GIRL_PANTS_POSITION          : "",
+        BOY_AVATAR_BODY_POSITION     : "",
+        BOY_SHIRT_POSITION           : "",
+        BOY_SHOES_POSITION           : "",
+        BOY_PANTS_POSITION           : "",
+    }
+
+
 }
 
 

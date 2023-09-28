@@ -17,7 +17,7 @@ function GetImage(type, name, ending) {
             break;
     }
     try {
-        _image = require("../Images/".concat(folder, "/").concat(name, ".").concat(ending));
+        _image = require("../../Images/".concat(folder, "/").concat(name, ".").concat(ending));
     }
     catch (_a) {
         console.log("image not found");

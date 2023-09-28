@@ -1,6 +1,7 @@
 import { Database, MapsModel } from "./../importAll";
 
 export default class Map extends Database<TMaps>{
+    private id               :number  | null =null;  //{get;}                       
 
     private name        :string ;
     private description :string ;

@@ -14,6 +14,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var importAll_1 = require("./../importAll");
 var User = /** @class */ (function (_super) {
@@ -22,7 +33,7 @@ var User = /** @class */ (function (_super) {
     function User(obj, login) {
         if (login === void 0) { login = false; }
         var _this = _super.call(this, { tableName: "users" }) || this;
-        // #region Fields                              
+        _this.id = null; //{get;}                       
         _this.username = null; //{get;}                       
         _this.email = null; //{get; set;}                   
         _this.firstName = null; //{get; set;}                       
@@ -32,14 +43,14 @@ var User = /** @class */ (function (_super) {
         _this.banned = null; //{get;}                   
         _this.freeze = null; //{get;}                   
         _this.token = null; //{get;}            
-        _this.message = { login: { username: '', password: '' }, register: {} };
-        //#endregion 
-        //#region Flags:
+        _this.message = {
+            login: { username: '', password: '', status: '' },
+            register: {}
+        };
         _this.isExist = false; //{get;}         
         _this.isLogin = false; //{get;}         
         _this.isSelectedAvatar = false; //{get; set;}                     
-        //#endregion
-        //#region Gets:
+        _this.avatars = []; //{get;}
         _this.GetId = function () { return _this.id; };
         _this.GetUsername = function () { return _this.username; };
         _this.GetEmail = function () { return _this.email; };
@@ -50,79 +61,46 @@ var User = /** @class */ (function (_super) {
         _this.GetBanned = function () { return _this.banned; };
         _this.GetFreeze = function () { return _this.freeze; };
         _this.GetToken = function () { return _this.token; };
+        _this.GetAvatars = function () { return _this.avatars; };
+        _this.GetActiveAvatar = function () { return _this.activeAvatar; };
         _this.IsExist = function () { return _this.isExist; };
         _this.IsLogin = function () { return _this.isLogin; };
         _this.IsSelectedAvatar = function () { return _this.isSelectedAvatar; };
-        _this.GetAvatars = function () { return _this.avatars; };
-        _this.GetActiveAvatar = function () { return _this.activeAvatar; };
-        //#endregion
-        //#region Sets:
         _this.setEmail = function (value) { _this.email = value; };
         _this.setFirstName = function (value) { _this.firstName = value; };
         _this.setLastName = function (value) { _this.lastName = value; };
         _this.setBirthday = function (value) { _this.birthday = value; };
         _this.setIsSelectedAvatar = function (value) { _this.isSelectedAvatar = value; };
-        _this.fillFields = function (data) { for (var key in data)
-            _this[key] = data[key]; };
-        if (obj) {
-            _this.id = (obj.id) ? obj.id : null;
-            _this.username = (obj.username) ? obj.username : null;
-            _this.email = (obj.email) ? obj.email : null;
-            _this.firstName = (obj.firstName) ? obj.firstName : null;
-            _this.lastName = (obj.lastName) ? obj.lastName : null;
-            _this.birthday = (obj.birthday) ? obj.birthday : null;
-            _this.registerDate = (obj.registerDate) ? obj.registerDate : null;
-            _this.banned = (obj.banned) ? obj.banned : null;
-            _this.freeze = (obj.freeze) ? obj.freeze : null;
-            _this.token = (obj.token) ? obj.token : null;
-        }
-        _this.isExist = (_this.id && _this.username) ? true : false;
-        if (login)
-            _this.ILogin();
-        else
-            _this.isLogin = false;
+        if (obj)
+            for (var key in obj)
+                _this[key] = obj[key];
+        _this.isExist = !!(_this.id && _this.username);
+        login ? _this.ILogin() : _this.isLogin = false;
         return _this;
     }
-    //#endregion
-    //validation
-    User.prototype.validation = function () {
-        var arr = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            arr[_i] = arguments[_i];
-        }
-        for (var i = 0; i < arr.length; i++) {
-            if (arr[i] == "Login")
-                if (!this.isLogin)
-                    return new importAll_1.ResultValid(["user no login"], false);
-            if (arr[i] == "Guest")
-                if (this.isLogin)
-                    return new importAll_1.ResultValid(["user no login"], false);
-        }
-        return new importAll_1.ResultValid([], true);
-    };
     User.prototype.ILogin = function () {
         this.isLogin = true;
         this.avatars = importAll_1.Avatar.GetAvatarsByUserId(this);
     };
     User.prototype.Logout = function () {
-        var _this = this;
-        this.validation("Login").Valid(function () {
-            _this.removeToken();
-            _this.id = null;
-            _this.isLogin = false;
-        });
+        if (this.isLogin) {
+            this.removeToken();
+            this.id = null;
+            this.isLogin = false;
+        }
         return this;
     };
     User.prototype.Login = function (obj) {
         var _this = this;
-        this.validation("Guest").Valid(function () {
+        if (!this.isLogin) {
             (0, importAll_1.LoginValidation)(obj).Valid(function () {
                 _this.SelectSync({
                     Fields: ["id", "username", "email", "firstName", "lastName", "registerDate", "birthday", "freeze", "token"],
                     where: "username ='".concat(obj.username, "' and password = '").concat(obj.password, "'")
-                })
+                }, true)
                     .ValidDB(function (data) {
-                    _this.fillFields(data[0]);
+                    for (var key in data[0])
+                        _this[key] = data[0][key];
                     _this.isExist = true;
                     _this.isLogin = true;
                     _this.createToken();
@@ -131,15 +109,16 @@ var User = /** @class */ (function (_super) {
                     .NoValidDB(function () {
                     _this.isExist = false;
                     _this.isLogin = false;
+                    _this.message.login = { status: "login no valid" };
                 });
-            }).NoValid(function (msgs) { return _this.message = msgs; });
-        });
+            }).NoValid(function (msgs) { return _this.message.login = __assign(__assign({}, msgs), { status: "login no valid" }); });
+        }
         return this;
     };
     User.prototype.Register = function (obj) {
         var _this = this;
-        this.validation("Guest").Valid(function () {
-            (0, importAll_1.RegisterValidation)(obj, "server").Valid(function () {
+        if (!this.isLogin) {
+            (0, importAll_1.RegisterValidation)(obj).Valid(function () {
                 _this.isExist = true;
                 _this.isLogin = false;
                 _this.username = obj.username;
@@ -148,9 +127,9 @@ var User = /** @class */ (function (_super) {
                 .NoValid(function (msg) {
                 _this.isExist = false;
                 _this.isLogin = false;
-                _this.message = msg;
+                _this.message.register = __assign(__assign({}, msg), { status: "register no valid" });
             });
-        });
+        }
         return this;
     };
     User.prototype.DeleteDB = function () {
@@ -158,38 +137,20 @@ var User = /** @class */ (function (_super) {
         this.isExist = false;
     };
     User.prototype.createToken = function () {
-        var _this = this;
-        this.validation("Login").Valid(function () {
+        if (this.isLogin) {
             var token = (0, importAll_1.RandomString)(40);
-            _this.UpdateSync({ update: { token: token } });
-            _this.token = token;
-        });
+            this.UpdateSync({ update: { token: token }, where: "id='".concat(this.id, "'") });
+            this.token = token;
+        }
     };
     User.prototype.removeToken = function () {
-        var _this = this;
-        this.validation("Exist").Valid(function () {
-            _this.UpdateSync({ update: { token: '' } });
-            _this.token = null;
-        });
+        if (this.isExist) {
+            this.UpdateSync({ update: { token: '' } });
+            this.token = null;
+        }
     };
-    User.prototype.GetAvatarsForClients = function () {
-        var res = [];
-        if (!Array.isArray(this.avatars))
-            return res;
-        this.avatars.forEach(function (ava) {
-            res.push(new importAll_1.AvatarClient({
-                id: ava.GetId(),
-                name: ava.GetName(),
-                exp: ava.GetExp(),
-                silver: ava.GetSilver(),
-                gold: ava.GetGold(),
-                diamond: ava.GetDiamond(),
-                redPowder: ava.GetRedPowder(),
-                createdDate: ava.GetCreatedDate(),
-                magicName: ava.GetMagic().GetName(),
-            }));
-        });
-        return res;
+    User.prototype.GetAvatarsClient = function () {
+        return this.avatars.map(function (ava) { return ava.GetModelClient(); });
     };
     User.prototype.UpdateActiveAvatar = function (avatar) {
         if (!avatar) {
@@ -200,8 +161,8 @@ var User = /** @class */ (function (_super) {
         this.activeAvatar = this.avatars.find(function (a) { return a.GetId() == avatar.GetId(); });
         this.isSelectedAvatar = this.activeAvatar ? true : false;
     };
-    User.prototype.SendToClinet = function () {
-        var obj = {
+    User.prototype.GetModelClient = function () {
+        return {
             username: this.username,
             email: this.email,
             firstName: this.firstName,
@@ -210,10 +171,10 @@ var User = /** @class */ (function (_super) {
             registerDate: this.registerDate,
             token: this.token,
         };
-        return obj;
     };
-    //#endregion 
-    //#region Statics:
+    User.prototype.canCreteNewAvatar = function () {
+        return true; /// להשלים
+    };
     User.getAllUsers = function () {
         return new Promise(function (resolve, reject) {
             var user = [];

@@ -1,23 +1,25 @@
-import { Container, memo, useSelector ,Copyright, useEffect } from "./../../importAll";
+import { memo, Copyright, Header, Grid, AvatarCreatorView, Component } from "./../../importAll";
 
 
-const GameCreateAvatar = memo((props :IGameSelectAvatarProps)=>{
-    let mainPage = useSelector<IStore,any>(store=>store.mainPage)
-    let subPage  = useSelector<IStore,any>(store=>store.subPage)
-
-    if(mainPage != "Game") return <>אין לך גישה </>
-
+const GameCreateAvatar = new Component((props :IGameSelectAvatarProps)=>{
+    
 
     return(
-        < >
-            
+        <>
+            <Header position="1,1|50,7" border>
 
-            <Copyright/>
+            </Header>
+
+            <AvatarCreatorView gender="girl"/>
+
+            <Grid>
+
+            </Grid>
+
+            <Copyright />
         </>
     )
-
 });
 
 interface IGameSelectAvatarProps extends IGlobalProps{}
-
-export default GameCreateAvatar ;
+export default GameCreateAvatar.Get({Login:true,mainPage:"Game",subPage:"Game-CreateAvatar"});

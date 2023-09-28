@@ -1,25 +1,22 @@
 
 export default function Debug(str:string|any){ 
     if(
-        process.env.npm_lifecycle_event === 'Debug' ||
-        process.env.npm_lifecycle_event === 'DebugTest' 
+       true
     ){
-        let file = __filename.split('\\')
-        let index = file.length-1
-        console.log( `Debug:\t ${file[index-2]}\\${file[index-1]}\\${file[index]}:\t ${str}` )
+        // let file = __filename.split('\\')
+        // let index = file.length-1
+        // console.log( `Debug:\t ${file[index-2]}\\${file[index-1]}\\${file[index]}:\t ${str}` )
     }
 	
-	else if(process.env.npm_lifecycle_event === 'Debug'  && process.argv[2] =="client"){
+	else {
 		console.log(str)
 	}
 }
 export function DebugSocket(str:string|any){ 
     if(
-        process.env.npm_lifecycle_event === 'Debug' ||
-        process.env.npm_lifecycle_event === 'DebugSocket' 
+     true
     ){
         console.log( `Debug: ${str}` )
     } 
 
 }
-
