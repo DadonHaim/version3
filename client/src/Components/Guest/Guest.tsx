@@ -1,9 +1,9 @@
-import {Choice,Container,Copyright,Name,Footer,GuestRegister,GuestHome,GuestLogin,Header,HeaderBackground,Menu,FooterBackground,useSelector,Settings, Component, Main, useEffect} from "../../importAll";
+import {Choice,Container,Copyright,Name,Footer,GuestRegister,GuestHome,GuestLogin,Header,HeaderBackground,Menu,FooterBackground,useSelector, Component, Main} from "../../importAll";
 const selectStyle:React.CSSProperties ={backgroundColor:"yellow"}
 
 let _Guest = new Component(()=>{
     console.log("Guest-Component")
-    let settings   = useSelector<IStore,Settings>(store=>store.settings)
+    let settings   = useSelector<IStore,ISettings>(store=>store.settings)
     let subPage   = useSelector<IStore,any>(store=>store.subPage)
     return(
         <Container grid={settings.CONTAINER_APP_GRID} width="110vh" height="90vh" margin="10px auto" border >
@@ -32,7 +32,7 @@ let _Guest = new Component(()=>{
     )
 })
 _Guest.SetLoading(()=><>wait...</>)
-let Guest = _Guest.Get({Logout:true})
+let Guest = _Guest.Get({Logout:true, Login:false})
 export default Guest;
 
 

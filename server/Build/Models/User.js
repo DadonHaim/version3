@@ -33,7 +33,6 @@ var User = /** @class */ (function (_super) {
     function User(obj, login) {
         if (login === void 0) { login = false; }
         var _this = _super.call(this, { tableName: "users" }) || this;
-        _this.id = null; //{get;}                       
         _this.username = null; //{get;}                       
         _this.email = null; //{get; set;}                   
         _this.firstName = null; //{get; set;}                       
@@ -51,7 +50,6 @@ var User = /** @class */ (function (_super) {
         _this.isLogin = false; //{get;}         
         _this.isSelectedAvatar = false; //{get; set;}                     
         _this.avatars = []; //{get;}
-        _this.GetId = function () { return _this.id; };
         _this.GetUsername = function () { return _this.username; };
         _this.GetEmail = function () { return _this.email; };
         _this.GetFirstName = function () { return _this.firstName; };
@@ -74,18 +72,17 @@ var User = /** @class */ (function (_super) {
         if (obj)
             for (var key in obj)
                 _this[key] = obj[key];
-        _this.isExist = !!(_this.id && _this.username);
+        _this.isExist = _this.username ? true : false;
         login ? _this.ILogin() : _this.isLogin = false;
         return _this;
     }
     User.prototype.ILogin = function () {
         this.isLogin = true;
-        this.avatars = importAll_1.Avatar.GetAvatarsByUserId(this);
+        this.avatars = importAll_1.Avatar.GetAvatarsByUser(this);
     };
     User.prototype.Logout = function () {
         if (this.isLogin) {
             this.removeToken();
-            this.id = null;
             this.isLogin = false;
         }
         return this;
@@ -95,16 +92,16 @@ var User = /** @class */ (function (_super) {
         if (!this.isLogin) {
             (0, importAll_1.LoginValidation)(obj).Valid(function () {
                 _this.SelectSync({
-                    Fields: ["id", "username", "email", "firstName", "lastName", "registerDate", "birthday", "freeze", "token"],
+                    Fields: ["username", "email", "firstName", "lastName", "registerDate", "birthday", "freeze", "token"],
                     where: "username ='".concat(obj.username, "' and password = '").concat(obj.password, "'")
-                }, true)
+                })
                     .ValidDB(function (data) {
                     for (var key in data[0])
                         _this[key] = data[0][key];
                     _this.isExist = true;
                     _this.isLogin = true;
                     _this.createToken();
-                    _this.avatars = importAll_1.Avatar.GetAvatarsByUserId(_this);
+                    _this.avatars = importAll_1.Avatar.GetAvatarsByUser(_this);
                 })
                     .NoValidDB(function () {
                     _this.isExist = false;
@@ -139,7 +136,7 @@ var User = /** @class */ (function (_super) {
     User.prototype.createToken = function () {
         if (this.isLogin) {
             var token = (0, importAll_1.RandomString)(40);
-            this.UpdateSync({ update: { token: token }, where: "id='".concat(this.id, "'") });
+            this.UpdateSync({ update: { token: token }, where: "username='".concat(this.username, "'") });
             this.token = token;
         }
     };
@@ -179,7 +176,7 @@ var User = /** @class */ (function (_super) {
         return new Promise(function (resolve, reject) {
             var user = [];
             new importAll_1.Database().SelectSync({
-                Fields: ['id', 'username', 'email', 'firstName', 'lastName', 'birthday', 'registerDate', 'freeze', 'token'],
+                Fields: ['username', 'email', 'firstName', 'lastName', 'birthday', 'registerDate', 'freeze', 'token'],
                 from: "users",
                 where: "1=1"
             }).ValidDB(function (data) {
@@ -192,26 +189,16 @@ var User = /** @class */ (function (_super) {
     User.getAllUsersSync = function () {
         var user = [];
         new importAll_1.Database().SelectSync({
-            Fields: ['id', 'username', 'email', 'firstName', 'lastName', 'birthday', 'registerDate', 'freeze', 'token'],
+            Fields: ['username', 'email', 'firstName', 'lastName', 'birthday', 'registerDate', 'freeze', 'token'],
             from: "users",
         })
             .ValidDB(function (data) { return data.forEach(function (u) { return user.push(new User(u)); }); });
         return user;
     };
-    User.GetUserById = function (userID) {
-        var user = null;
-        new importAll_1.Database().SelectSync({
-            Fields: ['id', 'username', 'email', 'firstName', 'lastName', 'birthday', 'registerDate', 'freeze', 'token'],
-            from: "users",
-            where: "id='".concat(userID, "'")
-        })
-            .ValidDB(function (data) { return user = new User(data[0]); });
-        return user;
-    };
     User.GetUserByUsername = function (username) {
         var user = null;
         new importAll_1.Database().SelectSync({
-            Fields: ['id', 'username', 'email', 'firstName', 'lastName', 'birthday', 'registerDate', 'freeze', 'token'],
+            Fields: ['username', 'email', 'firstName', 'lastName', 'birthday', 'registerDate', 'freeze', 'token'],
             from: "users",
             where: "username='".concat(username, "'")
         })
@@ -225,7 +212,7 @@ var User = /** @class */ (function (_super) {
         if (token.length < 10)
             return user;
         new importAll_1.Database().SelectSync({
-            Fields: ['id', 'username', 'email', 'firstName', 'lastName', 'birthday', 'registerDate', 'freeze', 'token'],
+            Fields: ['username', 'email', 'firstName', 'lastName', 'birthday', 'registerDate', 'freeze', 'token'],
             from: "users",
             where: "token='".concat(token, "'")
         })

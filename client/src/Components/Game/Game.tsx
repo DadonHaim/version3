@@ -1,13 +1,15 @@
-import {useSelector, Avatar_Give_Me_List,GameCreateAvatar ,GameSelectAvatar, useStore, useState, useEffectV2, Container, Settings, Component} from "./../../importAll";
+import {useSelector, Avatar_Give_Me_List,GameCreateAvatar ,GameSelectAvatar, useStore, useState, useEffectV2, Container, Component} from "./../../importAll";
 import MusicEffect from "./comps/MusicEffect";
 
 
 const Game = new Component(()=>{
     console.log("Game")
-    let settings                    = useSelector<IStore,Settings>(store=>store.settings)
+    let settings                    = useSelector<IStore,ISettings>(store=>store.settings)
     let store                       = useStore();;
     
-    useEffectV2("Game",()=>Avatar_Give_Me_List(store)) 
+    useEffectV2("Game",()=>{
+        Avatar_Give_Me_List(store)
+    }) 
     
    
     return( 

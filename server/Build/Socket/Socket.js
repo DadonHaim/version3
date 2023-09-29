@@ -6,12 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SocketVer2 = void 0;
 var importAll_1 = require("./../importAll");
 var AvatarSocket_1 = __importDefault(require("./AvatarSocket"));
-var RegisterSocket_1 = __importDefault(require("./RegisterSocket"));
-var SettingsSocket_1 = __importDefault(require("./SettingsSocket"));
+var GeustSocket_1 = __importDefault(require("./GeustSocket"));
 exports.default = (function (socket) {
-    (0, SettingsSocket_1.default)(socket);
-    (0, importAll_1.LoginSocket)(socket);
-    (0, RegisterSocket_1.default)(socket);
+    (0, GeustSocket_1.default)(socket);
     (0, AvatarSocket_1.default)(socket);
 });
 var SocketVer2 = /** @class */ (function () {

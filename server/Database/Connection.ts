@@ -36,7 +36,6 @@ export default  class Database<Model=any>{
         return this.Query(this._update(obj));
     }
     public UpdateSync<Table=any>(obj:IUpdate<Table>):ResultSql{
-        console.log(this._update(obj))
         return this.QuerySync(this._update(obj));
     }
 
@@ -60,8 +59,8 @@ export default  class Database<Model=any>{
         if(And && join)  
             Fields.push(And.map(v=>join+"."+v));
         let res =(join && on)?
-            `SELECT ${Fields.toString()} FROM ${from} INNER JOIN ${join} ON ${on}  where ${where}` :
-            `SELECT ${Fields.toString()} FROM ${from} where ${where}`;
+            `SELECT ${Fields.toString()} FROM ${from} INNER JOIN ${join} ON ${on}  where ${where||'1=1'||'1=1'}` :
+            `SELECT ${Fields.toString()} FROM ${from} where ${where||'1=1' ||'1=1'}`;
         Debug(res)
         return res
     }
@@ -69,8 +68,8 @@ export default  class Database<Model=any>{
         let set :string[] = []
         for(let key in update)
             set.push(`${key}='${update[key]}'`)
-        Debug(`Update ${from||this.tableName} SET ${set.toString()} where ${where}`)
-        return `Update ${from||this.tableName} SET ${set.toString()} where ${where}`
+        Debug(`Update ${from||this.tableName} SET ${set.toString()} where ${where||'1=1'}`)
+        return `Update ${from||this.tableName} SET ${set.toString()} where ${where||'1=1'}`
     }
     public _insert({from,insert}:IInsert){
         let keys :string[] = []
@@ -83,8 +82,8 @@ export default  class Database<Model=any>{
         return `Insert Into ${from||this.tableName} (${keys.toString()}) Values (${vals})`
     }
     public _delete({from,where}:IDelete){
-        Debug(`Delete From ${from||this.tableName}  where ${where}`)
-        return `Delete From ${from||this.tableName} where ${where}`
+        Debug(`Delete From ${from||this.tableName}  where ${where||'1=1'}`)
+        return `Delete From ${from||this.tableName} where ${where||'1=1'}`
     }
  
 

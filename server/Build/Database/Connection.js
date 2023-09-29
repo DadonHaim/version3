@@ -33,7 +33,6 @@ var Database = /** @class */ (function () {
         return this.Query(this._update(obj));
     };
     Database.prototype.UpdateSync = function (obj) {
-        console.log(this._update(obj));
         return this.QuerySync(this._update(obj));
     };
     Database.prototype.Insert = function (obj) {
@@ -55,8 +54,8 @@ var Database = /** @class */ (function () {
         if (And && join)
             Fields.push(And.map(function (v) { return join + "." + v; }));
         var res = (join && on) ?
-            "SELECT ".concat(Fields.toString(), " FROM ").concat(from, " INNER JOIN ").concat(join, " ON ").concat(on, "  where ").concat(where) :
-            "SELECT ".concat(Fields.toString(), " FROM ").concat(from, " where ").concat(where);
+            "SELECT ".concat(Fields.toString(), " FROM ").concat(from, " INNER JOIN ").concat(join, " ON ").concat(on, "  where ").concat(where || '1=1' || '1=1') :
+            "SELECT ".concat(Fields.toString(), " FROM ").concat(from, " where ").concat(where || '1=1' || '1=1');
         (0, importAll_1.Debug)(res);
         return res;
     };
@@ -65,8 +64,8 @@ var Database = /** @class */ (function () {
         var set = [];
         for (var key in update)
             set.push("".concat(key, "='").concat(update[key], "'"));
-        (0, importAll_1.Debug)("Update ".concat(from || this.tableName, " SET ").concat(set.toString(), " where ").concat(where));
-        return "Update ".concat(from || this.tableName, " SET ").concat(set.toString(), " where ").concat(where);
+        (0, importAll_1.Debug)("Update ".concat(from || this.tableName, " SET ").concat(set.toString(), " where ").concat(where || '1=1'));
+        return "Update ".concat(from || this.tableName, " SET ").concat(set.toString(), " where ").concat(where || '1=1');
     };
     Database.prototype._insert = function (_a) {
         var from = _a.from, insert = _a.insert;
@@ -81,8 +80,8 @@ var Database = /** @class */ (function () {
     };
     Database.prototype._delete = function (_a) {
         var from = _a.from, where = _a.where;
-        (0, importAll_1.Debug)("Delete From ".concat(from || this.tableName, "  where ").concat(where));
-        return "Delete From ".concat(from || this.tableName, " where ").concat(where);
+        (0, importAll_1.Debug)("Delete From ".concat(from || this.tableName, "  where ").concat(where || '1=1'));
+        return "Delete From ".concat(from || this.tableName, " where ").concat(where || '1=1');
     };
     Database.protection = function (value) {
         if (value)

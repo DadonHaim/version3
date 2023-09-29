@@ -1,7 +1,6 @@
 import {AvatarClient, Avatar, Database, LoginValidation, RegisterValidation ,RandomString} from "./../importAll";
 
 export default class User extends Database<IUserDB>{
-        private id               :number  | null =null;  //{get;}                       
         private username         :string  | null =null;  //{get;}                       
         private email            :string  | null =null;  //{get; set;}                   
         private firstName        :string  | null =null;  //{get; set;}                       
@@ -23,7 +22,6 @@ export default class User extends Database<IUserDB>{
         private avatars       : Avatar[]    =[] ; //{get;}
         private activeAvatar  : Avatar|null  ; //{get;}
 
-        public  GetId               = ():number             => this.id               ;
         public  GetUsername         = ():string             => this.username         ;
         public  GetEmail            = ():string             => this.email            ;
         public  GetFirstName        = ():string             => this.firstName        ;
@@ -52,19 +50,18 @@ export default class User extends Database<IUserDB>{
             if(obj)
                 for(let key in obj) 
                     this[key] = obj[key];
-            this.isExist = !!(this.id && this.username);
+            this.isExist = this.username? true:false;
             login? this.ILogin() : this.isLogin=false;
         }
           
         private ILogin(){
             this .isLogin =  true;
-            this.avatars = Avatar.GetAvatarsByUserId(this);
+            this.avatars = Avatar.GetAvatarsByUser(this);
         }
 
         public Logout():User{
             if(this.isLogin){
                 this.removeToken();
-                this.id      = null;
                 this.isLogin = false; 
             }
             return this; 
@@ -74,16 +71,16 @@ export default class User extends Database<IUserDB>{
             if(!this.isLogin){
                 LoginValidation(obj).Valid(()=>{
                     this.SelectSync({
-                        Fields: ["id","username","email","firstName","lastName","registerDate","birthday","freeze","token"],
+                        Fields: ["username","email","firstName","lastName","registerDate","birthday","freeze","token"],
                         where : `username ='${obj.username}' and password = '${obj.password}'`
-                    },true)
+                    })
                     .ValidDB<IUserDB[]>((data)=>{
                         for(let key in data[0])
                             this[key] = data[0][key]
                         this.isExist =  true;
                         this.isLogin =  true;
                         this.createToken();
-                        this.avatars = Avatar.GetAvatarsByUserId(this);
+                        this.avatars = Avatar.GetAvatarsByUser(this);
                     })
                     .NoValidDB(()=>{
                         this.isExist = false;
@@ -120,7 +117,7 @@ export default class User extends Database<IUserDB>{
         private createToken(){
             if(this.isLogin){
                 let token = RandomString(40)
-                this.UpdateSync({update: {token:token} ,where:`id='${this.id}'`})
+                this.UpdateSync({update: {token:token} ,where:`username='${this.username}'`})
                 this.token = token;
             }
         }
@@ -169,7 +166,7 @@ export default class User extends Database<IUserDB>{
             return new Promise<User[]>((resolve,reject)=>{
                 let user :User[]= []
                 new Database().SelectSync<TUser>({
-                    Fields:['id','username','email','firstName','lastName','birthday','registerDate','freeze','token'],
+                    Fields:['username','email','firstName','lastName','birthday','registerDate','freeze','token'],
                     from:"users",
                     where:"1=1"
                 }).ValidDB<IUserDB[]>(data => {
@@ -183,7 +180,7 @@ export default class User extends Database<IUserDB>{
         public static getAllUsersSync(): User[] {
             let user:User[] = [];
             new Database().SelectSync<TUser>({
-                Fields:['id','username','email','firstName','lastName','birthday','registerDate','freeze','token'],
+                Fields:['username','email','firstName','lastName','birthday','registerDate','freeze','token'],
                 from:"users",
             })
             .ValidDB<IUserDB[]>(data=> data.forEach(u=>user.push(new User(u))))
@@ -191,20 +188,10 @@ export default class User extends Database<IUserDB>{
         }
         
 
-        public static GetUserById(userID:number):User{
-            let user:User = null;
-            new Database().SelectSync<TUser>({
-                Fields:['id','username','email','firstName','lastName','birthday','registerDate','freeze','token'],
-                from:"users",
-                where : `id='${userID}'`
-            })
-            .ValidDB<IUserDB[]>(data=> user=new User(data[0]))
-            return user
-        }
         public static GetUserByUsername(username:string):User{
             let user:User = null;
             new Database().SelectSync<TUser>({
-                Fields:['id','username','email','firstName','lastName','birthday','registerDate','freeze','token'],
+                Fields:['username','email','firstName','lastName','birthday','registerDate','freeze','token'],
                 from:"users",
                 where : `username='${username}'`
             })
@@ -216,7 +203,7 @@ export default class User extends Database<IUserDB>{
             if(!token) return user; 
             if(token.length <10) return user; 
             new Database().SelectSync<TUser>({
-                Fields:['id','username','email','firstName','lastName','birthday','registerDate','freeze','token'],
+                Fields:['username','email','firstName','lastName','birthday','registerDate','freeze','token'],
                 from:"users",
                 where : `token='${token}'`
             })

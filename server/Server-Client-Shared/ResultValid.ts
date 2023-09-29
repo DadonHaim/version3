@@ -20,4 +20,3 @@ export default class ResultValid<R=any>{
 }
 
 
-// dsasd 

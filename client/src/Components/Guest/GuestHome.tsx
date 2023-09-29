@@ -1,7 +1,7 @@
-import { Button, Div, Main, Settings, Component, useSelector } from "../../importAll";
+import { Button, Div, Main, Component, useSelector } from "../../importAll";
 
 const GuestHome = new Component(()=>{
-    let settings   = useSelector<IStore,Settings>(store=>store.settings)
+    let settings   = useSelector<IStore,ISettings>(store=>store.settings)
     
     console.log("Guest-HOme")
     return(
@@ -14,3 +14,4 @@ const GuestHome = new Component(()=>{
 })
 
 export default GuestHome.Get({Logout:true, subPage:"Guest-Home"})
+ 

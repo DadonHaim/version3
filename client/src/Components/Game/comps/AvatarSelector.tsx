@@ -27,14 +27,14 @@ const AvatarSelector = memo((props:IAvatarSelectorProps)=>{
             <AvatarMinView position="39,2|50,50" border/>
 
             <Flex wrap rtl position="12,20|37,34">
-                <AvatarSelectorValue icon={hpIcon}           value="3333" width="24%" marginBottom={5}/>
-                <AvatarSelectorValue icon={strongIcon}       value="3333" width="24%" marginBottom={5}/>
-                <AvatarSelectorValue icon={energyIcon}       value="3333" width="24%" marginBottom={5}/>
-                <AvatarSelectorValue icon={refillEnergyIcon} value="3333" width="24%" marginBottom={5}/>
-                <AvatarSelectorValue icon={silverIcon}       value="3333" width="24%" />
-                <AvatarSelectorValue icon={goldIcon}         value="3333" width="24%" />
-                <AvatarSelectorValue icon={redPowderIcon}    value="3333" width="24%" />
-                <AvatarSelectorValue icon={diamondIcon}      value="3333" width="24%" /> 
+                <AvatarSelectorValue icon={hpIcon}           value={props.avatar.hp}            width="24%" marginBottom={5}/>
+                <AvatarSelectorValue icon={strongIcon}       value="000"                        width="24%" marginBottom={5}/>
+                <AvatarSelectorValue icon={energyIcon}       value={props.avatar.energy}        width="24%" marginBottom={5}/>
+                <AvatarSelectorValue icon={refillEnergyIcon} value={props.avatar.refillEnergy}  width="24%" marginBottom={5}/>
+                <AvatarSelectorValue icon={silverIcon}       value={props.avatar.silver}        width="24%" />
+                <AvatarSelectorValue icon={goldIcon}         value={props.avatar.gold}          width="24%" />
+                <AvatarSelectorValue icon={redPowderIcon}    value={props.avatar.redPowder}     width="24%" />
+                <AvatarSelectorValue icon={diamondIcon}      value={props.avatar.diamond}       width="24%" /> 
             </Flex>
 
             <Lable  rtl family="cursive" position="4,6|12,15">{props.avatar.magicName||""}</Lable>

@@ -1,14 +1,24 @@
 import { socket ,UserClient} from "../importAll";
 
-export function Start_With_Token(store:any){
+export function Start_With_Token(store:any,waiting?:any){
     let token = sessionStorage.getItem("token");
     if(token) 
         socket.emit<string>("Start-With-Token",token)
+    else
+        if(waiting)
+            waiting(true)
     socket.on<UserClient>("Start-Token-Valid",(user)=>{
         store.dispatch(store.actions.setIsLogin(true));
         store.dispatch(store.actions.setUser(user));
         store.dispatch(store.actions.setSubPage("Game-SelectAvatar"))
+        if(waiting)
+            waiting(true)
     })
+    socket.on("Start-Token-No-Valid",()=>{
+        if(waiting)
+            waiting(true)
+    })
+    
 }
 
 

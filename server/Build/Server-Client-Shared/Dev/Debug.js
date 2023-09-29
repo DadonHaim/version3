@@ -8,7 +8,7 @@ function Debug(str) {
         // console.log( `Debug:\t ${file[index-2]}\\${file[index-1]}\\${file[index]}:\t ${str}` )
     }
     else {
-        console.log(str);
+        // console.log(str)
     }
 }
 exports.default = Debug;

@@ -23,6 +23,9 @@ var Avatar = /** @class */ (function (_super) {
         _this.id = null; //{get;}                       
         _this.name = null; //{get;}
         _this.exp = null; //{get;}
+        _this.hp = null; //{get;}
+        _this.energy = null; //{get;}
+        _this.refillEnergy = null; //{get;}
         _this.silver = null; //{get;}
         _this.gold = null; //{get;}
         _this.redPowder = null; //{get;}
@@ -38,7 +41,10 @@ var Avatar = /** @class */ (function (_super) {
         _this.GetId = function () { return _this.id; };
         _this.GetName = function () { return _this.name; };
         _this.GetExp = function () { return _this.exp; };
+        _this.GetHp = function () { return _this.hp; };
         _this.GetSilver = function () { return _this.silver; };
+        _this.GetEnergy = function () { return _this.energy; };
+        _this.GetRefillEnergy = function () { return _this.refillEnergy; };
         _this.GetGold = function () { return _this.gold; };
         _this.GetRedPowder = function () { return _this.redPowder; };
         _this.GetDiamond = function () { return _this.diamond; };
@@ -49,12 +55,19 @@ var Avatar = /** @class */ (function (_super) {
         _this.GetGender = function () { return _this.gender; };
         _this.GetmainPage = function () { return _this.mainPage; };
         _this.GetsubPage = function () { return _this.subPage; };
+        _this.GetItems = function () { return _this.items; };
         for (var key in avatarObj)
             _this[key] = avatarObj[key];
         if (user)
             _this.user = user;
+        _this.items = _this.getAllItems();
         return _this;
     }
+    Avatar.prototype.getAllItems = function () {
+        var items = [];
+        items = importAll_1.Item.GetItemsByAvatarSync(this);
+        return items;
+    };
     Avatar.prototype.EnterToActiveAvatar = function () {
         if (!this.isExist)
             return;
@@ -73,6 +86,9 @@ var Avatar = /** @class */ (function (_super) {
             name: this.GetName(),
             exp: this.GetExp(),
             silver: this.GetSilver(),
+            hp: this.GetHp(),
+            energy: this.GetEnergy(),
+            refillEnergy: this.GetRefillEnergy(),
             gold: this.GetGold(),
             diamond: this.GetDiamond(),
             redPowder: this.GetRedPowder(),
@@ -84,12 +100,12 @@ var Avatar = /** @class */ (function (_super) {
         });
         return result;
     };
-    Avatar.GetAvatarsByUserId = function (user) {
+    Avatar.GetAvatarsByUser = function (user) {
         var avatars = [];
         new importAll_1.Database().SelectSync({
-            Fields: ["id", "name", "userID", "createdDate", "exp", "gold", "gender", "mainPage", "subPage", "silver", "redPowder", "diamond", "freeze", "magicID", "missionID"],
+            Fields: ["id", "name", "username", "createdDate", "exp", "gold", "gender", "mainPage", "subPage", "silver", "redPowder", "diamond", "freeze", "hp", "energy", "refillEnergy", "magicName", "missionID"],
             from: "avatars",
-            where: "userID='".concat(user.GetId(), "'")
+            where: "username='".concat(user.GetUsername(), "'")
         })
             .ValidDB(function (data) {
             data.forEach(function (avatar) {

@@ -18,5 +18,4 @@ var ResultValid = /** @class */ (function () {
     return ResultValid;
 }());
 exports.default = ResultValid;
-// dsasd 
 //# sourceMappingURL=ResultValid.js.map

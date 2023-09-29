@@ -1,14 +1,11 @@
-import { DebugSocket, User ,LoginSocket } from "./../importAll";
-import AvatarSocket     from "./AvatarSocket";
-import RegisterSocket   from "./RegisterSocket";
-import SettingsSocket from "./SettingsSocket";
+import { DebugSocket, User } from "./../importAll";
+import AvatarSocket from "./AvatarSocket";
+import GuestSocket from "./GeustSocket";
 
 
 export default (socket:SocketVer2)=>{
-    SettingsSocket(socket)
-    LoginSocket(socket);
-    RegisterSocket(socket);
-    AvatarSocket(socket)
+    GuestSocket(socket);
+    AvatarSocket(socket);
 }
 
     

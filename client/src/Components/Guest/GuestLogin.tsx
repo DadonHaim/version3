@@ -1,9 +1,9 @@
 import { Login_Me } from "../../Socket/UserSocket";
-import { LoginValidation, Main, Component, useRefV2, useSelector, useState,Settings, useStore, usePermission } from "../../importAll";
+import { LoginValidation, Main, Component, useRefV2, useSelector, useState, useStore } from "../../importAll";
 
 const GuestLogin = new Component(()=>{
     console.log("Guest-Login")
-    let settings                             = useSelector<IStore,Settings>(store=>store.settings)
+    let settings                             = useSelector<IStore,ISettings>(store=>store.settings)
     let [uRef, pRef]                         = useRefV2();
     let [validationMsgs , setValidationMsgs] = useState<ILoginMsgs>({username:"" ,password:"",status:"" });
     let store                                = useStore();;

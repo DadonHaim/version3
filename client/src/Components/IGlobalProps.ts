@@ -1,7 +1,7 @@
 interface IGlobalProps{
     children    ?: JSX.Element | JSX.Element[] |string|any;
     className   ? : string;
-    value       ? : string;
+    value       ? : string|any;
     key         ? :any,
 
     Flex? : boolean;

@@ -1,9 +1,8 @@
-import {memo, useSelector ,Copyright, Lable, Button, AvatarClient, ControllerAudio,AvatarView, Flex,AvatarSelector, useStore, Component} from "./../../importAll";
+import {useSelector ,Copyright, Lable, Button, AvatarClient, ControllerAudio,AvatarView, Flex,AvatarSelector, useStore, Component} from "./../../importAll";
 
 const GameSelectAvatar = new Component((props:any)=>{
     let activeAvatar = useSelector<IStore,any>(store=>store.activeAvatar)
     let allAvatars   = useSelector<IStore,AvatarClient[]>(store=>store.allAvatars)
-
 
     return(
         <>
@@ -12,7 +11,7 @@ const GameSelectAvatar = new Component((props:any)=>{
             <AvatarView avatar={activeAvatar} position="2,4|15,38" border/>
 
             <Flex flexDirection="column" position="15,4|48,47" border scroll>
-                { allAvatars.map(ava=><AvatarSelector key={ava.id} avatar={ava} border/>) }
+                { allAvatars.map(ava=><AvatarSelector key={(Math.random()*123123).toString()} avatar={ava} border/>) }
                 <Button toSubPage="Game-CreateAvatar" width={10} height={10} margin="10px 10px" value="+"/>
             </Flex>
 

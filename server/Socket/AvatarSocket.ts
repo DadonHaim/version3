@@ -6,6 +6,7 @@ export default function AvatarSocket(socket:SocketVer2 ){
     //send all user avatars:
     socket.on("Avatar-Give-Me-List",()=>{
         socket.emit<UserClient[]>("Avatar-Get-List",socket.user.GetAvatarsClient())
+        
     })
 
 

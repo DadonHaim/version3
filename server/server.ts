@@ -1,18 +1,4 @@
-require('module-alias/register')
-
-import {
-    express,
-    http,
-    CrossMidlleWare,
-    Server,
-    SocketVer2,
-    ClientStart,
-} from "./importAll"
-
-console.clear()
-
-
-
+import { express, http, CrossMidlleWare, Server, SocketVer2, ClientStart,Database, GetSettings} from "./importAll"
 const app    = express();
 const server = http.createServer(app).listen(3001);
 
@@ -24,3 +10,9 @@ io.on("connection",(client)=>{
     console.log("connection")
     ClientStart(new SocketVer2(client))
 }) 
+
+
+
+
+
+

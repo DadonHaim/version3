@@ -20,9 +20,7 @@ var Magic = /** @class */ (function (_super) {
     __extends(Magic, _super);
     function Magic(obj) {
         var _this = _super.call(this, { tableName: "magics" }) || this;
-        _this.id = null; //{get;}                       
         _this.isExist = false;
-        _this.GetId = function () { return _this.id; };
         _this.GetName = function () { return _this.name; };
         _this.GetDescription = function () { return _this.description; };
         _this.IsFreeze = function () { return _this.freeze; };
@@ -33,62 +31,52 @@ var Magic = /** @class */ (function (_super) {
         return _this;
     }
     Magic.prototype.GetAllItems = function (sync) {
-        var query = "Select * from items where magicID=".concat(this.id);
+        var query = "Select * from items where magicName=".concat(this.name);
         if (sync)
             return new importAll_1.Database().QuerySync(query);
         return new importAll_1.Database().Query(query);
     };
     Magic.prototype.GetAllCards = function (sync) {
-        var query = "Select * from cards where magicID=".concat(this.id);
+        var query = "Select * from cards where magicName=".concat(this.name);
         if (sync)
             return new importAll_1.Database().QuerySync(query);
         return new importAll_1.Database().Query(query);
     };
     Magic.prototype.GetAllAvatars = function (sync) {
-        var query = "Select * from avatars where magicID=".concat(this.id);
+        var query = "Select * from avatars where magicName=".concat(this.name);
         if (sync)
             return new importAll_1.Database().QuerySync(query);
         return new importAll_1.Database().Query(query);
     };
     Magic.prototype.GetAllMissions = function (sync) {
-        var query = "Select * from missions where magicID=".concat(this.id);
+        var query = "Select * from missions where magicName=".concat(this.name);
         if (sync)
             return new importAll_1.Database().QuerySync(query);
         return new importAll_1.Database().Query(query);
     };
     Magic.prototype.GetAllItemsLite = function (sync) {
-        var query = "Select id,name,description from items where magicID=".concat(this.id);
+        var query = "Select name,description from items where magicName=".concat(this.name);
         if (sync)
             return new importAll_1.Database().QuerySync(query);
         return new importAll_1.Database().Query(query);
     };
     Magic.prototype.GetAllCardsLite = function (sync) {
-        var query = "Select * from cards where magicID=".concat(this.id);
+        var query = "Select * from cards where magicName=".concat(this.name);
         if (sync)
             return new importAll_1.Database().QuerySync(query);
         return new importAll_1.Database().Query(query);
     };
     Magic.prototype.GetAllAvatarsLite = function (sync) {
-        var query = "Select * from avatars where magicID=".concat(this.id);
+        var query = "Select * from avatars where magicName=".concat(this.name);
         if (sync)
             return new importAll_1.Database().QuerySync(query);
         return new importAll_1.Database().Query(query);
     };
     Magic.prototype.GetAllMissionsLite = function (sync) {
-        var query = "Select * from missions where magicID=".concat(this.id);
+        var query = "Select * from missions where magicName=".concat(this.name);
         if (sync)
             return new importAll_1.Database().QuerySync(query);
         return new importAll_1.Database().Query(query);
-    };
-    Magic.GetMagicById = function (magicId) {
-        var magic = null;
-        new importAll_1.Database().SelectSync({
-            Fields: ["id", "name", "description", "freeze"],
-            from: 'magics',
-            where: "id = ".concat(magicId)
-        })
-            .ValidDB(function (data) { return magic = new Magic(data[0]); });
-        return magic;
     };
     Magic.GetMagicByName = function (magicName) {
         var magic = null;
@@ -103,7 +91,7 @@ var Magic = /** @class */ (function (_super) {
     Magic.GetListMagics = function () {
         var magics = [];
         new importAll_1.Database().SelectSync({
-            Fields: ["id", "name", "description", "freeze"],
+            Fields: ["name", "description", "freeze"],
             from: 'magics'
         })
             .ValidDB(function (data) { return data.forEach(function (magic) { return magics.push(new Magic(magic)); }); });

@@ -22,10 +22,9 @@ import Item                           from "./Models/Item"                      
 import Magic                          from "./Models/Magic"                               ;
 import User                           from "./Models/User"                                ;
 import Map                            from "./Models/Map"                                 ;
-import Card                           from "./Models/Card"                                ;
+// import Card                           from "./Models/Card"                                ;
 import Avatar                         from "./Models/Avatar"                              ;
 
-import LoginSocket                    from "./Socket/LoginSocket"                         ;
 import ClientStart,{SocketVer2}       from "./Socket/Socket"                              ;
 
 
@@ -34,22 +33,20 @@ import http                           from 'http'             ;
 import fs                             from 'fs'               ; 
 import path                           from 'path'             ; 
         
-import {LoginSettings ,Settings, RegisterSettings}        from "./Server-Client-Shared/Settings";
 
 import UserClient                    from "./Server-Client-Shared/ModelsClient/UserClient";
 import AvatarClient                   from "./Server-Client-Shared/ModelsClient/AvatarClient";
 
         
 import ResultValid                    from "./Server-Client-Shared/ResultValid";
-import LoginValidation                from "./Server-Client-Shared/Validations/LoginValidation";
+import LoginValidation ,{LoginSettings,RegisterSettings}        from "./Server-Client-Shared/Validations/LoginValidation";
 import RegisterValidation             from "./Server-Client-Shared/Validations/RegisterValidation";
 
-
+import GetSettings from "./settings";
  
 const  {Server}           = require("socket.io");
 export {LoginSettings         }   
 export {RegisterSettings      }
-export {Settings              }
 export {AvatarClient          }
 export {ResultValid           }
 export {LoginValidation       }
@@ -72,13 +69,13 @@ export {Item                  }
 export {Magic                 }
 export {User                  }
 export {Map                   }
-export {Card                  }
+// export {Card                  }
 export {Avatar                }
-export {LoginSocket           }
 export {SocketVer2            }
 export {ClientStart           }
 export {UserClient           }
 export {CrossMidlleWare       }
+export {GetSettings       }
 
 export {express}
 export {http   }

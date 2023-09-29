@@ -1,9 +1,9 @@
 import { Register_Me } from "../../Socket/UserSocket";
-import { RegisterValidation, Main, Component, useRefV2, useSelector, Settings, useState, useStore } from "../../importAll";
+import { RegisterValidation, Main, Component, useRefV2, useSelector, useState, useStore } from "../../importAll";
 
 const GuestRegister = new Component(()=>{
     console.log("Guest-Register")
-    let settings                              = useSelector<IStore,Settings>(store=>store.settings)
+    let settings                              = useSelector<IStore,ISettings>(store=>store.settings)
 
     let [uRef,pRef,eRef,fRef,lRef]            = useRefV2();
     let [validationMsgs , setValidationMsgs]  = useState<IRegisterMsgs>({username:"" ,password:"",email:'',firstName:'',lastName:'',status:"" });

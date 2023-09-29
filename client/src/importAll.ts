@@ -19,9 +19,8 @@ import ConvertPoint                       from "./Server-Client-Shared/Functions
 import RandomString                       from "./Server-Client-Shared/Functions/RandomString";
 import Debug                              from "./Server-Client-Shared/Dev/Debug";
 import AvatarClient                       from "./Server-Client-Shared/ModelsClient/AvatarClient";
-import { Settings }                       from "./Server-Client-Shared/Settings";
 import ResultValid                        from "./Server-Client-Shared/ResultValid";
-import {LoginSettings,RegisterSettings}   from "./Server-Client-Shared/Settings"
+import {LoginSettings,RegisterSettings}   from "./Server-Client-Shared/Validations/LoginValidation"
 
 
 //components 
@@ -84,7 +83,6 @@ export {ConvertPoint                                }
 export {RandomString                                }                                   
 export {Debug                                       }                                   
 export {AvatarClient                                }                                   
-export {Settings                                    }                           
 export {ResultValid                                 }                                   
 export {LoginSettings,RegisterSettings              }                               
 

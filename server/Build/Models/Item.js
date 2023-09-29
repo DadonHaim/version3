@@ -25,22 +25,24 @@ var Item = /** @class */ (function (_super) {
         _this.description = null;
         _this.freeze = null;
         _this.price = null;
-        _this.color = null;
         _this.sale = null;
+        _this.stats = null;
         _this.upgrade = null;
         _this.categoryItem = null;
         _this.rank = null;
         _this.minAvatarRank = null;
         _this.maxUpgrade = null;
+        _this.gender = null;
         _this.isExist = false;
         _this.isActive = false;
         _this.GetId = function () { return _this.id; };
         _this.GetName = function () { return _this.name; };
         _this.GetDescription = function () { return _this.description; };
+        _this.GetGender = function () { return _this.gender; };
         _this.GetFreeze = function () { return _this.freeze; };
         _this.GetPrice = function () { return _this.price; };
-        _this.GetColor = function () { return _this.color; };
         _this.GetSale = function () { return _this.sale; };
+        _this.GetStats = function () { return _this.stats; };
         _this.GetUpgrade = function () { return _this.upgrade; };
         _this.GetCategoryItem = function () { return _this.categoryItem; };
         _this.GetRank = function () { return _this.rank; };
@@ -57,7 +59,7 @@ var Item = /** @class */ (function (_super) {
             _this.SelectSync({
                 Fields: ["rank", "active"],
                 from: "avatars_items",
-                where: "itemID = ".concat(_this.id, " and avatarID=").concat(avatar.GetId())
+                where: "itemID = ".concat(_this.id, " and avatarID=").concat(avatar.GetId() || 0)
             })
                 .ValidDB(function (data) {
                 _this.avatar = avatar;
@@ -78,7 +80,7 @@ var Item = /** @class */ (function (_super) {
             this.Update({
                 update: { rank: this.rank },
                 from: "avatars_items",
-                where: "itemID=".concat(this.id, " and avatarID=").concat(this.avatar.GetId())
+                where: "itemID=".concat(this.id, " and avatarID=").concat(this.avatar.GetId() || 0)
             });
         }
     };
@@ -86,12 +88,12 @@ var Item = /** @class */ (function (_super) {
         return new Promise(function (resolve, reject) {
             var items = [];
             new importAll_1.Database().SelectSync({
-                Fields: ["id", "name", "description", "freeze", "price", "color", "sale", "upgrade", "categoryItem", "minAvatarRank", "maxUpgrade"],
+                Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade"],
                 And: ["active"],
                 from: "items",
-                where: "id = ".concat(avatar.GetId()),
+                where: "id = ".concat(avatar.GetId() || 0),
                 join: "avatars_items",
-                on: "avatars_items.avatarID = ".concat(avatar.GetId(), " and avatars_items.itemID = items.id")
+                on: "avatars_items.avatarID = ".concat(avatar.GetId() || 0, " and avatars_items.itemID = items.id")
             })
                 .ValidDB(function (data) {
                 data.forEach(function (item) { return items.push(new Item(item)); });
@@ -102,7 +104,7 @@ var Item = /** @class */ (function (_super) {
     Item.GetItemById = function (itemID) {
         var item = null;
         new importAll_1.Database().SelectSync({
-            Fields: ["id", "name", "description", "freeze", "price", "color", "sale", "upgrade", "categoryItem", "minAvatarRank", "maxUpgrade"],
+            Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade"],
             from: 'items',
             where: "id = ".concat(itemID)
         })
@@ -112,7 +114,7 @@ var Item = /** @class */ (function (_super) {
     Item.GetItemByName = function (itemName) {
         var item = null;
         new importAll_1.Database().SelectSync({
-            Fields: ["id", "name", "description", "freeze", "price", "color", "sale", "upgrade", "categoryItem", "minAvatarRank", "maxUpgrade"],
+            Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade"],
             from: 'items',
             where: "name = ".concat(itemName)
         })
@@ -123,10 +125,10 @@ var Item = /** @class */ (function (_super) {
         return new Promise(function (resolve, reject) {
             var items = [];
             new importAll_1.Database().SelectSync({
-                Fields: ["id", "name", "description", "freeze", "price", "color", "sale", "upgrade", "categoryItem", "minAvatarRank", "maxUpgrade"],
+                Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade"],
                 from: "items",
                 join: "avatars_items",
-                on: "avatars_items.avatarID = ".concat(avatar.GetId()),
+                on: "avatars_items.avatarID = ".concat(avatar.GetId() || 0),
             }).ValidDB(function (data) {
                 data.forEach(function (item) { return items.push(new Item(item)); });
                 resolve(items);
@@ -136,11 +138,11 @@ var Item = /** @class */ (function (_super) {
     Item.GetItemsByAvatarSync = function (avatar) {
         var items = [];
         new importAll_1.Database().SelectSync({
-            Fields: ["id", "name", "description", "freeze", "price", "color", "sale", "upgrade", "categoryItem", "minAvatarRank", "maxUpgrade"],
+            Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade"],
             from: "items",
             join: "avatars_items",
-            on: "avatars_items.avatarID = ".concat(avatar.GetId()),
-        })
+            on: "avatars_items.avatarID = ".concat(avatar.GetId() || 0),
+        }, true)
             .ValidDB(function (data) {
             data.forEach(function (i) { return items.push(new Item(i)); });
         });
@@ -150,9 +152,9 @@ var Item = /** @class */ (function (_super) {
         return new Promise(function (resolve, reject) {
             var items = [];
             new importAll_1.Database().SelectSync({
-                Fields: ["id", "name", "description", "freeze", "price", "color", "sale", "upgrade", "categoryItem", "minAvatarRank", "maxUpgrade"],
+                Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade"],
                 from: "items",
-                where: "magicID=".concat(magic.GetId())
+                where: "magicName=".concat(magic.GetName())
             })
                 .ValidDB(function (data) {
                 data.forEach(function (i) { return items.push(new Item(i)); });
@@ -163,9 +165,9 @@ var Item = /** @class */ (function (_super) {
     Item.GetItemsByMagicSync = function (magic) {
         var items = [];
         new importAll_1.Database().SelectSync({
-            Fields: ["id", "name", "description", "freeze", "price", "color", "sale", "upgrade", "categoryItem", "minAvatarRank", "maxUpgrade"],
+            Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade"],
             from: "items",
-            where: "magicID=".concat(magic.GetId())
+            where: "magicName=".concat(magic.GetName())
         })
             .ValidDB(function (data) {
             data.forEach(function (i) { return items.push(new Item(i)); });
@@ -176,7 +178,7 @@ var Item = /** @class */ (function (_super) {
         return new Promise(function (resolve, reject) {
             var items = [];
             new importAll_1.Database().SelectSync({
-                Fields: ["id", "name", "description", "freeze", "price", "color", "sale", "upgrade", "categoryItem", "minAvatarRank", "maxUpgrade"],
+                Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade"],
                 from: "items",
                 where: "type=".concat(type)
             })
@@ -189,7 +191,7 @@ var Item = /** @class */ (function (_super) {
     Item.GetItemsByTypeSync = function (type) {
         var items = [];
         new importAll_1.Database().SelectSync({
-            Fields: ["id", "name", "description", "freeze", "price", "color", "sale", "upgrade", "categoryItem", "minAvatarRank", "maxUpgrade"],
+            Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade"],
             from: "items",
             where: "type=".concat(type)
         })

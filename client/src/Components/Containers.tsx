@@ -8,6 +8,7 @@ export const Div  = memo((props:IGlobalProps)=>{
             <div 
                 className={props.className} 
                 style={GlobalStyle(props)} 
+                key = {props.key}
                 onClick={props.onClick}
             >
                 {props.children}
