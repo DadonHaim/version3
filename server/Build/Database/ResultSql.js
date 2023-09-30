@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var ResultSql = /** @class */ (function () {
-    function ResultSql(Data) {
+class ResultSql {
+    constructor(Data) {
         this.valid = false;
         this.Data = Data;
         if (Array.isArray(Data) &&
@@ -9,17 +9,16 @@ var ResultSql = /** @class */ (function () {
             Object.keys(Data[0]).length > 0)
             this.valid = true;
     }
-    ResultSql.prototype.ValidDB = function (callback) {
+    ValidDB(callback) {
         if (this.valid)
             callback(this.Data);
         return this;
-    };
-    ResultSql.prototype.NoValidDB = function (callback) {
+    }
+    NoValidDB(callback) {
         if (!this.valid)
             callback(this.Data);
         return this;
-    };
-    return ResultSql;
-}());
+    }
+}
 exports.default = ResultSql;
 //# sourceMappingURL=ResultSql.js.map

@@ -5,7 +5,7 @@ import ReactDOM                            from 'react-dom/client';
 
 
 //global
-import {Container,Div,Flex,Footer,Grid,Header,Aside,Main ,Lable,Icon,Name,Button,Img,Box,Copyright,Choice,Menu} from "./Components/Containers";
+import {Container,Div,Flex,Footer,Grid,Header,Aside,Main ,Lable,Icon,Name,Button,Img,Box,Copyright,Choice,Menu,Logo} from "./Components/Containers";
 import GlobalStyle                        from "./Components/GlobalStyle";
 import myStore                            from "./Store/Store"
 import {socket}                           from "./Socket/Socket";
@@ -19,6 +19,7 @@ import ConvertPoint                       from "./Server-Client-Shared/Functions
 import RandomString                       from "./Server-Client-Shared/Functions/RandomString";
 import Debug                              from "./Server-Client-Shared/Dev/Debug";
 import AvatarClient                       from "./Server-Client-Shared/ModelsClient/AvatarClient";
+import ItemClient                       from "./Server-Client-Shared/ModelsClient/ItemClient";
 import ResultValid                        from "./Server-Client-Shared/ResultValid";
 import {LoginSettings,RegisterSettings}   from "./Server-Client-Shared/Validations/LoginValidation"
 
@@ -34,8 +35,8 @@ import Guest                              from "./Components/Guest/Guest"
 
 //components - game
 import Game                               from "./Components/Game/Game";          
-import GameCreateAvatar                   from "./Components/Game/GameCreateAvatar";      
-import GameSelectAvatar                   from "./Components/Game/GameSelectAvatar";      
+import GameCreateAvatar                   from "./Components/Game/PageGameCreateAvatar";      
+import GameSelectAvatar                   from "./Components/Game/PageGameSelectAvatar";      
 import ControllerAudio                    from "./Components/Game/comps/ControllerAudio";        
 import AvatarView                         from "./Components/Game/comps/AvatarView";
 import AvatarMinView                      from "./Components/Game/comps/AvatarMinView";
@@ -55,7 +56,7 @@ import usePermission                      from "./Hooks/usePermission";
 
 //sockets:
 import { Get_All_Setting }               from "./Socket/SettingSocket"
-import {Force_Logout, Start_With_Token } from "./Socket/UserSocket"
+import {Start_With_Token } from "./Socket/UserSocket"
 import {Avatar_Give_Me_List } from "./Socket/AvatarSocket"
 
 //img                                     
@@ -69,11 +70,12 @@ export  {useEffect,useState,memo     }
 export  {Provider                    }                      
 
 //global
-export  {Container,Div,Flex,Footer,Grid,Header,Aside,Main ,Lable,Icon,Name,Button,Img,Box,Copyright,Choice,Menu     }                                                                                                                                
+export  {Container,Div,Flex,Footer,Grid,Header,Aside,Main ,Lable,Icon,Name,Button,Img,Box,Copyright,Choice,Menu,Logo}                                                                                                                                
 export  {GlobalStyle                                                                                                }                                           
 export  {myStore                                                                                                    }                                           
 export  {socket                                                                                                     }                               
 export  {Component                                                                                                     }                               
+export  {ItemClient                                                                                                    }                               
 
 //server-client
 export {LoginValidation                             }                                   
@@ -120,7 +122,7 @@ export  {usePermission                      }
     
 //sockets:
 export  {Get_All_Setting                            }                            
-export  {Force_Logout,Start_With_Token              }                                        
+export  {Start_With_Token              }                                        
 export  {Avatar_Give_Me_List            }                                        
 
 

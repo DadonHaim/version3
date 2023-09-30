@@ -31,8 +31,9 @@ const initialState :IStore = {
         BOY_SHIRT_POSITION           : "",
         BOY_SHOES_POSITION           : "",
         BOY_PANTS_POSITION           : "",
-    }
+    },
 
+    avatarItems : [{}],
 
 }
 

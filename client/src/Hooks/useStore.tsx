@@ -6,4 +6,3 @@ export default function useStore(){
     let store  = myStore.getState();
     return { store, dispatch ,actions}
 }
-

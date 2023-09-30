@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegisterSettings = exports.LoginSettings = void 0;
-var importAll_1 = require("../../importAll");
+const importAll_1 = require("../../importAll");
 function LoginValidation(obj) {
-    var valid = true;
-    var message = {
+    let valid = true;
+    let message = {
         username: '',
         password: '',
         status: ''
@@ -42,12 +42,12 @@ function LoginValidation(obj) {
     return new importAll_1.ResultValid(message, valid);
 }
 exports.default = LoginValidation;
-var LoginSettings = {
+const LoginSettings = {
     username: { unique: true, require: true, min: 4, max: 14 },
     password: { unique: false, require: true, min: 6, max: 30 },
 };
 exports.LoginSettings = LoginSettings;
-var RegisterSettings = {
+const RegisterSettings = {
     username: { unique: true, require: true, min: 4, max: 14 },
     email: { unique: true, require: true, min: 6, max: 50 },
     password: { unique: false, require: true, min: 6, max: 30 },

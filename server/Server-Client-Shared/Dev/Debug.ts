@@ -9,7 +9,7 @@ export default function Debug(str:string|any){
     }
 	
 	else {
-		// console.log(str)
+		console.log(str)
 	}
 }
 export function DebugSocket(str:string|any){ 

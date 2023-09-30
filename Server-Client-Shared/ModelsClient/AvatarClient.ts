@@ -1,3 +1,5 @@
+import ItemClient from "./ItemClient";
+
 export default class AvatarClient{
     public id           ? :number | null;
     public name         ? :string | null;
@@ -15,34 +17,15 @@ export default class AvatarClient{
     public gender       ? :"boy"|"girl"|"all" |null;
     public mainPage     ? : AllMainPagesType |null;
     public subPage      ? : AllSubPagesType|null;
+    public hat          ?: ItemClient; 
+    public shirt        ?: ItemClient; 
+    public pants        ?: ItemClient; 
+    public shoes        ?: ItemClient; 
+    public weapon       ?: ItemClient;
 
-    constructor(obj:AvatarClient){ 
-       
-       this.id           = (obj.id          )?obj.id           :null;                        
-       this.name         = (obj.name        )?obj.name         :null;                          
-       this.exp          = (obj.exp         )?obj.exp          :null;                       
-       this.silver       = (obj.silver      )?obj.silver       :null;                        
-       this.gold         = (obj.gold        )?obj.gold         :null;                          
-       this.redPowder    = (obj.redPowder   )?obj.redPowder    :null;                         
-       this.diamond      = (obj.diamond     )?obj.diamond      :null;                       
-       this.createdDate  = (obj.createdDate )?obj.createdDate  :null;     
-       this.hp           = (obj.hp          )?obj.hp           :null;                                           
-       this.energy       = (obj.energy      )?obj.energy       :null;                                           
-       this.damage       = (obj.damage      )?obj.damage       :null;                                           
-       this.refillEnergy = (obj.refillEnergy)?obj.refillEnergy :null;         
-       this.magicName    = (obj.magicName   )?obj.magicName    :null;   
-       this.gender       = (obj.gender      )?obj.gender       :null;   
-       this.mainPage     = (obj.mainPage    )?obj.mainPage     :null;   
-       this.subPage      = (obj.subPage     )?obj.subPage      :null;   
-       
+    constructor(obj:AvatarClient){                                                                                                                                                                                                                                                    
+        for(let key in obj)
+            this[key] = obj[key]
     }
 
-    public static CreateToken(token?:any){
-        if(token)
-            sessionStorage.setItem("token",token)
-    }
-
-    public static KillToken(){
-        sessionStorage.removeItem("token")
-    }
 }

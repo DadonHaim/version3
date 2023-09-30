@@ -1,10 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var importAll_1 = require("../../importAll");
-function RegisterValidation(obj, For) {
-    if (For === void 0) { For = "client"; }
-    var valid = true;
-    var message = {
+const importAll_1 = require("../../importAll");
+function RegisterValidation(obj, For = "client") {
+    let valid = true;
+    let message = {
         username: '',
         password: '',
         email: '',
@@ -69,7 +68,7 @@ function RegisterValidation(obj, For) {
             }
         }
     }
-    var Database;
+    let Database;
     try {
         Database = new Database();
     }
@@ -77,8 +76,8 @@ function RegisterValidation(obj, For) {
         Database = null;
     }
     if (For = "server" && Database) {
-        new Database().QuerySync("Select username,email from users where username = '".concat(obj.username, "'or email='").concat(obj.email, "'"))
-            .ValidDB(function (data) {
+        new Database().QuerySync(`Select username,email from users where username = '${obj.username}'or email='${obj.email}'`)
+            .ValidDB((data) => {
             if (data[0].username == obj.username) {
                 message.username = "שם המשתמש כבר קיים";
                 message.status = "no-valid";

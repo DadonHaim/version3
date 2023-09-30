@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
+    "lib": ["es6"],
     "module": "CommonJS",
     "esModuleInterop": true,
-    "target": "es5",
+    "target": "es6",
     "allowJs": true,
     "moduleResolution": "node",
     "sourceMap": true,

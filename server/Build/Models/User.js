@@ -1,164 +1,134 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var importAll_1 = require("./../importAll");
-var User = /** @class */ (function (_super) {
-    __extends(User, _super);
+const importAll_1 = require("./../importAll");
+class User extends importAll_1.Database {
     //#region Method
-    function User(obj, login) {
-        if (login === void 0) { login = false; }
-        var _this = _super.call(this, { tableName: "users" }) || this;
-        _this.username = null; //{get;}                       
-        _this.email = null; //{get; set;}                   
-        _this.firstName = null; //{get; set;}                       
-        _this.lastName = null; //{get; set;}                       
-        _this.birthday = null; //{get; set;}                       
-        _this.registerDate = null; //{get;}                           
-        _this.banned = null; //{get;}                   
-        _this.freeze = null; //{get;}                   
-        _this.token = null; //{get;}            
-        _this.message = {
+    constructor(obj, login = false) {
+        super({ tableName: "users" });
+        this.username = null; //{get;}                       
+        this.email = null; //{get; set;}                   
+        this.firstName = null; //{get; set;}                       
+        this.lastName = null; //{get; set;}                       
+        this.birthday = null; //{get; set;}                       
+        this.registerDate = null; //{get;}                           
+        this.banned = null; //{get;}                   
+        this.freeze = null; //{get;}                   
+        this.token = null; //{get;}            
+        this.message = {
             login: { username: '', password: '', status: '' },
             register: {}
         };
-        _this.isExist = false; //{get;}         
-        _this.isLogin = false; //{get;}         
-        _this.isSelectedAvatar = false; //{get; set;}                     
-        _this.avatars = []; //{get;}
-        _this.GetUsername = function () { return _this.username; };
-        _this.GetEmail = function () { return _this.email; };
-        _this.GetFirstName = function () { return _this.firstName; };
-        _this.GetLastName = function () { return _this.lastName; };
-        _this.GetBirthday = function () { return _this.birthday; };
-        _this.GetRegisterDate = function () { return _this.registerDate; };
-        _this.GetBanned = function () { return _this.banned; };
-        _this.GetFreeze = function () { return _this.freeze; };
-        _this.GetToken = function () { return _this.token; };
-        _this.GetAvatars = function () { return _this.avatars; };
-        _this.GetActiveAvatar = function () { return _this.activeAvatar; };
-        _this.IsExist = function () { return _this.isExist; };
-        _this.IsLogin = function () { return _this.isLogin; };
-        _this.IsSelectedAvatar = function () { return _this.isSelectedAvatar; };
-        _this.setEmail = function (value) { _this.email = value; };
-        _this.setFirstName = function (value) { _this.firstName = value; };
-        _this.setLastName = function (value) { _this.lastName = value; };
-        _this.setBirthday = function (value) { _this.birthday = value; };
-        _this.setIsSelectedAvatar = function (value) { _this.isSelectedAvatar = value; };
+        this.isExist = false; //{get;}         
+        this.isLogin = false; //{get;}         
+        this.isSelectedAvatar = false; //{get; set;}                     
+        this.avatars = []; //{get;}
+        this.GetUsername = () => this.username;
+        this.GetEmail = () => this.email;
+        this.GetFirstName = () => this.firstName;
+        this.GetLastName = () => this.lastName;
+        this.GetBirthday = () => this.birthday;
+        this.GetRegisterDate = () => this.registerDate;
+        this.GetBanned = () => this.banned;
+        this.GetFreeze = () => this.freeze;
+        this.GetToken = () => this.token;
+        this.GetAvatars = () => this.avatars;
+        this.GetActiveAvatar = () => this.activeAvatar;
+        this.IsExist = () => this.isExist;
+        this.IsLogin = () => this.isLogin;
+        this.IsSelectedAvatar = () => this.isSelectedAvatar;
+        this.setEmail = (value) => { this.email = value; };
+        this.setFirstName = (value) => { this.firstName = value; };
+        this.setLastName = (value) => { this.lastName = value; };
+        this.setBirthday = (value) => { this.birthday = value; };
+        this.setIsSelectedAvatar = (value) => { this.isSelectedAvatar = value; };
         if (obj)
-            for (var key in obj)
-                _this[key] = obj[key];
-        _this.isExist = _this.username ? true : false;
-        login ? _this.ILogin() : _this.isLogin = false;
-        return _this;
+            for (let key in obj)
+                this[key] = obj[key];
+        this.isExist = this.username ? true : false;
+        login ? this.ILogin() : this.isLogin = false;
     }
-    User.prototype.ILogin = function () {
+    ILogin() {
         this.isLogin = true;
         this.avatars = importAll_1.Avatar.GetAvatarsByUser(this);
-    };
-    User.prototype.Logout = function () {
+    }
+    Logout() {
         if (this.isLogin) {
             this.removeToken();
             this.isLogin = false;
         }
         return this;
-    };
-    User.prototype.Login = function (obj) {
-        var _this = this;
+    }
+    Login(obj) {
         if (!this.isLogin) {
-            (0, importAll_1.LoginValidation)(obj).Valid(function () {
-                _this.SelectSync({
+            (0, importAll_1.LoginValidation)(obj).Valid(() => {
+                this.SelectSync({
                     Fields: ["username", "email", "firstName", "lastName", "registerDate", "birthday", "freeze", "token"],
-                    where: "username ='".concat(obj.username, "' and password = '").concat(obj.password, "'")
+                    where: `username ='${obj.username}' and password = '${obj.password}'`
                 })
-                    .ValidDB(function (data) {
-                    for (var key in data[0])
-                        _this[key] = data[0][key];
-                    _this.isExist = true;
-                    _this.isLogin = true;
-                    _this.createToken();
-                    _this.avatars = importAll_1.Avatar.GetAvatarsByUser(_this);
+                    .ValidDB((data) => {
+                    for (let key in data[0])
+                        this[key] = data[0][key];
+                    this.isExist = true;
+                    this.isLogin = true;
+                    this.createToken();
+                    this.avatars = importAll_1.Avatar.GetAvatarsByUser(this);
                 })
-                    .NoValidDB(function () {
-                    _this.isExist = false;
-                    _this.isLogin = false;
-                    _this.message.login = { status: "login no valid" };
+                    .NoValidDB(() => {
+                    this.isExist = false;
+                    this.isLogin = false;
+                    this.message.login = { status: "login no valid" };
                 });
-            }).NoValid(function (msgs) { return _this.message.login = __assign(__assign({}, msgs), { status: "login no valid" }); });
+            }).NoValid((msgs) => this.message.login = Object.assign(Object.assign({}, msgs), { status: "login no valid" }));
         }
         return this;
-    };
-    User.prototype.Register = function (obj) {
-        var _this = this;
+    }
+    Register(obj) {
         if (!this.isLogin) {
-            (0, importAll_1.RegisterValidation)(obj).Valid(function () {
-                _this.isExist = true;
-                _this.isLogin = false;
-                _this.username = obj.username;
-                _this.QuerySync("insert into users (username,password,email,firstName,lastName) Values ('".concat(obj.username, "','").concat(obj.password, "','").concat(obj.email, "','").concat(obj.firstName, "','").concat(obj.lastName, "')"));
+            (0, importAll_1.RegisterValidation)(obj).Valid(() => {
+                this.isExist = true;
+                this.isLogin = false;
+                this.username = obj.username;
+                this.QuerySync(`insert into users (username,password,email,firstName,lastName) Values ('${obj.username}','${obj.password}','${obj.email}','${obj.firstName}','${obj.lastName}')`);
             })
-                .NoValid(function (msg) {
-                _this.isExist = false;
-                _this.isLogin = false;
-                _this.message.register = __assign(__assign({}, msg), { status: "register no valid" });
+                .NoValid(msg => {
+                this.isExist = false;
+                this.isLogin = false;
+                this.message.register = Object.assign(Object.assign({}, msg), { status: "register no valid" });
             });
         }
         return this;
-    };
-    User.prototype.DeleteDB = function () {
-        this.DeleteSync({ where: "username='".concat(this.username, "'") });
+    }
+    DeleteDB() {
+        this.DeleteSync({ where: `username='${this.username}'` });
         this.isExist = false;
-    };
-    User.prototype.createToken = function () {
+    }
+    createToken() {
         if (this.isLogin) {
-            var token = (0, importAll_1.RandomString)(40);
-            this.UpdateSync({ update: { token: token }, where: "username='".concat(this.username, "'") });
+            let token = (0, importAll_1.RandomString)(40);
+            this.UpdateSync({ update: { token: token }, where: `username='${this.username}'` });
             this.token = token;
         }
-    };
-    User.prototype.removeToken = function () {
+    }
+    removeToken() {
         if (this.isExist) {
             this.UpdateSync({ update: { token: '' } });
             this.token = null;
         }
-    };
-    User.prototype.GetAvatarsClient = function () {
-        return this.avatars.map(function (ava) { return ava.GetModelClient(); });
-    };
-    User.prototype.UpdateActiveAvatar = function (avatar) {
+    }
+    GetAvatarsClient() {
+        let result = this.avatars.map(ava => ava.GetModelClient());
+        return result;
+    }
+    UpdateActiveAvatar(avatar) {
         if (!avatar) {
             this.isSelectedAvatar = false;
             this.activeAvatar = null;
             return;
         }
-        this.activeAvatar = this.avatars.find(function (a) { return a.GetId() == avatar.GetId(); });
+        this.activeAvatar = this.avatars.find(a => a.GetId() == avatar.GetId());
         this.isSelectedAvatar = this.activeAvatar ? true : false;
-    };
-    User.prototype.GetModelClient = function () {
+    }
+    GetModelClient() {
         return {
             username: this.username,
             email: this.email,
@@ -168,45 +138,53 @@ var User = /** @class */ (function (_super) {
             registerDate: this.registerDate,
             token: this.token,
         };
-    };
-    User.prototype.canCreteNewAvatar = function () {
+    }
+    SetActiveAvatar(avatarID) {
+        let findAvatar = this.avatars.find(ava => ava.GetId() == avatarID);
+        if (findAvatar) {
+            this.activeAvatar = findAvatar;
+            return true;
+        }
+        return false;
+    }
+    canCreteNewAvatar() {
         return true; /// להשלים
-    };
-    User.getAllUsers = function () {
-        return new Promise(function (resolve, reject) {
-            var user = [];
+    }
+    static getAllUsers() {
+        return new Promise((resolve, reject) => {
+            let user = [];
             new importAll_1.Database().SelectSync({
                 Fields: ['username', 'email', 'firstName', 'lastName', 'birthday', 'registerDate', 'freeze', 'token'],
                 from: "users",
                 where: "1=1"
-            }).ValidDB(function (data) {
-                data.forEach(function (usr) { return user.push(new User(usr)); });
+            }).ValidDB(data => {
+                data.forEach(usr => user.push(new User(usr)));
                 resolve(user);
             })
-                .NoValidDB(function (err) { return reject(err); });
+                .NoValidDB(err => reject(err));
         });
-    };
-    User.getAllUsersSync = function () {
-        var user = [];
+    }
+    static getAllUsersSync() {
+        let user = [];
         new importAll_1.Database().SelectSync({
             Fields: ['username', 'email', 'firstName', 'lastName', 'birthday', 'registerDate', 'freeze', 'token'],
             from: "users",
         })
-            .ValidDB(function (data) { return data.forEach(function (u) { return user.push(new User(u)); }); });
+            .ValidDB(data => data.forEach(u => user.push(new User(u))));
         return user;
-    };
-    User.GetUserByUsername = function (username) {
-        var user = null;
+    }
+    static GetUserByUsername(username) {
+        let user = null;
         new importAll_1.Database().SelectSync({
             Fields: ['username', 'email', 'firstName', 'lastName', 'birthday', 'registerDate', 'freeze', 'token'],
             from: "users",
-            where: "username='".concat(username, "'")
+            where: `username='${username}'`
         })
-            .ValidDB(function (data) { return user = new User(data[0]); });
+            .ValidDB(data => user = new User(data[0]));
         return user;
-    };
-    User.GetUserByToken = function (token) {
-        var user = new User;
+    }
+    static GetUserByToken(token) {
+        let user = new User;
         if (!token)
             return user;
         if (token.length < 10)
@@ -214,12 +192,11 @@ var User = /** @class */ (function (_super) {
         new importAll_1.Database().SelectSync({
             Fields: ['username', 'email', 'firstName', 'lastName', 'birthday', 'registerDate', 'freeze', 'token'],
             from: "users",
-            where: "token='".concat(token, "'")
+            where: `token='${token}'`
         })
-            .ValidDB(function (data) { return user = new User(data[0], true); });
+            .ValidDB(data => user = new User(data[0], true));
         return user;
-    };
-    return User;
-}(importAll_1.Database));
+    }
+}
 exports.default = User;
 //# sourceMappingURL=User.js.map

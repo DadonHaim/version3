@@ -35,7 +35,8 @@ import path                           from 'path'             ;
         
 
 import UserClient                    from "./Server-Client-Shared/ModelsClient/UserClient";
-import AvatarClient                   from "./Server-Client-Shared/ModelsClient/AvatarClient";
+import AvatarClient                  from "./Server-Client-Shared/ModelsClient/AvatarClient";
+import ItemClient                    from "./Server-Client-Shared/ModelsClient/ItemClient";
 
         
 import ResultValid                    from "./Server-Client-Shared/ResultValid";
@@ -48,6 +49,7 @@ const  {Server}           = require("socket.io");
 export {LoginSettings         }   
 export {RegisterSettings      }
 export {AvatarClient          }
+export {ItemClient            }
 export {ResultValid           }
 export {LoginValidation       }
 export {RegisterValidation    }

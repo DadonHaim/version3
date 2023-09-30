@@ -1,3 +1,4 @@
+const _ItemClient = require("./ModelsClient/ItemClient");
 /*
 export default class MonsterRankPower{
     public addPerRank   :_monsterRankPower;

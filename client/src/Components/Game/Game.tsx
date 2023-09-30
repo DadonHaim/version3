@@ -4,8 +4,8 @@ import MusicEffect from "./comps/MusicEffect";
 
 const Game = new Component(()=>{
     console.log("Game")
-    let settings                    = useSelector<IStore,ISettings>(store=>store.settings)
-    let store                       = useStore();;
+    let settings   = useSelector<IStore,ISettings>(store=>store.settings)
+    let store      = useStore();;
     
     useEffectV2("Game",()=>{
         Avatar_Give_Me_List(store)

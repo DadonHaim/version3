@@ -1,87 +1,95 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var importAll_1 = require("./../importAll");
-var Avatar = /** @class */ (function (_super) {
-    __extends(Avatar, _super);
-    function Avatar(avatarObj, user) {
-        var _this = _super.call(this, { tableName: "avatars" }) || this;
-        _this.id = null; //{get;}                       
-        _this.name = null; //{get;}
-        _this.exp = null; //{get;}
-        _this.hp = null; //{get;}
-        _this.energy = null; //{get;}
-        _this.refillEnergy = null; //{get;}
-        _this.silver = null; //{get;}
-        _this.gold = null; //{get;}
-        _this.redPowder = null; //{get;}
-        _this.diamond = null; //{get;}
-        _this.createdDate = null; //{get;}
-        _this.gender = null; //{get;}
-        _this.isExist = false;
-        _this.isActive = false;
-        _this.isSelectMission = false;
-        _this.isFreeze = false;
-        _this.mainPage = 'Game';
-        _this.subPage = 'Guest-Home';
-        _this.GetId = function () { return _this.id; };
-        _this.GetName = function () { return _this.name; };
-        _this.GetExp = function () { return _this.exp; };
-        _this.GetHp = function () { return _this.hp; };
-        _this.GetSilver = function () { return _this.silver; };
-        _this.GetEnergy = function () { return _this.energy; };
-        _this.GetRefillEnergy = function () { return _this.refillEnergy; };
-        _this.GetGold = function () { return _this.gold; };
-        _this.GetRedPowder = function () { return _this.redPowder; };
-        _this.GetDiamond = function () { return _this.diamond; };
-        _this.GetCreatedDate = function () { return _this.createdDate; };
-        _this.GetUser = function () { return _this.user; };
-        _this.GetActiveMission = function () { return _this.activeMission; };
-        _this.GetMagic = function () { return _this.magic; };
-        _this.GetGender = function () { return _this.gender; };
-        _this.GetmainPage = function () { return _this.mainPage; };
-        _this.GetsubPage = function () { return _this.subPage; };
-        _this.GetItems = function () { return _this.items; };
-        for (var key in avatarObj)
-            _this[key] = avatarObj[key];
+const importAll_1 = require("./../importAll");
+class Avatar extends importAll_1.Database {
+    constructor(avatarObj, user) {
+        super({ tableName: "avatars" });
+        this.id = null; //{get;}                       
+        this.name = null; //{get;}
+        this.exp = null; //{get;}
+        this.hp = null; //{get;}
+        this.energy = null; //{get;}
+        this.refillEnergy = null; //{get;}
+        this.silver = null; //{get;}
+        this.gold = null; //{get;}
+        this.redPowder = null; //{get;}
+        this.diamond = null; //{get;}
+        this.createdDate = null; //{get;}
+        this.gender = null; //{get;}
+        this.isExist = false;
+        this.isActive = false;
+        this.isSelectMission = false;
+        this.isFreeze = false;
+        this.mainPage = 'Game';
+        this.subPage = 'Guest-Home';
+        this.GetHat = () => this.hat;
+        this.GetShirt = () => this.shirt;
+        this.GetPants = () => this.pants;
+        this.GetShoes = () => this.shoes;
+        this.GetWeapon = () => this.weapon;
+        this.SetHat = (value) => this.hat = value;
+        this.SetShirt = (value) => this.shirt = value;
+        this.SetPants = (value) => this.pants = value;
+        this.SetShoes = (value) => this.shoes = value;
+        this.SetWeapon = (value) => this.weapon = value;
+        this.GetId = () => this.id;
+        this.GetName = () => this.name;
+        this.GetExp = () => this.exp;
+        this.GetHp = () => this.hp;
+        this.GetSilver = () => this.silver;
+        this.GetEnergy = () => this.energy;
+        this.GetRefillEnergy = () => this.refillEnergy;
+        this.GetGold = () => this.gold;
+        this.GetRedPowder = () => this.redPowder;
+        this.GetDiamond = () => this.diamond;
+        this.GetCreatedDate = () => this.createdDate;
+        this.GetUser = () => this.user;
+        this.GetActiveMission = () => this.activeMission;
+        this.GetMagic = () => this.magic;
+        this.GetGender = () => this.gender;
+        this.GetmainPage = () => this.mainPage;
+        this.GetSubPage = () => this.subPage;
+        this.GetItems = () => this.items;
+        for (let key in avatarObj)
+            this[key] = avatarObj[key];
         if (user)
-            _this.user = user;
-        _this.items = _this.getAllItems();
-        return _this;
+            this.user = user;
+        this.getAllItems();
+        this.getAllActiveItems();
     }
-    Avatar.prototype.getAllItems = function () {
-        var items = [];
+    getAllItems() {
+        let items = [];
         items = importAll_1.Item.GetItemsByAvatarSync(this);
-        return items;
-    };
-    Avatar.prototype.EnterToActiveAvatar = function () {
+        this.items = items;
+    }
+    getAllActiveItems() {
+        this.items.forEach(item => {
+            if (item.GetCategoryItem() == "hat" && item.IsActive())
+                this.hat = item;
+            else if (item.GetCategoryItem() == "pants" && item.IsActive())
+                this.pants = item;
+            else if (item.GetCategoryItem() == "shirt" && item.IsActive())
+                this.shirt = item;
+            else if (item.GetCategoryItem() == "shoes" && item.IsActive())
+                this.shoes = item;
+            else if (item.GetCategoryItem() == "weapon" && item.IsActive())
+                this.weapon = item;
+        });
+    }
+    EnterToActiveAvatar() {
         if (!this.isExist)
             return;
         this.user.UpdateActiveAvatar(this);
         this.isActive = true;
-    };
-    Avatar.prototype.OutFromActiveAvatar = function () {
+    }
+    OutFromActiveAvatar() {
         if (!this.isExist)
             return;
         this.user.UpdateActiveAvatar(null);
         this.isActive = false;
-    };
-    Avatar.prototype.GetModelClient = function () {
-        var result = new importAll_1.AvatarClient({
+    }
+    GetModelClient() {
+        let result = new importAll_1.AvatarClient({
             id: this.GetId(),
             name: this.GetName(),
             exp: this.GetExp(),
@@ -97,25 +105,30 @@ var Avatar = /** @class */ (function (_super) {
             gender: this.gender,
             mainPage: this.mainPage,
             subPage: this.subPage,
+            hat: this.hat ? this.hat.GetModelClient() : null,
+            shirt: this.shirt ? this.shirt.GetModelClient() : null,
+            pants: this.pants ? this.pants.GetModelClient() : null,
+            shoes: this.shoes ? this.shoes.GetModelClient() : null,
+            weapon: this.weapon ? this.weapon.GetModelClient() : null,
         });
+        console.log(this.name, this.items);
         return result;
-    };
-    Avatar.GetAvatarsByUser = function (user) {
-        var avatars = [];
+    }
+    static GetAvatarsByUser(user) {
+        let avatars = [];
         new importAll_1.Database().SelectSync({
             Fields: ["id", "name", "username", "createdDate", "exp", "gold", "gender", "mainPage", "subPage", "silver", "redPowder", "diamond", "freeze", "hp", "energy", "refillEnergy", "magicName", "missionID"],
             from: "avatars",
-            where: "username='".concat(user.GetUsername(), "'")
+            where: `username='${user.GetUsername()}'`
         })
-            .ValidDB(function (data) {
-            data.forEach(function (avatar) {
+            .ValidDB(data => {
+            data.forEach((avatar) => {
                 avatars.push(new Avatar(avatar, user));
             });
         })
-            .NoValidDB(function (err) { });
+            .NoValidDB(err => { });
         return avatars;
-    };
-    return Avatar;
-}(importAll_1.Database));
+    }
+}
 exports.default = Avatar;
 //# sourceMappingURL=Avatar.js.map

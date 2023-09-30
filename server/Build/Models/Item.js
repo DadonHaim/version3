@@ -1,78 +1,8 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var importAll_1 = require("./../importAll");
-var Item = /** @class */ (function (_super) {
-    __extends(Item, _super);
-    function Item(obj, avatar) {
-        var _this = _super.call(this, { tableName: "items" }) || this;
-        _this.id = null; //{get;}                       
-        _this.name = null;
-        _this.description = null;
-        _this.freeze = null;
-        _this.price = null;
-        _this.sale = null;
-        _this.stats = null;
-        _this.upgrade = null;
-        _this.categoryItem = null;
-        _this.rank = null;
-        _this.minAvatarRank = null;
-        _this.maxUpgrade = null;
-        _this.gender = null;
-        _this.isExist = false;
-        _this.isActive = false;
-        _this.GetId = function () { return _this.id; };
-        _this.GetName = function () { return _this.name; };
-        _this.GetDescription = function () { return _this.description; };
-        _this.GetGender = function () { return _this.gender; };
-        _this.GetFreeze = function () { return _this.freeze; };
-        _this.GetPrice = function () { return _this.price; };
-        _this.GetSale = function () { return _this.sale; };
-        _this.GetStats = function () { return _this.stats; };
-        _this.GetUpgrade = function () { return _this.upgrade; };
-        _this.GetCategoryItem = function () { return _this.categoryItem; };
-        _this.GetRank = function () { return _this.rank; };
-        _this.GetminAvatarRank = function () { return _this.minAvatarRank; };
-        _this.GetAvatar = function () { return _this.avatar; };
-        _this.GetMagic = function () { return _this.magic; };
-        _this.GetMaxUpgrade = function () { return _this.maxUpgrade; };
-        _this.IsExist = function () { return _this.isExist; };
-        _this.IsActive = function () { return _this.isActive; };
-        if (obj)
-            for (var key in obj)
-                _this[key] = obj[key];
-        if (avatar)
-            _this.SelectSync({
-                Fields: ["rank", "active"],
-                from: "avatars_items",
-                where: "itemID = ".concat(_this.id, " and avatarID=").concat(avatar.GetId() || 0)
-            })
-                .ValidDB(function (data) {
-                _this.avatar = avatar;
-                _this.rank = data[0].rank;
-                _this.isActive = data[0].active;
-            })
-                .NoValidDB(function () {
-                _this.avatar = null;
-            });
-        return _this;
-    }
-    Item.prototype.RankUp = function (num) {
-        if (num === void 0) { num = 1; }
+const importAll_1 = require("./../importAll");
+class Item extends importAll_1.Database {
+    RankUp(num = 1) {
         if (!this.avatar || !this.id)
             return;
         if (this.rank < this.maxUpgrade) {
@@ -80,127 +10,199 @@ var Item = /** @class */ (function (_super) {
             this.Update({
                 update: { rank: this.rank },
                 from: "avatars_items",
-                where: "itemID=".concat(this.id, " and avatarID=").concat(this.avatar.GetId() || 0)
+                where: `itemID=${this.id} and avatarID=${this.avatar.GetId() || 0}`
             });
         }
-    };
-    Item.getAllItemsByAvatar = function (avatar) {
-        return new Promise(function (resolve, reject) {
-            var items = [];
+    }
+    constructor(obj, avatar) {
+        super({ tableName: "items" });
+        this.id = null; //{get;}                       
+        this.name = null;
+        this.description = null;
+        this.freeze = null;
+        this.price = null;
+        this.sale = null;
+        this.stats = null;
+        this.upgrade = null;
+        this.categoryItemName = null;
+        this.rank = null;
+        this.minAvatarRank = null;
+        this.maxUpgrade = null;
+        this.gender = null;
+        this.isExist = false;
+        this.isActive = false;
+        this.GetId = () => this.id;
+        this.GetName = () => this.name;
+        this.GetDescription = () => this.description;
+        this.GetGender = () => this.gender;
+        this.GetFreeze = () => this.freeze;
+        this.GetPrice = () => this.price;
+        this.GetSale = () => this.sale;
+        this.GetStats = () => this.stats;
+        this.GetUpgrade = () => this.upgrade;
+        this.GetCategoryItem = () => this.categoryItemName;
+        this.GetRank = () => this.rank;
+        this.GetminAvatarRank = () => this.minAvatarRank;
+        this.GetAvatar = () => this.avatar;
+        this.GetMagic = () => this.magic;
+        this.GetMaxUpgrade = () => this.maxUpgrade;
+        this.IsExist = () => this.isExist;
+        this.IsActive = () => this.isActive;
+        if (obj) {
+            for (let key in obj)
+                this[key] = obj[key];
+            if (obj.magicName)
+                this.magic = importAll_1.Magic.GetMagicByName(obj.magicName);
+        }
+        if (avatar)
+            this.SelectSync({
+                Fields: ["rank", "active"],
+                from: "avatars_items",
+                where: `itemID = ${this.id} and avatarID=${avatar.GetId() || 0}`
+            })
+                .ValidDB(data => {
+                this.avatar = avatar;
+                this.rank = data[0].rank;
+                this.isActive = data[0].active;
+            })
+                .NoValidDB(() => {
+                this.avatar = null;
+            });
+    }
+    GetModelClient() {
+        return new importAll_1.ItemClient({
+            id: this.id,
+            name: this.name,
+            description: this.description,
+            price: this.price,
+            sale: this.sale,
+            stats: this.stats,
+            upgrade: this.upgrade,
+            categoryItem: this.categoryItemName,
+            rank: this.rank,
+            maxUpgrade: this.maxUpgrade,
+            gender: this.gender,
+            isActive: this.isActive,
+            magic: this.magic.GetName(),
+        });
+    }
+    static getAllItemsByAvatar(avatar) {
+        return new Promise((resolve, reject) => {
+            let items = [];
             new importAll_1.Database().SelectSync({
-                Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade"],
+                Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade", "magicName"],
                 And: ["active"],
                 from: "items",
-                where: "id = ".concat(avatar.GetId() || 0),
+                where: `id = ${avatar.GetId() || 0}`,
                 join: "avatars_items",
-                on: "avatars_items.avatarID = ".concat(avatar.GetId() || 0, " and avatars_items.itemID = items.id")
+                on: `avatars_items.avatarID = ${avatar.GetId() || 0} and avatars_items.itemID = items.id`
             })
-                .ValidDB(function (data) {
-                data.forEach(function (item) { return items.push(new Item(item)); });
+                .ValidDB(data => {
+                data.forEach(item => items.push(new Item(item)));
                 resolve(items);
             });
         });
-    };
-    Item.GetItemById = function (itemID) {
-        var item = null;
+    }
+    static GetItemById(itemID) {
+        let item = null;
         new importAll_1.Database().SelectSync({
-            Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade"],
+            Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade", "magicName"],
             from: 'items',
-            where: "id = ".concat(itemID)
+            where: `id = ${itemID}`
         })
-            .ValidDB(function (data) { return item = new Item(data[0]); });
+            .ValidDB(data => item = new Item(data[0]));
         return item;
-    };
-    Item.GetItemByName = function (itemName) {
-        var item = null;
+    }
+    static GetItemByName(itemName) {
+        let item = null;
         new importAll_1.Database().SelectSync({
-            Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade"],
+            Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade", "magicName"],
             from: 'items',
-            where: "name = ".concat(itemName)
+            where: `name = ${itemName}`
         })
-            .ValidDB(function (data) { return item = new Item(data[0]); });
+            .ValidDB(data => item = new Item(data[0]));
         return item;
-    };
-    Item.GetItemsByAvatar = function (avatar) {
-        return new Promise(function (resolve, reject) {
-            var items = [];
+    }
+    static GetItemsByAvatar(avatar) {
+        return new Promise((resolve, reject) => {
+            let items = [];
             new importAll_1.Database().SelectSync({
-                Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade"],
+                Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade", "magicName"],
                 from: "items",
                 join: "avatars_items",
-                on: "avatars_items.avatarID = ".concat(avatar.GetId() || 0),
-            }).ValidDB(function (data) {
-                data.forEach(function (item) { return items.push(new Item(item)); });
+                on: `avatars_items.avatarID = ${avatar.GetId() || 0}`,
+            }).ValidDB(data => {
+                data.forEach(item => items.push(new Item(item)));
                 resolve(items);
             });
         });
-    };
-    Item.GetItemsByAvatarSync = function (avatar) {
-        var items = [];
+    }
+    static GetItemsByAvatarSync(avatar) {
+        let items = [];
         new importAll_1.Database().SelectSync({
-            Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade"],
+            Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade", "magicName"],
+            And: ["isActive"],
             from: "items",
             join: "avatars_items",
-            on: "avatars_items.avatarID = ".concat(avatar.GetId() || 0),
-        }, true)
-            .ValidDB(function (data) {
-            data.forEach(function (i) { return items.push(new Item(i)); });
+            on: `avatars_items.itemID = items.id and avatars_items.avatarID = ${avatar.GetId()} `,
+        })
+            .ValidDB(data => {
+            data.forEach(i => items.push(new Item(i)));
         });
         return items;
-    };
-    Item.GetItemsByMagic = function (magic) {
-        return new Promise(function (resolve, reject) {
-            var items = [];
+    }
+    static GetItemsByMagic(magic) {
+        return new Promise((resolve, reject) => {
+            let items = [];
             new importAll_1.Database().SelectSync({
-                Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade"],
+                Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade", "magicName"],
                 from: "items",
-                where: "magicName=".concat(magic.GetName())
+                where: `magicName=${magic.GetName()}`
             })
-                .ValidDB(function (data) {
-                data.forEach(function (i) { return items.push(new Item(i)); });
+                .ValidDB(data => {
+                data.forEach(i => items.push(new Item(i)));
                 resolve(items);
             });
         });
-    };
-    Item.GetItemsByMagicSync = function (magic) {
-        var items = [];
+    }
+    static GetItemsByMagicSync(magic) {
+        let items = [];
         new importAll_1.Database().SelectSync({
-            Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade"],
+            Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade", "magicName"],
             from: "items",
-            where: "magicName=".concat(magic.GetName())
+            where: `magicName=${magic.GetName()}`
         })
-            .ValidDB(function (data) {
-            data.forEach(function (i) { return items.push(new Item(i)); });
+            .ValidDB(data => {
+            data.forEach(i => items.push(new Item(i)));
         });
         return items;
-    };
-    Item.GetItemsByType = function (type) {
-        return new Promise(function (resolve, reject) {
-            var items = [];
+    }
+    static GetItemsByType(type) {
+        return new Promise((resolve, reject) => {
+            let items = [];
             new importAll_1.Database().SelectSync({
-                Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade"],
+                Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade", "magicName"],
                 from: "items",
-                where: "type=".concat(type)
+                where: `type=${type}`
             })
-                .ValidDB(function (data) {
-                data.forEach(function (i) { return items.push(new Item(i)); });
+                .ValidDB(data => {
+                data.forEach(i => items.push(new Item(i)));
                 resolve(items);
             });
         });
-    };
-    Item.GetItemsByTypeSync = function (type) {
-        var items = [];
+    }
+    static GetItemsByTypeSync(type) {
+        let items = [];
         new importAll_1.Database().SelectSync({
-            Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade"],
+            Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade", "magicName"],
             from: "items",
-            where: "type=".concat(type)
+            where: `type=${type}`
         })
-            .ValidDB(function (data) {
-            data.forEach(function (i) { return items.push(new Item(i)); });
+            .ValidDB(data => {
+            data.forEach(i => items.push(new Item(i)));
         });
         return items;
-    };
-    return Item;
-}(importAll_1.Database));
+    }
+}
 exports.default = Item;
 //# sourceMappingURL=Item.js.map

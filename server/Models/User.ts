@@ -130,7 +130,8 @@ export default class User extends Database<IUserDB>{
         }
 
         public GetAvatarsClient():AvatarClient[]{
-            return this.avatars.map(ava=>ava.GetModelClient());
+            let result = this.avatars.map(ava=>ava.GetModelClient());
+            return result;
         }
 
         public UpdateActiveAvatar(avatar:Avatar){
@@ -156,6 +157,14 @@ export default class User extends Database<IUserDB>{
             }
         }
 
+        public SetActiveAvatar(avatarID:number):boolean{
+            let findAvatar = this.avatars.find(ava=>ava.GetId() == avatarID)
+            if(findAvatar){
+                this.activeAvatar = findAvatar;
+                return true;
+            }
+            return false;
+        }
 
         public canCreteNewAvatar():boolean{
             return true;  /// להשלים

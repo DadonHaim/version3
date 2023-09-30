@@ -1,15 +1,15 @@
 import { Database, ResultSql } from "./../importAll";
 
 export default class Magic extends Database<IMagicsDB>{
-    private name        : string;
+    private name        : MagicNameType;
     private description : string;
     private freeze      : boolean;
     private isExist     : boolean = false;
 
-    public GetName        = ():string  => this.name;
-    public GetDescription = ():string  => this.description;
-    public IsFreeze       = ():boolean => this.freeze;
-    public IsExist        = ():boolean => this.isExist;
+    public GetName        = ():MagicNameType  => this.name;
+    public GetDescription = ():string         => this.description;
+    public IsFreeze       = ():boolean        => this.freeze;
+    public IsExist        = ():boolean        => this.isExist;
 
     constructor(obj?: IMagicsDB){
         super({tableName:"magics"})
@@ -73,7 +73,7 @@ export default class Magic extends Database<IMagicsDB>{
     public static GetMagicByName(magicName:string):Magic{
         let magic: Magic = null;
         new Database().SelectSync<TMagics>({
-            Fields:["id","name","description","freeze"],
+            Fields:["name","description","freeze"],
             from: 'magics',
             where :`name = '${magicName}'`
         })

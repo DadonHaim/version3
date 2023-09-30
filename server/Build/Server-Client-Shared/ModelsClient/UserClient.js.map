@@ -1,1 +1,1 @@
-{"version":3,"file":"UserClient.js","sourceRoot":"","sources":["../../../Server-Client-Shared/ModelsClient/UserClient.ts"],"names":[],"mappings":";;AAAA;IAAA;IAuBA,CAAC;IAZiB,gBAAW,GAAzB,UAA0B,KAAU;QAChC,IAAG,KAAK;YACJ,cAAc,CAAC,OAAO,CAAC,OAAO,EAAC,KAAK,CAAC,CAAA;IAC7C,CAAC;IAEa,cAAS,GAAvB;QACI,cAAc,CAAC,UAAU,CAAC,OAAO,CAAC,CAAA;IACtC,CAAC;IAKL,WAAC;AAAD,CAAC,AAvBD,IAuBC"}
+{"version":3,"file":"UserClient.js","sourceRoot":"","sources":["../../../Server-Client-Shared/ModelsClient/UserClient.ts"],"names":[],"mappings":";;AAAA,MAAqB,UAAU;CAY9B;AAZD,6BAYC"}

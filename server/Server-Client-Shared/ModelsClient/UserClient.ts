@@ -1,4 +1,4 @@
-export default class User{
+export default class UserClient{
     public id?           :number;   
     public username?     :string;   
     public email?        :string;   
@@ -15,7 +15,7 @@ export default class User{
     }
 
     public static KillToken(){
-        sessionStorage.removeItem("token")
+            sessionStorage.removeItem("token")
     }
 
 

@@ -96,6 +96,7 @@ CREATE TABLE items (
     "sale"              NVARCHAR(MAX),
     "upgrade"           NVARCHAR(MAX),
     "minAvatarRank"     INT DEFAULT 1,
+    "startItem"         TINYINT DEFAULT 0,
     "stats"             NVARCHAR(MAX),
     "maxUpgrade"        INT DEFAULT 3,
     "magicName"         VARCHAR(50),
@@ -195,7 +196,7 @@ CREATE TABLE avatars (
 CREATE TABLE avatars_items (
     "id"          INT IDENTITY(1,1) PRIMARY KEY,
     "rank"        INT,
-    "active"      TINYINT DEFAULT 0,
+    "isActive"      TINYINT DEFAULT 0,
     "avatarID"    INT,
     "itemID"      INT,
     FOREIGN KEY (avatarID) REFERENCES avatars(id),

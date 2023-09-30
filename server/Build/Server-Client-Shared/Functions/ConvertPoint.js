@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 function ConvertPoint(str) {
     if (!str)
         return [0, 0];
-    var arr = str.split(',');
+    let arr = str.split(',');
     return [
         Number.parseInt(arr[0]),
         Number.parseInt(arr[1])

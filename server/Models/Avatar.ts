@@ -1,7 +1,7 @@
 import { AvatarClient, Database, Item, Magic, User } from "./../importAll";
 
 export default class Avatar extends Database<IAvatarDB>{
-        private id          :number             |null           =null;  //{get;}                       
+        private id          :number             |null           =null;    //{get;}                       
         private name        :string             |null           =null;    //{get;}
         private exp         :number             |null           =null;    //{get;}
         private hp          :number             |null           =null;    //{get;}
@@ -27,6 +27,25 @@ export default class Avatar extends Database<IAvatarDB>{
         private activeMission    :   any;  //  Mission;    //{get;}           
         private magic            :   Magic; //  Magic;      //{get;}     
 
+        private hat     : Item;  //get; set;
+        private shirt   : Item;  //get; set;
+        private pants   : Item;  //get; set;
+        private shoes   : Item;  //get; set;
+        private weapon  : Item;  //get; set;
+
+
+        public GetHat      = ():Item => this.hat    ;      
+        public GetShirt    = ():Item => this.shirt  ;        
+        public GetPants    = ():Item => this.pants  ;        
+        public GetShoes    = ():Item => this.shoes  ;        
+        public GetWeapon   = ():Item => this.weapon ;       
+        public SetHat      = (value:Item) => this.hat    = value;      
+        public SetShirt    = (value:Item) => this.shirt  = value;        
+        public SetPants    = (value:Item) => this.pants  = value;        
+        public SetShoes    = (value:Item) => this.shoes  = value;        
+        public SetWeapon   = (value:Item) => this.weapon = value;       
+
+
         public GetId            = ():number           => this.id           ;
         public GetName          = ():string           => this.name         ;
         public GetExp           = ():number           => this.exp          ;
@@ -43,8 +62,10 @@ export default class Avatar extends Database<IAvatarDB>{
         public GetMagic         = ():Magic            => this.magic        ;
         public GetGender        = ()                  => this.gender       ;
         public GetmainPage      = ():AllMainPagesType => this.mainPage     ;
-        public GetsubPage       = ():AllSubPagesType  => this.subPage      ;
+        public GetSubPage       = ():AllSubPagesType  => this.subPage      ;
         public GetItems         = ():Item[]           => this.items        ;
+
+
 
 
         public constructor(avatarObj:IAvatarDB,user?:User){
@@ -53,13 +74,29 @@ export default class Avatar extends Database<IAvatarDB>{
                 this[key] = avatarObj[key];
             if(user)
                 this.user = user;
-            this.items = this.getAllItems();
+            this.getAllItems();
+            this.getAllActiveItems();
         }
 
-        private getAllItems():Item[]{
-            let items : Item[] = [];
-            items = Item.GetItemsByAvatarSync(this)
-            return items;
+        private getAllItems():void{
+            let items:Item[] = [];
+            items      = Item.GetItemsByAvatarSync(this)
+            this.items = items;
+        }
+
+        private getAllActiveItems():void{
+            this.items.forEach(item=>{
+                if(item.GetCategoryItem()=="hat" && item.IsActive()) 
+                    this.hat = item;
+                else if(item.GetCategoryItem()=="pants" && item.IsActive()) 
+                    this.pants = item;
+                else if(item.GetCategoryItem()=="shirt" && item.IsActive()) 
+                    this.shirt = item;
+                else if(item.GetCategoryItem()=="shoes" && item.IsActive()) 
+                    this.shoes = item;
+                else if(item.GetCategoryItem()=="weapon" && item.IsActive()) 
+                    this.weapon = item;
+            });
         }
 
         public EnterToActiveAvatar(){
@@ -93,8 +130,14 @@ export default class Avatar extends Database<IAvatarDB>{
                     gender      :this.gender,
                     mainPage    :this.mainPage,
                     subPage     :this.subPage,
+                    hat         :this.hat?      this.hat.GetModelClient():null,
+                    shirt       :this.shirt?    this.shirt.GetModelClient():null,
+                    pants       :this.pants?    this.pants.GetModelClient():null,
+                    shoes       :this.shoes?    this.shoes.GetModelClient():null,
+                    weapon      :this.weapon?   this.weapon.GetModelClient():null,
                 }
             );
+            console.log(this.name , this.items)
             return result;
         }
 

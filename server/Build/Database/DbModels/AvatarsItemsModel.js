@@ -1,9 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var AvatarsItemsModel = /** @class */ (function () {
-    function AvatarsItemsModel() {
-    }
-    return AvatarsItemsModel;
-}());
+class AvatarsItemsModel {
+}
 exports.default = AvatarsItemsModel;
 //# sourceMappingURL=AvatarsItemsModel.js.map

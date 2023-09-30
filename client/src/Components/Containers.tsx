@@ -45,6 +45,7 @@ export const Flex       = memo( (props:IGlobalProps) => <Div Flex               
 export const Copyright  = memo( (props:IGlobalProps) => <Div Flex XYcenter         {...props}> {props.value ||"כל הזכויות שמורות"} </Div>  )    
 export const Menu       = memo( (props:IMenuProps  ) => <Flex spaceAround XYcenter {...props}> {props.children}</Flex>)
 export const Choice     = memo( (props:IChiceProps ) => <Button  width={"100px"} height={"70%"} styleOverrid={props.selected?props.onSelectedStyle:null} {...props}>{props.value}</Button>)
+export const Logo       = memo( (props:IGlobalProps) => <Img {...props} />)
 
 
 

@@ -1,5 +1,23 @@
+
+const _ItemClient = require("./ModelsClient/ItemClient");
+
+
 interface IAction<T=any>{
     payload : T
+}
+
+interface IAvatarCreate{
+    name    : string;
+    gender : "boy"|"girl";
+    hat    : typeof _ItemClient;
+    shirt  : typeof _ItemClient;
+    shoes  : typeof _ItemClient;
+    pants  : typeof _ItemClient;
+    weapon : typeof _ItemClient;
+}
+interface IAvatarCreateMsgs{
+    name? :string;
+    gender? :string;
 }
 
 interface IRegister{
@@ -130,10 +148,11 @@ interface IItemsDB{
     color?            :string;
     upgrade?          :IUpgradeItem;
     stats?            :IStats;
+    gender?            :"boy"|"girl"|"all";
     rank?             :number;
     minAvatarRank?    :number;
-    categoryItemID?   :string| ICategoryItems;
-    magicName?          :string; 
+    categoryItemName?   :string| CategoryItemsType;
+    magicName?          :MagicNameType; 
     maxUpgrade?       :number; 
 }
 

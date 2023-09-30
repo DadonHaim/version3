@@ -140,26 +140,27 @@ Insert into items
     "stats"           ,
     "maxUpgrade"      ,
     "magicName"       ,
-    "categoryItemName"
+    "categoryItemName",
+    "startItem" 
 )
 Values
-(1,'hat1','girl',0,'{}','{}','{}',1,'{}',3,'all','hat'),
-(2,'hat2','girl',0,'{}','{}','{}',1,'{}',3,'all','hat'),
-(3,'pants1','girl',0,'{}','{}','{}',1,'{}',3,'all','pants'),
-(4,'pants2','girl',0,'{}','{}','{}',1,'{}',3,'all','pants'),
-(5,'pants3','girl',0,'{}','{}','{}',1,'{}',3,'all','pants'),
-(6,'pants4','girl',0,'{}','{}','{}',1,'{}',3,'all','pants'),
-(7,'shirt1','girl',0,'{}','{}','{}',1,'{}',3,'all','shirt'),
-(8,'shirt2','girl',0,'{}','{}','{}',1,'{}',3,'all','shirt'),
-(9,'shirt3','girl',0,'{}','{}','{}',1,'{}',3,'all','shirt'),
-(10,'shirt4','girl',0,'{}','{}','{}',1,'{}',3,'all','shirt'),
-(11,'shirt5','girl',0,'{}','{}','{}',1,'{}',3,'all','shirt'),
-(12,'shirt6','girl',0,'{}','{}','{}',1,'{}',3,'all','shirt'),
-(13,'shirt7','girl',0,'{}','{}','{}',1,'{}',3,'all','shirt'),
-(14,'shoes1','girl',0,'{}','{}','{}',1,'{}',3,'all','shoes'),
-(15,'shoes2','girl',0,'{}','{}','{}',1,'{}',3,'all','shoes'),
-(16,'shoes3','girl',0,'{}','{}','{}',1,'{}',3,'all','shoes'),
-(17,'shoes4','girl',0,'{}','{}','{}',1,'{}',3,'all','shoes')
+(1,'hat1','girl',0,'{}','{}','{}',1,'{}',3,'all','hat',1),
+(2,'hat2','girl',0,'{}','{}','{}',1,'{}',3,'all','hat',1),
+(3,'pants1','girl',0,'{}','{}','{}',1,'{}',3,'all','pants',1),
+(4,'pants2','girl',0,'{}','{}','{}',1,'{}',3,'all','pants',1),
+(5,'pants3','girl',0,'{}','{}','{}',1,'{}',3,'all','pants',1),
+(6,'pants4','girl',0,'{}','{}','{}',1,'{}',3,'all','pants',1),
+(7,'shirt1','girl',0,'{}','{}','{}',1,'{}',3,'all','shirt',1),
+(8,'shirt2','girl',0,'{}','{}','{}',1,'{}',3,'all','shirt',1),
+(9,'shirt3','girl',0,'{}','{}','{}',1,'{}',3,'all','shirt',1),
+(10,'shirt4','girl',0,'{}','{}','{}',1,'{}',3,'all','shirt',1),
+(11,'shirt5','girl',0,'{}','{}','{}',1,'{}',3,'all','shirt',1),
+(12,'shirt6','girl',0,'{}','{}','{}',1,'{}',3,'all','shirt',1),
+(13,'shirt7','girl',0,'{}','{}','{}',1,'{}',3,'all','shirt',1),
+(14,'shoes1','girl',0,'{}','{}','{}',1,'{}',3,'all','shoes',1),
+(15,'shoes2','girl',0,'{}','{}','{}',1,'{}',3,'all','shoes',1),
+(16,'shoes3','girl',0,'{}','{}','{}',1,'{}',3,'all','shoes',1),
+(17,'shoes4','girl',0,'{}','{}','{}',1,'{}',3,'all','shoes',1)
 
 
 
@@ -194,12 +195,12 @@ Values
 
 --------------------------
 
--- Insert into avatars_items
--- (
---     "avatarID"
---     "itemID"  
---     "rank"    
---     "active"  
--- )
--- Values
--- (1,1)
+Insert into avatars_items
+(
+    "avatarID",
+    "itemID"  ,
+    "rank"    ,
+    "isActive"  
+)
+Values
+(4,7,1,1)

@@ -1,16 +1,15 @@
-import {Avatar,Grid,Name, memo, useSelector ,Cloth, AvatarClient} from "../../../importAll";
+import {Avatar,Grid,Name, memo, useSelector ,Cloth, AvatarClient, useEffectV2, myStore} from "../../../importAll";
 import { GetGirlImg } from "../../../Images/Images";
-
-
-const girl  = GetGirlImg('girlAvatar')
-const shirt = GetGirlImg('shirt/shirt4')
-const shoes = GetGirlImg('/shoes1')
-const pants = GetGirlImg('/pants1')
-
 
 
 const AvatarView = memo((props:IAvatarViewProps)=>{
     let settings   = useSelector<IStore,ISettings>(store=>store.settings)
+
+    const girl  = GetGirlImg('girlAvatar')
+    // const hat   = GetGirlImg(`props.avatar.`)
+    const shirt = GetGirlImg(`shirt/${props.avatar.shirt?.name}`)
+    const shoes = GetGirlImg(`shoes/${props.avatar.shoes?.name}`)
+    const pants = GetGirlImg(`pants/${props.avatar.pants?.name}`)
 
     const AVATAR_VIEW_GRID      = settings.AVATAR_VIEW_GRID;
     const AVATAR_BODY_POSITION  = props.avatar.gender=="girl"? settings.GIRL_AVATAR_BODY_POSITION   : settings.BOY_AVATAR_BODY_POSITION ;
