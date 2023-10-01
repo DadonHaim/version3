@@ -1,6 +1,13 @@
+//Server//Client
+//<Client>
 import {ResultValid,RegisterSettings} from "../../importAll";
+//</Client>
 
-export default function RegisterValidation(obj:IRegister ,For:"server"|"client" ="client"){
+//<Server>
+import {ResultValid,RegisterSettings,Database} from "../../importAll";
+//</Server>
+
+export default function RegisterValidation(obj:IRegister){
     let valid = true;
     let message :IRegisterMsgs={
         username  : '',
@@ -31,28 +38,27 @@ export default function RegisterValidation(obj:IRegister ,For:"server"|"client" 
         }
     }
 
-    let Database :any;
-    try{
-        Database = new Database();
-    }
-    catch{
-        Database = null;
-    }
-    if(For="server" && Database){
-        new Database().QuerySync(`Select username,email from users where username = '${obj.username}'or email='${obj.email}'`)
-        .ValidDB((data:any)=>{
-            if(data[0].username == obj.username){
-                message.username = "שם המשתמש כבר קיים"
-                message.status="no-valid";
-                valid=false;
-            }
-            if(data[0].email == obj.email){
-                message.email = "אימייל כבר קיים";
-                message.status="no-valid";
-                valid=false;
-            }
-        })
-    }
+   
+   
+   
+   
+   
+   
+   //<Server>
+    new Database().QuerySync(`Select username,email from users where username = '${obj.username}'or email='${obj.email}'`)
+    .ValidDB((data:any)=>{
+        if(data[0].username == obj.username){
+            message.username = "שם המשתמש כבר קיים"
+            message.status="no-valid";
+            valid=false;
+        }
+        if(data[0].email == obj.email){
+            message.email = "אימייל כבר קיים";
+            message.status="no-valid";
+            valid=false;
+        }
+    })
+    //</Server>
 
     
     return new ResultValid<IRegisterMsgs>(message,valid);

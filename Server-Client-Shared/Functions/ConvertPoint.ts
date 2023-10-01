@@ -1,3 +1,4 @@
+//Server//Client
 export default function ConvertPoint(str?:string):number[]{
     if(!str) return [0,0]
     let arr = str.split(',')

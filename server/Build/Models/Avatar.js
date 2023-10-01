@@ -111,7 +111,6 @@ class Avatar extends importAll_1.Database {
             shoes: this.shoes ? this.shoes.GetModelClient() : null,
             weapon: this.weapon ? this.weapon.GetModelClient() : null,
         });
-        console.log(this.name, this.items);
         return result;
     }
     static GetAvatarsByUser(user) {

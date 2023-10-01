@@ -2,8 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class AvatarClient {
     constructor(obj) {
-        for (let key in obj)
-            this[key] = obj[key];
+        if (obj)
+            for (let key in obj)
+                this[key] = obj[key];
     }
 }
 exports.default = AvatarClient;

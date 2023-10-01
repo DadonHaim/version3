@@ -1,5 +1,9 @@
+import "../../Store/IStore"
+import "../../Server-Client-Shared/AllInterfaces"
+import "../../Server-Client-Shared/AllTypes"
+
 import { Register_Me } from "../../Socket/UserSocket";
-import { RegisterValidation, Main, Component, useRefV2, useSelector, useState, useStore } from "../../importAll";
+import {React, RegisterValidation, Main, Component, useRefV2, useSelector, useState, useStore } from "../../importAll";
 
 const GuestRegister = new Component(()=>{
     console.log("Guest-Register")
@@ -11,7 +15,7 @@ const GuestRegister = new Component(()=>{
 
     function submit(){
         let send = {username:uRef.current.value,   password:pRef.current.value,    email:eRef.current.value,   firstName:fRef.current.value,   lastName:lRef.current.value} as IRegister;
-        RegisterValidation(send,"client")
+        RegisterValidation(send)
             .Valid(()=>Register_Me(store,send,setValidationMsgs))
             .NoValid(msgs=>setValidationMsgs(msgs))
     }

@@ -19,8 +19,9 @@ const reducers = {
         if(action.payload == "Guest")
             state.subPage  = "Guest-Home"
     },
-    setSubPage  : (state:IStore , action:IAction<AllSubPagesType>)   => {state.subPage  = action.payload},
+    setSubPage            : (state:IStore , action:IAction<AllSubPagesType>)=> {state.subPage  = action.payload},
     setActiveAvatar       : (state:IStore , action:IAction<AvatarClient>)   => {state.activeAvatar                = action.payload},
+    setCreateAvatar       : (state:IStore , action:IAction<AvatarClient>)   => {state.createAvatar                = action.payload},
     setAllAvatars         : (state:IStore , action:IAction<AvatarClient[]>) => {state.allAvatars                  = action.payload},
     setAvatarName         : (state:IStore , action:IAction<string>)         => {state.activeAvatar.name           = action.payload},
     setAvatarExp          : (state:IStore , action:IAction<number>)         => {state.activeAvatar.exp            = action.payload},
@@ -35,7 +36,7 @@ const reducers = {
     setMusic              : (state:IStore , action:IAction<boolean>)        => {state.music                       = action.payload},
     setSound              : (state:IStore , action:IAction<boolean>)        => {state.sound                       = action.payload},
 
-    setAllSettings        : (state:IStore , action:IAction<IClientSettings & IGlobalSettings>)       => { for(let key in action.payload) state.settings[key] = action.payload[key]},
+    setAllSettings        : (state:IStore , action:IAction<ISettings>)      => { for(let key in action.payload) state.settings[key] = action.payload[key]},
 }
 
 export default reducers

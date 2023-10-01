@@ -1,4 +1,4 @@
-
+//Server//Client
 const _ItemClient = require("./ModelsClient/ItemClient");
 
 
@@ -87,14 +87,17 @@ interface IClientSettings{  //exist in Server-Client-Shared
     GUEST_COPYRIGHT_POSITION   ?:string;                         
     AVATAR_VIEW_GRID           ?:string;                         
     GIRL_AVATAR_BODY_POSITION  ?:string;                        
+    GIRL_HAT_POSITION          ?:string;                      
     GIRL_SHIRT_POSITION        ?:string;                      
     GIRL_SHOES_POSITION        ?:string;                      
     GIRL_PANTS_POSITION        ?:string;                      
     BOY_AVATAR_BODY_POSITION   ?:string;                         
+    BOY_HAT_POSITION           ?:string;                       
     BOY_SHIRT_POSITION         ?:string;                       
     BOY_SHOES_POSITION         ?:string;                       
     BOY_PANTS_POSITION         ?:string;                            
 }
+
 
 
 interface IAvatarDB{
@@ -148,10 +151,11 @@ interface IItemsDB{
     color?            :string;
     upgrade?          :IUpgradeItem;
     stats?            :IStats;
+    gender?           :"boy" | "girl";
     rank?             :number;
     minAvatarRank?    :number;
-    categoryItemID?   :string| ICategoryItems;
-    magicName?          :string; 
+    categoryItemName?   :string| ICategoryItems;
+    magicName?          :MagicNameType; 
     maxUpgrade?       :number; 
 }
 

@@ -137,7 +137,6 @@ export default class Avatar extends Database<IAvatarDB>{
                     weapon      :this.weapon?   this.weapon.GetModelClient():null,
                 }
             );
-            console.log(this.name , this.items)
             return result;
         }
 

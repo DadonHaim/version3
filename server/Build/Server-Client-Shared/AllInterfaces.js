@@ -1,3 +1,4 @@
+//Server
 const _ItemClient = require("./ModelsClient/ItemClient");
 /*
 export default class MonsterRankPower{

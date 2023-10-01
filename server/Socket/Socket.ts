@@ -18,28 +18,29 @@ export  class SocketVer2{
         this.socket = socket
         this.user = new User();
     }
-    public On<R=any>(
-        id:client,
-        obj : middleware,
-        call?:(data?:R)=>void
-    ){
-        let Continue = true;
-        for(let key in obj)
-            if(!obj[key](this)){
-                Continue = false;
-                break;
-            }
-        if(Continue)
-            this.socket.on(id, (data)=>{
-                DebugSocket("client:\t "+id);          
-                call(data);
+
+
+
+    public On<R=any>(id:client,arr :Array<(x:any)=>boolean>, call?:(data?:R)=>void){     
+        this.socket.on(id, (data)=>{
+                let Continue = arr.every((v,i)=>{return arr[i](this)})
+                DebugSocket("client:\t "+id);    
+                if(Continue)      
+                    call(data);
             }) 
     }
-
+ 
     
+
+
+
+
+
+
+
     public on<R=any>(id:client,call?:(data?:R)=>void){
         this.socket.on(id, (data)=>{
-            DebugSocket("client:\t "+id);
+            DebugSocket("client:\t "+id);   
             call(data);
         }) 
     }
@@ -56,7 +57,4 @@ export  class SocketVer2{
     }
 }   
 
-interface middleware{
-    [key: string]:(soc:SocketVer2)=>boolean;
-
-}
+type  middleware =boolean;

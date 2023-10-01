@@ -1,3 +1,4 @@
+//Server//Client
 import ItemClient from "./ItemClient";
 
 export default class AvatarClient{
@@ -23,9 +24,11 @@ export default class AvatarClient{
     public shoes        ?: ItemClient; 
     public weapon       ?: ItemClient;
 
-    constructor(obj:AvatarClient){                                                                                                                                                                                                                                                    
-        for(let key in obj)
-            this[key] = obj[key]
+    constructor(obj?:AvatarClient){               
+        if(obj)                                                                                                                                                                                                                                     
+            for(let key in obj)
+                this[key] = obj[key]
+        
     }
 
 }

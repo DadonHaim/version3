@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegisterSettings = exports.LoginSettings = void 0;
+//Server
 const importAll_1 = require("../../importAll");
 function LoginValidation(obj) {
     let valid = true;

@@ -22,7 +22,7 @@ function GetLogo(name:string , ending:string="png",image :any= ""){
 }
 function GetGirlImg(name:string , ending:string="png",image :any= ""){
     try  {image = require(`./Girl/${name}.${ending}`)}
-    catch{console.log("image not found"); image=""}
+    catch{console.log(name+" image not found"); image=""}
     return image;
 }
  function GetBoyImg(name:string , ending:string="png",image :any= ""){

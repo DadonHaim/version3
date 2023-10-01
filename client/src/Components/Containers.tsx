@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { GlobalStyle, memo ,React, useStore} from "../importAll"
 
 
@@ -8,7 +9,7 @@ export const Div  = memo((props:IGlobalProps)=>{
             <div 
                 className={props.className} 
                 style={GlobalStyle(props)} 
-                key = {props.key}
+                key = {props.myKey}
                 onClick={props.onClick}
             >
                 {props.children}
@@ -46,7 +47,21 @@ export const Copyright  = memo( (props:IGlobalProps) => <Div Flex XYcenter      
 export const Menu       = memo( (props:IMenuProps  ) => <Flex spaceAround XYcenter {...props}> {props.children}</Flex>)
 export const Choice     = memo( (props:IChiceProps ) => <Button  width={"100px"} height={"70%"} styleOverrid={props.selected?props.onSelectedStyle:null} {...props}>{props.value}</Button>)
 export const Logo       = memo( (props:IGlobalProps) => <Img {...props} />)
+export const Cloth      = memo((props:IClothsProps)  => <Img bgImg={props.src} {...props}/>)
+export const Avatar     = memo((props:IClothsProps)  => <Div {...props}><Img bgImg={props.src}/></Div>)
 
+
+export const Input  = memo( (props:IInputProps) =>{
+    let refInput = useRef<any>();
+
+
+    return(
+        <Flex {...props}>
+            <Lable height="max-content">{props.value}</Lable>
+            <input style={{height: "max-content"}} type={props.type} name={props.name} ref={refInput} />
+        </Flex>
+    )
+})
 
 
 interface IButtonProps extends IGlobalProps{
@@ -62,5 +77,12 @@ interface IChiceProps extends IButtonProps{
     selected? : boolean;
 }
 
+interface IClothsProps extends IGlobalProps{
+    src:any
+}
 
-
+interface IInputProps extends IGlobalProps{
+    type:string;
+    name:string;
+    ref:any;
+}

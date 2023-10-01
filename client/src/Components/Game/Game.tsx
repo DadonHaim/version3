@@ -1,5 +1,5 @@
-import {useSelector, Avatar_Give_Me_List,GameCreateAvatar ,GameSelectAvatar, useStore, useState, useEffectV2, Container, Component} from "./../../importAll";
-import MusicEffect from "./comps/MusicEffect";
+
+import {useSelector, Avatar_Give_Me_List,MusicEffect , useStore, useEffectV2, Container, Component,PageCreateAvatar,PageSelectAvatar} from "./../../importAll";
 
 
 const Game = new Component(()=>{
@@ -14,8 +14,8 @@ const Game = new Component(()=>{
    
     return( 
         <Container grid={settings.CONTAINER_APP_GRID} width="110vh" height="90vh" margin="10px auto" border> 
-            <GameSelectAvatar/>
-            <GameCreateAvatar/>
+            <PageSelectAvatar/>
+            <PageCreateAvatar/>
             <MusicEffect/>
         </Container>
     )

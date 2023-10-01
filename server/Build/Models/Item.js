@@ -203,6 +203,43 @@ class Item extends importAll_1.Database {
         });
         return items;
     }
+    static GetStartItems() {
+        let items = [];
+        new importAll_1.Database().SelectSync({
+            Fields: ["id", "name", "description", "freeze", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade", "magicName"],
+            from: "items",
+            where: `startItem = 1`
+        })
+            .ValidDB(data => {
+            data.forEach(i => items.push(new Item(i)));
+        });
+        return items;
+    }
+    static GetStartItemsClient() {
+        let items = [];
+        new importAll_1.Database().SelectSync({
+            Fields: ["id", "name", "description", "gender", "price", "stats", "sale", "upgrade", "categoryItemName", "minAvatarRank", "maxUpgrade", "magicName"],
+            from: "items",
+            where: `startItem = 1`
+        })
+            .ValidDB(data => {
+            data.forEach(i => items.push(new importAll_1.ItemClient({
+                id: i.id,
+                name: i.name,
+                description: i.description,
+                price: i.price,
+                sale: i.sale,
+                stats: i.stats,
+                upgrade: i.upgrade,
+                categoryItem: i.categoryItemName,
+                rank: 0,
+                maxUpgrade: 1,
+                gender: i.gender,
+                magic: i.magicName,
+            })));
+        });
+        return items;
+    }
 }
 exports.default = Item;
 //# sourceMappingURL=Item.js.map

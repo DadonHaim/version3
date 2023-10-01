@@ -1,3 +1,4 @@
+//Server//Client
 export default class ResultValid<R=any>{
     public messages: any |any[];
     public valid:boolean;

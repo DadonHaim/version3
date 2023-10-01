@@ -13,7 +13,7 @@ interface IStore{
 
     //active Avatar:
     activeAvatar:typeof AvatarClient;
-
+    createAvatar:typeof AvatarClient;
     //navigate
     mainPage        : AllMainPagesType;
     subPage         : AllSubPagesType;

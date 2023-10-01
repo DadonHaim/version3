@@ -1,1 +1,1 @@
-{"version":3,"file":"UserClient.js","sourceRoot":"","sources":["../../../Server-Client-Shared/ModelsClient/UserClient.ts"],"names":[],"mappings":";;AAAA,MAAqB,UAAU;CAY9B;AAZD,6BAYC"}
+{"version":3,"file":"UserClient.js","sourceRoot":"","sources":["../../../Server-Client-Shared/ModelsClient/UserClient.ts"],"names":[],"mappings":";;AAAA,QAAQ;AACR,MAAqB,UAAU;CAuB9B;AAvBD,6BAuBC"}

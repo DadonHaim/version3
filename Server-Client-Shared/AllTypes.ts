@@ -1,3 +1,4 @@
+//Server//Client
 type MagicNameType = "fire"|"water"|"nature"|"all";
 type CategoryItemsType = "hat"|"shirt"|"pants"|"shoes"|"weapon";
 
@@ -24,7 +25,8 @@ type client =
     "Avatar: Give-Me-Active-Avatar" | 
     "Avatar: Set-Active-Avatar" | 
     "Avatar: Create" |
-    "Avatar: Give-Me-start-Items" 
+    "Avatar: Give-Me-start-Items" |
+    "Avatar: Limit?" 
 ;
 
 type server = 
@@ -53,7 +55,7 @@ type server =
     "Avatar: Created"|
     "Avatar: No-Created"|
     "Avatar: Get-Start-Items"|
-    ""|
-    ""|
+    "Avatar: Limit-Over"|
+    "Avatar: Sub-Limit"|
     ""
 ; 

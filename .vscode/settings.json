@@ -8,7 +8,24 @@
         ".vscode",
         "client/node_modules",
         "client/.vscode",
-        "importAll.ts"
+        "importAll.ts",
+        "Server-Client-Sharedd",
+        "DB.sql",
+        "DB2.sql",
+        "TempServer",
+        "TempClient",
+        "client/package-lock.json",
+        "client/tsconfig.json",
+        "client/public",
+        "client/src/.vscode",
+        "client/src/Server-Client-Shared",
+        "server/.vscode",
+        "server/Build",
+        "server/Server-Client-Shared",
+        "server/node_modules",
+        "server/package-lock.json",
+        "Temp",
+        "tsconfig.json"
     ],
     "files.exclude": {
         "**/.git": true,
@@ -25,6 +42,24 @@
         ".vscode": true,
         "client/node_modules": true,
         "client/.vscode": true,
-        "importAll.ts": true
-    }
+        "importAll.ts": true,
+        "Server-Client-Sharedd": true,
+        "DB.sql": true,
+        "DB2.sql": true,
+        "TempServer": true,
+        "TempClient": true,
+        "client/package-lock.json": true,
+        "client/tsconfig.json": true,
+        "client/public": true,
+        "client/src/.vscode": true,
+        "client/src/Server-Client-Shared": true,
+        "server/.vscode": true,
+        "server/Build": true,
+        "server/Server-Client-Shared": true,
+        "server/node_modules": true,
+        "server/package-lock.json": true,
+        "Temp": true,
+        "tsconfig.json": true
+    },
+    "workbench.colorCustomizations": {}
 }

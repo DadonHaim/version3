@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const MustLoginSocket_1 = __importDefault(require("../MiddleWares/MustLoginSocket"));
+const importAll_1 = require("./../importAll");
 const LimitAvatarsSocket_1 = __importDefault(require("../MiddleWares/LimitAvatarsSocket"));
 function AvatarSocket(socket) {
     //send all user avatars:
@@ -20,7 +21,14 @@ function AvatarSocket(socket) {
         else
             socket.emit("Avatar: Not-Found");
     });
-    socket.On("Avatar: Create", { MustLogin: MustLoginSocket_1.default, LimitAvatars: LimitAvatarsSocket_1.default }, () => {
+    socket.on("Avatar: Limit?", () => {
+        if (socket.user.canCreteNewAvatar())
+            socket.emit("Avatar: Sub-Limit");
+        else
+            socket.emit("Avatar: Limit-Over");
+    });
+    socket.On("Avatar: Give-Me-start-Items", [MustLoginSocket_1.default, LimitAvatarsSocket_1.default], () => {
+        socket.emit("Avatar: Get-Start-Items", importAll_1.Item.GetStartItemsClient());
     });
 }
 exports.default = AvatarSocket;

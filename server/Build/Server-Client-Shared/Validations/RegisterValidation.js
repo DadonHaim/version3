@@ -1,7 +1,11 @@
 "use strict";
+//Server
+/* - for Client
+import {ResultValid,RegisterSettings} from "../../importAll";
+*/
 Object.defineProperty(exports, "__esModule", { value: true });
 const importAll_1 = require("../../importAll");
-function RegisterValidation(obj, For = "client") {
+function RegisterValidation(obj) {
     let valid = true;
     let message = {
         username: '',
@@ -68,28 +72,19 @@ function RegisterValidation(obj, For = "client") {
             }
         }
     }
-    let Database;
-    try {
-        Database = new Database();
-    }
-    catch (_a) {
-        Database = null;
-    }
-    if (For = "server" && Database) {
-        new Database().QuerySync(`Select username,email from users where username = '${obj.username}'or email='${obj.email}'`)
-            .ValidDB((data) => {
-            if (data[0].username == obj.username) {
-                message.username = "שם המשתמש כבר קיים";
-                message.status = "no-valid";
-                valid = false;
-            }
-            if (data[0].email == obj.email) {
-                message.email = "אימייל כבר קיים";
-                message.status = "no-valid";
-                valid = false;
-            }
-        });
-    }
+    new importAll_1.Database().QuerySync(`Select username,email from users where username = '${obj.username}'or email='${obj.email}'`)
+        .ValidDB((data) => {
+        if (data[0].username == obj.username) {
+            message.username = "שם המשתמש כבר קיים";
+            message.status = "no-valid";
+            valid = false;
+        }
+        if (data[0].email == obj.email) {
+            message.email = "אימייל כבר קיים";
+            message.status = "no-valid";
+            valid = false;
+        }
+    });
     return new importAll_1.ResultValid(message, valid);
 }
 exports.default = RegisterValidation;

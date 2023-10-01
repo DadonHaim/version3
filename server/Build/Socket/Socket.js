@@ -16,18 +16,13 @@ class SocketVer2 {
         this.socket = socket;
         this.user = new importAll_1.User();
     }
-    On(id, obj, call) {
-        let Continue = true;
-        for (let key in obj)
-            if (!obj[key](this)) {
-                Continue = false;
-                break;
-            }
-        if (Continue)
-            this.socket.on(id, (data) => {
-                (0, importAll_1.DebugSocket)("client:\t " + id);
+    On(id, arr, call) {
+        this.socket.on(id, (data) => {
+            let Continue = arr.every((v, i) => { return arr[i](this); });
+            (0, importAll_1.DebugSocket)("client:\t " + id);
+            if (Continue)
                 call(data);
-            });
+        });
     }
     on(id, call) {
         this.socket.on(id, (data) => {

@@ -5,7 +5,7 @@ import ReactDOM                            from 'react-dom/client';
 
 
 //global
-import {Container,Div,Flex,Footer,Grid,Header,Aside,Main ,Lable,Icon,Name,Button,Img,Box,Copyright,Choice,Menu,Logo} from "./Components/Containers";
+import {Container,Div,Flex,Footer,Grid,Header,Aside,Main ,Lable,Icon,Name,Button,Img,Box,Copyright,Choice,Menu,Logo,Cloth,Avatar} from "./Components/Containers";
 import GlobalStyle                        from "./Components/GlobalStyle";
 import myStore                            from "./Store/Store"
 import {socket}                           from "./Socket/Socket";
@@ -19,7 +19,7 @@ import ConvertPoint                       from "./Server-Client-Shared/Functions
 import RandomString                       from "./Server-Client-Shared/Functions/RandomString";
 import Debug                              from "./Server-Client-Shared/Dev/Debug";
 import AvatarClient                       from "./Server-Client-Shared/ModelsClient/AvatarClient";
-import ItemClient                       from "./Server-Client-Shared/ModelsClient/ItemClient";
+import ItemClient                         from "./Server-Client-Shared/ModelsClient/ItemClient";
 import ResultValid                        from "./Server-Client-Shared/ResultValid";
 import {LoginSettings,RegisterSettings}   from "./Server-Client-Shared/Validations/LoginValidation"
 
@@ -35,15 +35,15 @@ import Guest                              from "./Components/Guest/Guest"
 
 //components - game
 import Game                               from "./Components/Game/Game";          
-import GameCreateAvatar                   from "./Components/Game/PageGameCreateAvatar";      
-import GameSelectAvatar                   from "./Components/Game/PageGameSelectAvatar";      
-import ControllerAudio                    from "./Components/Game/comps/ControllerAudio";        
-import AvatarView                         from "./Components/Game/comps/AvatarView";
-import AvatarMinView                      from "./Components/Game/comps/AvatarMinView";
-import {Avatar,Cloth,Dress,Shoes,Shirt}   from "./Components/Game/comps/cloths";
-import AvatarCreatorView                  from "./Components/Game/comps/AvatarCreatorView";
-import AvatarSelector                     from "./Components/Game/comps/AvatarSelector";
+import Inventory                          from "./Components/Game/Inventory";          
+import MusicEffect                        from "./Components/Game/MusicEffect";          
+import ControllerAudio                    from "./Components/Game/ControllerAudio";          
+import {AvatarView, AvatarMinView}        from "./Components/Game/AvatarView";
 
+//Game- Page:
+import PageCreateAvatar     from "./Components/Game/pages/Page-Create-Avatar/Page-Create-Avatar";
+import PageSelectAvatar     from "./Components/Game/pages/Page-Select-Avatar/Page-Select-Avatar";
+import AvatarSelector       from "./Components/Game/pages/Page-Select-Avatar/AvatarSelector";
 
 
 //hooks
@@ -55,9 +55,9 @@ import usePermission                      from "./Hooks/usePermission";
 
 
 //sockets:
-import { Get_All_Setting }               from "./Socket/SettingSocket"
-import {Start_With_Token } from "./Socket/UserSocket"
-import {Avatar_Give_Me_List } from "./Socket/AvatarSocket"
+import { Get_All_Setting }                  from "./Socket/SettingSocket"
+import {Start_With_Token }                  from "./Socket/UserSocket"
+import {Avatar_Give_Me_List }               from "./Socket/AvatarSocket"
 
 //img                                     
 const HeaderBackground = require("./Images/Backgrounds/headerGuest.jpg")
@@ -70,23 +70,23 @@ export  {useEffect,useState,memo     }
 export  {Provider                    }                      
 
 //global
-export  {Container,Div,Flex,Footer,Grid,Header,Aside,Main ,Lable,Icon,Name,Button,Img,Box,Copyright,Choice,Menu,Logo}                                                                                                                                
-export  {GlobalStyle                                                                                                }                                           
-export  {myStore                                                                                                    }                                           
-export  {socket                                                                                                     }                               
-export  {Component                                                                                                     }                               
-export  {ItemClient                                                                                                    }                               
+export  {Container,Div,Flex,Footer,Grid,Header,Aside,Main ,Lable,Icon,Name,Button,Img,Box,Copyright,Choice,Menu,Logo,Cloth,Avatar}                                                                                                                                
+export  {GlobalStyle  }                                           
+export  {myStore      }                                           
+export  {socket       }                               
+export  {Component    }                               
+export  {ItemClient   }                               
 
 //server-client
-export {LoginValidation                             }                                   
-export {RegisterValidation                          }                                   
-export {UserClient                                  }                                   
-export {ConvertPoint                                }                                   
-export {RandomString                                }                                   
-export {Debug                                       }                                   
-export {AvatarClient                                }                                   
-export {ResultValid                                 }                                   
-export {LoginSettings,RegisterSettings              }                               
+export {LoginValidation                 }                                   
+export {RegisterValidation              }                                   
+export {UserClient                      }                                   
+export {ConvertPoint                    }                                   
+export {RandomString                    }                                   
+export {Debug                           }                                   
+export {AvatarClient                    }                                   
+export {ResultValid                     }                                   
+export {LoginSettings,RegisterSettings  }                               
 
 //components 
 export  {App}
@@ -102,28 +102,28 @@ export  {Guest                    }
 
 
 //components - game
-export  {Game                                            }                               
-export  {GameCreateAvatar                                }                              
-export  {GameSelectAvatar                                }                              
-export  {ControllerAudio                                 }                              
-export  {AvatarView                                      }                              
-export  {AvatarMinView                                   }                              
-export  {AvatarSelector                                  }                              
-export  {AvatarCreatorView                               }                              
-export  {Avatar,Cloth,Dress,Shoes,Shirt                  }                          
+export  {Game               }                               
+export  {ControllerAudio    }                              
+export  {AvatarView         }                              
+export  {AvatarMinView      }                              
+export  {AvatarSelector     }                              
+export  {Inventory          }                          
+export  {MusicEffect        }                          
+export  {PageCreateAvatar   }                          
+export  {PageSelectAvatar   }                          
 
 
 //hooks
-export  {useStore                           }                                            
-export  {useRefV2                           }                                            
-export  {useSelector ,useDispatch           }                                        
-export  {useEffectV2                        }                            
-export  {usePermission                      }                            
+export  {useStore                 }                                            
+export  {useRefV2                 }                                            
+export  {useSelector ,useDispatch }                                        
+export  {useEffectV2              }                            
+export  {usePermission            }                            
     
 //sockets:
-export  {Get_All_Setting                            }                            
-export  {Start_With_Token              }                                        
-export  {Avatar_Give_Me_List            }                                        
+export  {Get_All_Setting       }                            
+export  {Start_With_Token      }                                        
+export  {Avatar_Give_Me_List   }                                        
 
 
 //images

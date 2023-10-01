@@ -1,3 +1,4 @@
+//Server//Client
 export default class ItemClient{
     public id              ?: number             ;       
     public name            ?: string             ;   

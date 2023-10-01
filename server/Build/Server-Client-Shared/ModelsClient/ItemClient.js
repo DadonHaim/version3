@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+//Server
 class ItemClient {
     constructor(obj) {
         if (obj) {

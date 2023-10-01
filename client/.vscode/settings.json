@@ -26,5 +26,6 @@
         "package.json",
         "tsconfig.json",
         "src/.vscode"
-    ]
+    ],
+    "workbench.colorCustomizations": {}
 }

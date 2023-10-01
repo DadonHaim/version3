@@ -1,13 +1,11 @@
 import MustLogin from "../MiddleWares/MustLoginSocket";
 import { Item, ItemClient, SocketVer2, UserClient } from "./../importAll";
 import LimitAvatars from "../MiddleWares/LimitAvatarsSocket";
-import Socket from "./Socket";
 
 export default function AvatarSocket(socket:SocketVer2 ){
     //send all user avatars:
     socket.on("Avatar: Give-Me-List",()=>{
         socket.emit<UserClient[]>("Avatar: Get-List",socket.user.GetAvatarsClient())
-        
     })
 
     socket.on("Avatar: Give-Me-Active-Avatar",()=>{
@@ -23,16 +21,20 @@ export default function AvatarSocket(socket:SocketVer2 ){
     })
 
 
-    socket.On<IAvatarCreate>("Avatar: Create",{MustLogin,LimitAvatars},()=>{
+   socket.on("Avatar: Limit?",()=>{
+        if(socket.user.canCreteNewAvatar())
+            socket.emit("Avatar: Sub-Limit")
+        else
+            socket.emit("Avatar: Limit-Over")
+   })
 
-    })
 
-
-    socket.On<IAvatarCreate>("Avatar: Give-Me-start-Items",{MustLogin},()=>{
+    socket.On("Avatar: Give-Me-start-Items",[MustLogin,LimitAvatars],()=>{
         socket.emit<ItemClient[]>("Avatar: Get-Start-Items" , Item.GetStartItemsClient())
     })
 
     
+
 
 
 

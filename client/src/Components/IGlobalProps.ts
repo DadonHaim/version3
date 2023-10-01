@@ -3,6 +3,7 @@ interface IGlobalProps{
     className   ? : string;
     value       ? : string|any;
     key         ? :any,
+    myKey         ? :any,
 
     Flex? : boolean;
     Div? : boolean;

@@ -3,12 +3,12 @@ import {GetSettings, SocketVer2, User, UserClient} from "./../importAll";
 export default function GuestSocket(socket:SocketVer2){
  
     socket.on("Start: Give-Me-Settings",()=>{
-        socket.emit<IClientSettings&IGlobalSettings>("Start: Get-All-Settings",{...GetSettings().client,...GetSettings().global})
+        socket.emit<ISettings>("Start: Get-All-Settings",{...GetSettings().client,...GetSettings().global})
     })
 
      //Token 
      socket.on<string>("Start: With-Token",(token)=>{
-        socket.user = User.GetUserByToken(token); 
+        socket.user = User.GetUserByToken(token);  
         if(socket.user.IsLogin())
             socket.emit<UserClient>("Token-Valid" , socket.user.GetModelClient())
         else

@@ -1,3 +1,4 @@
+//Server//Client
 import {ResultValid} from "../../importAll";
 
 export default  function LoginValidation(obj:ILogin) : ResultValid{

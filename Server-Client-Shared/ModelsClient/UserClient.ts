@@ -1,3 +1,4 @@
+//Server//Client
 export default class UserClient{
     public id?           :number;   
     public username?     :string;   
@@ -8,7 +9,7 @@ export default class UserClient{
     public registerDate? :string;   
     public token?        :string;   
 
-
+    //<Client>
     public static CreateToken(token?:any){
         if(token)
             sessionStorage.setItem("token",token)
@@ -17,7 +18,7 @@ export default class UserClient{
     public static KillToken(){
             sessionStorage.removeItem("token")
     }
-
+    //</Client>
 
 
     
