@@ -1,7 +1,7 @@
 //Server//Client
 import ItemClient from "./ItemClient";
 
-export default class AvatarClient{
+export default class AvatarClient{ 
     public id           ? :number | null;
     public name         ? :string | null;
     public hp           ? :number | null;
@@ -18,11 +18,11 @@ export default class AvatarClient{
     public gender       ? :"boy"|"girl"|"all" |null;
     public mainPage     ? : AllMainPagesType |null;
     public subPage      ? : AllSubPagesType|null;
-    public hat          ?: ItemClient; 
-    public shirt        ?: ItemClient; 
-    public pants        ?: ItemClient; 
-    public shoes        ?: ItemClient; 
-    public weapon       ?: ItemClient;
+    public hat          ?: ItemClient | null; 
+    public shirt        ?: ItemClient | null; 
+    public pants        ?: ItemClient | null; 
+    public shoes        ?: ItemClient | null; 
+    public weapon       ?: ItemClient | null;
 
     constructor(obj?:AvatarClient){               
         if(obj)                                                                                                                                                                                                                                     

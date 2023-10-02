@@ -59,13 +59,13 @@ Values
 
     '100,500',              --"AVATAR_VIEW_GRID",    
     '20,25|90,500',         --"GIRL_AVATAR_BODY_POSITION",  
-    '35,11|65,15'         --GIRL_HAT_POSITION                  
+    '35,11|65,15',         --GIRL_HAT_POSITION                  
     '25,100|90,200',        --"GIRL_SHIRT_POSITION",        
     '20,376|84,505',        --"GIRL_SHOES_POSITION",        
     '30,215|65,300',        --"GIRL_PANTS_POSITION",        
     ''    ,                 --"BOY_AVATAR_BODY_POSITION",   
-    ''    ,                 --"BOY_HAT_POSITION",         
-    ''    ,                 --"BOY_SHIRT_POSITION",         
+    '20,25|90,500',         --"BOY_HAT_POSITION",         
+    '23,108|88,208',        --"BOY_SHIRT_POSITION",         
     ''    ,                 --"BOY_SHOES_POSITION",         
     ''                      --"BOY_PANTS_POSITION"       
 )
@@ -98,7 +98,7 @@ Insert into levels
     "hp"           ,
     "energy"       ,
     "refillEnergy" ,
-    "priceLevenUp"   
+    "prizeLevenUp"   
 
 )
 Values
@@ -164,7 +164,10 @@ Values
 (14,'shoes1','girl',0,'{}','{}','{}',1,'{}',3,'all','shoes',1),
 (15,'shoes2','girl',0,'{}','{}','{}',1,'{}',3,'all','shoes',1),
 (16,'shoes3','girl',0,'{}','{}','{}',1,'{}',3,'all','shoes',1),
-(17,'shoes4','girl',0,'{}','{}','{}',1,'{}',3,'all','shoes',1)
+(17,'shoes4','girl',0,'{}','{}','{}',1,'{}',3,'all','shoes',1),
+(18,'shirt1','boy',0,'{}','{}','{}',1,'{}',3,'all','shoes',1),
+(19,'shirt2','boy',0,'{}','{}','{}',1,'{}',3,'all','shoes',1),
+(20,'shirt3','boy',0,'{}','{}','{}',1,'{}',3,'all','shoes',1)
 
 
 

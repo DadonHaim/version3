@@ -10,14 +10,16 @@ export default  function LoginValidation(obj:ILogin) : ResultValid{
     };
 
     if(!obj.username ){
+        console.log(1)
         message.username = "שם משתמש חסר";
         valid=false
     }
-    else if(!obj.password ){
+    if(!obj.password ){
+        console.log(2) 
         message.password = "סיסמה חסרה";
         valid=false
     }
-    else{
+    if(obj.username && obj.password){
         if(obj.username.length > LoginSettings.username.max) { message.username = "שם המשתמש ארוך מדי" ; valid=false };
         if(obj.username.length < LoginSettings.username.min) { message.username = "שם המשתמש קצר מדי"  ; valid=false };
         if(obj.password.length < LoginSettings.password.min) { message.password = "הסיסמה קצרה מדי"    ; valid=false };

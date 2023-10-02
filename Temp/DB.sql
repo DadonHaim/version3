@@ -90,7 +90,7 @@ CREATE TABLE magics (
 
 CREATE TABLE items (
     "id"                INT  PRIMARY KEY,
-    "name"              VARCHAR(50) NOT NULL UNIQUE,
+    "name"              VARCHAR(50) NOT NULL,
     "description"       NVARCHAR(MAX) DEFAULT 'no description',
     "gender"            VARCHAR(10),                                     
     "freeze"            TINYINT DEFAULT 0,

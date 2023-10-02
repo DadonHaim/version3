@@ -2,17 +2,17 @@ import {Avatar,Grid,Name, memo, useSelector ,Cloth, AvatarClient, Lable, useStat
 
 const Inventory = memo((props: IInventoryProps)=>{
     let {dispatch,actions} = useStore()
-    let settings      = useSelector<IStore,ISettings>(store=>store.settings)
-    let createAvatar   = useSelector<IStore,AvatarClient>(store=>store.createAvatar)
     let [category , setCategory] = useState<"hat"|"shirt"|"shoes"|"pants">("hat")
+    let avatarGender = useSelector<IStore,IGender>(store=>store.createAvatar_gender) 
+    let avatarMagic = useSelector<IStore,MagicNameType>(store=>store.createAvatar_magic) 
 
     function setItem(item:ItemClient){
-        let temp = {...createAvatar}
-        temp[item.categoryItem as string] = item;
-        dispatch(actions.setCreateAvatar(temp))
-        
-       
+       dispatch(actions.set({
+            type:`createAvatar_${category}` as allStoreType ,
+            value:item
+        }))
     }
+
     return(
         <Grid {...props} rows={5} cols={4}> 
             <Lable  border height={50} onClick={()=>setCategory("hat")}>כובעים</Lable>
@@ -22,7 +22,7 @@ const Inventory = memo((props: IInventoryProps)=>{
 
             {
                 props.items.map(item=>{
-                    if(item.categoryItem == category)
+                    if(item.categoryItem == category && (item.gender == avatarGender || item.gender == "all") && (item.magic==avatarMagic || item.magic =="all"))
                     return (
                      <React.Fragment key={RandomString()}>
                         <Div Flex XYcenter border onClick={()=>setItem(item)}>
@@ -30,6 +30,7 @@ const Inventory = memo((props: IInventoryProps)=>{
                         </Div>
                      </React.Fragment>
                     )
+
                 })
             }
         </Grid>
@@ -42,3 +43,10 @@ interface IInventoryProps extends IGlobalProps{
 }
 export default Inventory;
 
+function Abc(str:string):string{
+    return str[0].toUpperCase()+str.substring(1);
+}
+
+function abc(str:string):string{
+    return str[0].toLowerCase()+str.substring(1);
+}

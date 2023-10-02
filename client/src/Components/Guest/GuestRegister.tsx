@@ -1,54 +1,34 @@
-import "../../Store/IStore"
-import "../../Server-Client-Shared/AllInterfaces"
-import "../../Server-Client-Shared/AllTypes"
-
 import { Register_Me } from "../../Socket/UserSocket";
-import {React, RegisterValidation, Main, Component, useRefV2, useSelector, useState, useStore } from "../../importAll";
+import {RegisterValidation, Main, Component, useRefV2, useSelector, useState, useStore, useStateV2 } from "../../importAll";
+import { Button, Input } from "../Containers";
 
-const GuestRegister = new Component(()=>{
-    console.log("Guest-Register")
-    let settings                              = useSelector<IStore,ISettings>(store=>store.settings)
-
-    let [uRef,pRef,eRef,fRef,lRef]            = useRefV2();
-    let [validationMsgs , setValidationMsgs]  = useState<IRegisterMsgs>({username:"" ,password:"",email:'',firstName:'',lastName:'',status:"" });
-    let store                                 = useStore();;
+const GuestRegister = new Component("GuestRegister",()=>{
+    let store                        = useStore();;
+    let settings                     = useSelector<IStore,ISettings>(store=>store.settings)
+    let [uRef,pRef,eRef,fRef,lRef]   = useRefV2();
+    let [validation]                 = useStateV2<IRegisterMsgs>([{username:"" ,password:"",email:'',firstName:'',lastName:'',status:"" }]);
 
     function submit(){
         let send = {username:uRef.current.value,   password:pRef.current.value,    email:eRef.current.value,   firstName:fRef.current.value,   lastName:lRef.current.value} as IRegister;
         RegisterValidation(send)
-            .Valid(()=>Register_Me(store,send,setValidationMsgs))
-            .NoValid(msgs=>setValidationMsgs(msgs))
+            .Valid(()=>Register_Me(store,send,validation.value))
+            .NoValid(msgs=>validation.set(msgs))
     }
 
 
     return (
         <Main position={settings.GUEST_MAIN_POSITION} start="1,11" end="50,41" border>
-            <label>username:</label>
-            <input ref={uRef} name="username" type="text"/>
-            <span className="validation">{validationMsgs.username}</span>
-            <br/>
-            <label>password:</label>
-            <input ref={pRef} name="password" type="password"/>
-            <span className="validation">{validationMsgs.password}</span>
-            <br/>
-            <label>email:</label>
-            <input ref={eRef} name="email" type="text"/>
-            <span className="validation">{validationMsgs.email}</span>
-            <br/>
-            <label>fristName:</label>
-            <input ref={fRef} name="fristNameR" type="text"/>
-            <span className="validation">{validationMsgs.firstName}</span>
-            <br/>
-            <label>lastName:</label>
-            <input ref={lRef} name="lastName" type="text"/>
-            <span className="validation">{validationMsgs.lastName}</span>
-            <br/>
-            <input type="button" onClick={submit} value="Register"/>
-            <br/>
-            <span>{validationMsgs.status}</span>
+            <Input ref={uRef} type="text"     value="username:"     validMgs={validation.value.username}/>
+            <Input ref={pRef} type="password" value="password:"     validMgs={validation.value.password}/>
+            <Input ref={eRef} type="text"     value="email:"        validMgs={validation.value.email}/>
+            <Input ref={fRef} type="text"     value="fristName:"    validMgs={validation.value.firstName}/>
+            <Input ref={lRef} type="text"     value="lastName:"     validMgs={validation.value.lastName}/>
+
+            <Button onClick={submit} value="Register"/>
+            <span>{validation.value.status}</span>
         </Main>
     )
 }) 
 
-export default GuestRegister.Get({Logout:true,subPage:"Guest-Register"});
+export default GuestRegister.GetPage({Logout:true,subPage:"Guest-Register"});
 

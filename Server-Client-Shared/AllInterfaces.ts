@@ -67,15 +67,15 @@ interface ILevenDB{//exist in Server-Client-Shared
     level?           :number;
     startExp?        :number;
     hp?              :number;
-    energy?          :number;
-    energyEnergy?    :number;
-    prizeLevenUp?    :IPrize;   
-}   
+    energy?          :number; 
+    energyEnergy?    :number;  
+    prizeLevenUp?    :IPrize;    
+}    
 interface IGlobalSettings{//exist in Server-Client-Shared
-    gameName        ?:string;          
+    gameName        ?:string;            
     description     ?:string;       
-    enablePvp       ?:boolean;         
-    avatarsPerUser  ?:number;        
+    enablePvp       ?:boolean;           
+    avatarsPerUser  ?:number;         
     maxUpgrade      ?:number;        
 }
 interface IClientSettings{  //exist in Server-Client-Shared

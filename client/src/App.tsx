@@ -1,9 +1,9 @@
 import { Error ,Force_Logout} from "./Socket/ErrorSocket";
-import {useStore,useEffectV2,Guest,Game,Get_All_Setting,Start_With_Token, useState} from "./importAll"
-
+import {useStore,useEffectV2,Guest,Game,Get_All_Setting,Start_With_Token, selector,useState} from "./importAll"
 
 
 const App =()=>{
+    console.log("App")
     let [waiting , setWaiting] = useState(false);
     let store = useStore();
 
@@ -17,7 +17,6 @@ const App =()=>{
 
     if(!waiting) 
         return <>waiting</>
-        
     return(
         <>
             <Guest/>

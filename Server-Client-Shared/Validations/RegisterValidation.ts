@@ -18,9 +18,9 @@ export default function RegisterValidation(obj:IRegister){
     };
 
     if(!obj.username )     { message.username = "שם משתמש חסר" ; valid=false  }
-    else if(!obj.password ){ message.password = "סיסמה חסרה"   ; valid=false  }
-    else if(!obj.email )   { message.email    = "אימיל חסר"    ; valid=false  }
-    else
+    if(!obj.password ){ message.password = "סיסמה חסרה"   ; valid=false  }
+    if(!obj.email )   { message.email    = "אימיל חסר"    ; valid=false  }
+    if(obj.username && obj.password && obj.email)
     {
         if(obj.username.length   >  RegisterSettings.username.max   )  {message.username = "שם המשתמש ארוך מדי" ; valid=false  }
         if(obj.username.length   <  RegisterSettings.username.min   )  {message.username = "שם המשתמש קצר מדי"  ; valid=false  }
@@ -40,7 +40,7 @@ export default function RegisterValidation(obj:IRegister){
 
    
    
-   
+    
    
    
    

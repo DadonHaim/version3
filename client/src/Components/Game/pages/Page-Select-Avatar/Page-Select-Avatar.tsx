@@ -1,6 +1,6 @@
 import {useSelector ,Copyright, Lable, Button, AvatarClient, ControllerAudio,AvatarView, Flex,AvatarSelector,Component, RandomString, React} from "../../../../importAll";
 
-const PageSelectAvatar = new Component((props:any)=>{
+const PageSelectAvatar = new Component("PageSelectAvatar",(props:any)=>{
     let activeAvatar = useSelector<IStore,any>(store=>store.activeAvatar)
     let allAvatars   = useSelector<IStore,AvatarClient[]>(store=>store.allAvatars)
 
@@ -25,4 +25,4 @@ const PageSelectAvatar = new Component((props:any)=>{
         </>
     )
 });
-export default PageSelectAvatar.Get({Login:true,subPage:"Game-SelectAvatar"}) ;
+export default PageSelectAvatar.GetPage({Login:true,subPage:"Game-SelectAvatar"}) ;

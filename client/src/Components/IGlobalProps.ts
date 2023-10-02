@@ -68,4 +68,5 @@ interface IGlobalProps{
     pointer?:boolean;
 
     onClick ? :(event?:React.MouseEvent<HTMLElement>)=>void;
+    onChange ? :(event?:React.ChangeEvent)=>void;
 }

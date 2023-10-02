@@ -7,7 +7,7 @@ export default class ResultValid<R=any>{
         this.valid = isValid;
         this.messages = messages;
     }
-
+ 
     public Valid<T=any>(callback:(data:T)=>void):ResultValid{
         if(this.valid)
             callback(this.messages);

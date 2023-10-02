@@ -1,37 +1,29 @@
 import { Login_Me } from "../../Socket/UserSocket";
-import { LoginValidation, Main, Component, useRefV2, useSelector, useState, useStore } from "../../importAll";
+import { LoginValidation, Main, Component, useRefV2, useSelector, useStateV2, useStore ,Button, Input} from "../../importAll";
 
-const GuestLogin = new Component(()=>{
-    console.log("Guest-Login")
-    let settings                             = useSelector<IStore,ISettings>(store=>store.settings)
-    let [uRef, pRef]                         = useRefV2();
-    let [validationMsgs , setValidationMsgs] = useState<ILoginMsgs>({username:"" ,password:"",status:"" });
-    let store                                = useStore();;
+const GuestLogin = new Component("GuestLogin",()=>{
+    let store             = useStore();;
+    let settings          = useSelector<IStore,ISettings>(store=>store.settings)
+    let [uRef, pRef]      = useRefV2();
+    let [validation]      = useStateV2<ILoginMsgs>([{username:"" ,password:"",status:"" }]);
 
     function submit(){
         let send = {username: uRef.current.value , password:pRef.current.value} as ILogin;
         LoginValidation(send)
-            .Valid(()=> Login_Me(store,send,setValidationMsgs))
-            .NoValid((msgs)=>setValidationMsgs(msgs))
+            .Valid(()=> Login_Me(store,send,validation.value))
+            .NoValid((msgs)=>validation.set(msgs))
     }
     
 
     return(
         <Main position={settings.GUEST_MAIN_POSITION}  start="1,11" end="50,41" border>
-            <label>username:</label>
-            <input ref={uRef} name="username" type="text"/>
-            <span className="validation">{validationMsgs.username}</span>
-            <br/>
-            <label>password:</label>
-            <input ref={pRef} name="password" type="password"/>
-            <span className="validation">{validationMsgs.password}</span>
-            <br/>
-            <input type="button" onClick={submit} value="Login"/>
-            <br/>
-            <span>{validationMsgs.status}</span>
+            <Input type="text"       value="username:" ref={uRef} validMgs={validation.value.username}/>
+            <Input type="password"   value="password:" ref={pRef} validMgs={validation.value.password}/>
+            <Button onClick={submit} value="Login"/>
+            <span>{validation.value.status}</span>
         </Main>
     )
 }) 
 
-export default GuestLogin.Get({Logout:true,subPage:"Guest-Login"});
+export default GuestLogin.GetPage({Logout:true,subPage:"Guest-Login"});
 

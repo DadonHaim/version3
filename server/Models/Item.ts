@@ -13,7 +13,7 @@ export default class Item extends Database<IItemsDB>{
         private rank            : number        |null  = null;   
         private minAvatarRank   : number        |null  = null;       
         private maxUpgrade      : number        |null  = null;       
-        private gender          : string        |null  = null;
+        private gender          : IGender        |null  = null;
     
         private isExist  :boolean = false;
         private isActive :boolean = false;
@@ -253,7 +253,9 @@ export default class Item extends Database<IItemsDB>{
                     categoryItem : i.categoryItemName as CategoryItemsType,
                     rank         : 0,
                     maxUpgrade   : 1,
-                    gender       : i.gender,
+                    gender       : i.gender=="boy"?
+                                        "boy"  :  
+                                                i.gender=="girl"? "girl" :"all",
                     magic        : i.magicName,
                 })))
             })

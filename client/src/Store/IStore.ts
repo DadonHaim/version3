@@ -13,7 +13,17 @@ interface IStore{
 
     //active Avatar:
     activeAvatar:typeof AvatarClient;
-    createAvatar:typeof AvatarClient;
+
+    createAvatar_name    : string;
+    createAvatar_gender  : IGender;
+    createAvatar_magic   : MagicNameType;
+    createAvatar_hat     : any;//typeof ItemClient;
+    createAvatar_shirt   : any;//typeof ItemClient;
+    createAvatar_pants   : any;//typeof ItemClient;
+    createAvatar_shoes   : any;//typeof ItemClient;
+    createAvatar_weapon  : any;//typeof ItemClient;
+
+
     //navigate
     mainPage        : AllMainPagesType;
     subPage         : AllSubPagesType;
@@ -27,3 +37,21 @@ interface IStore{
 
 
 }
+
+
+type allStoreType =
+     "isLogin"|
+     "sound"|
+     "music"|
+     "createAvatar_name  "|
+     "createAvatar_gender"|
+     "createAvatar_magic" |
+     "createAvatar_hat   "|
+     "createAvatar_shirt "|
+     "createAvatar_pants "|
+     "createAvatar_shoes "|
+     "createAvatar_weapon"|
+     "settings"|
+     "subPage"|
+     ""
+;

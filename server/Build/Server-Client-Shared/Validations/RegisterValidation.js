@@ -18,15 +18,15 @@ function RegisterValidation(obj) {
         message.username = "שם משתמש חסר";
         valid = false;
     }
-    else if (!obj.password) {
+    if (!obj.password) {
         message.password = "סיסמה חסרה";
         valid = false;
     }
-    else if (!obj.email) {
+    if (!obj.email) {
         message.email = "אימיל חסר";
         valid = false;
     }
-    else {
+    if (obj.username && obj.password && obj.email) {
         if (obj.username.length > importAll_1.RegisterSettings.username.max) {
             message.username = "שם המשתמש ארוך מדי";
             valid = false;

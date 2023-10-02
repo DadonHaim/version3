@@ -2,7 +2,8 @@
 import {configureStore} from "@reduxjs/toolkit";
 import {createSlice   } from "@reduxjs/toolkit";
 import reducers         from "./redusers";
-import { AvatarClient } from "../importAll";
+import { AvatarClient ,ItemClient} from "../importAll";
+
 const initialState :IStore = {
     isLogin             : false,
     user                : {},
@@ -11,15 +12,17 @@ const initialState :IStore = {
     allAvatars          : [],
 
     activeAvatar :{},
-    createAvatar: {
-        name        : null,
-        gender      : null,
-        hat         : null,
-        shirt       : null,
-        pants       : null,
-        shoes       : null,
-        weapon      : null,
-    },
+
+
+    createAvatar_name    :"",
+    createAvatar_gender  :"boy",
+    createAvatar_magic   :"fire",
+    createAvatar_hat     :{},
+    createAvatar_shirt   :{},
+    createAvatar_pants   :{},
+    createAvatar_shoes   :{},
+    createAvatar_weapon  :{},
+
 
     music : true,
     sound : true, 

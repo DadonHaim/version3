@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "main": "copy.js",
   "scripts": {
-    "1": "cd ./server && npm run watch",
-    "2": "cd ./server && npm run DebugSocket",
-    "3": "cd ./client && npm start",
-    "4": "nodemon ./copy.js",
-    "ServerClient": "nodemon ./copy.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client" : "cd ./client && npm start ",
+    "server" : "cd ./server && npm start",
+    "shared" : "nodemon ./copy"
+  },
+  "nodemonConfig": {
+    "watch": ["./Server-Client-Shared"]
   },
   "repository": {
     "type": "git",

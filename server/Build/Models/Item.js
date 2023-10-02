@@ -234,7 +234,9 @@ class Item extends importAll_1.Database {
                 categoryItem: i.categoryItemName,
                 rank: 0,
                 maxUpgrade: 1,
-                gender: i.gender,
+                gender: i.gender == "boy" ?
+                    "boy" :
+                    i.gender == "girl" ? "girl" : "all",
                 magic: i.magicName,
             })));
         });

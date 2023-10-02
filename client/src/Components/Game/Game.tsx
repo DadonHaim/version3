@@ -2,7 +2,7 @@
 import {useSelector, Avatar_Give_Me_List,MusicEffect , useStore, useEffectV2, Container, Component,PageCreateAvatar,PageSelectAvatar} from "./../../importAll";
 
 
-const Game = new Component(()=>{
+const Game = new Component("Game",()=>{
     console.log("Game")
     let settings   = useSelector<IStore,ISettings>(store=>store.settings)
     let store      = useStore();;
@@ -21,4 +21,4 @@ const Game = new Component(()=>{
     )
 });
 
-export default Game.Get({Login:true,mainPage:"Game"});
+export default Game.GetPage({Login:true,mainPage:"Game"});

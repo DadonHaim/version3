@@ -47,21 +47,17 @@ export const Copyright  = memo( (props:IGlobalProps) => <Div Flex XYcenter      
 export const Menu       = memo( (props:IMenuProps  ) => <Flex spaceAround XYcenter {...props}> {props.children}</Flex>)
 export const Choice     = memo( (props:IChiceProps ) => <Button  width={"100px"} height={"70%"} styleOverrid={props.selected?props.onSelectedStyle:null} {...props}>{props.value}</Button>)
 export const Logo       = memo( (props:IGlobalProps) => <Img {...props} />)
-export const Cloth      = memo((props:IClothsProps)  => <Img bgImg={props.src} {...props}/>)
-export const Avatar     = memo((props:IClothsProps)  => <Div {...props}><Img bgImg={props.src}/></Div>)
 
 
-export const Input  = memo( (props:IInputProps) =>{
-    let refInput = useRef<any>();
-
-
+export const Input  = memo( React.forwardRef( (props:IInputProps,ref:any) =>{
     return(
         <Flex {...props}>
             <Lable height="max-content">{props.value}</Lable>
-            <input style={{height: "max-content"}} type={props.type} name={props.name} ref={refInput} />
+            <input style={{height: "max-content"}} type={props.type} name={props.name} ref={ref} onChange={props.onChange}/>
+            <span>{props.validMgs}</span>
         </Flex>
     )
-})
+}))
 
 
 interface IButtonProps extends IGlobalProps{
@@ -77,12 +73,11 @@ interface IChiceProps extends IButtonProps{
     selected? : boolean;
 }
 
-interface IClothsProps extends IGlobalProps{
-    src:any
-}
+
 
 interface IInputProps extends IGlobalProps{
-    type:string;
-    name:string;
-    ref:any;
+    type?:string;
+    name?:string;
+    ref?:any;
+    validMgs?:any;
 }

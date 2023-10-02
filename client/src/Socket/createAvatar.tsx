@@ -6,7 +6,7 @@ export function Give_Me_Start_Items(set:any){
     socket.emit("Avatar: Give-Me-start-Items");
 
     socket.on<ItemClient[]>("Avatar: Get-Start-Items" ,(items)=>{
-        set({items , render:true});
+        set(items);
     })
 }
 

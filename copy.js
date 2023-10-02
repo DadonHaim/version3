@@ -28,8 +28,8 @@ fs.readdirSync(directoryPath ,{recursive:true}).forEach(fileName=>{
 
 
         const newFileName = `${fileName}`;
-        fs.writeFileSync("Temp/TempClient/"+newFileName ,toClient)
-        fs.writeFileSync("Temp/TempServer/"+newFileName ,toServer)
+        fs.writeFileSync("./Temp/TempClient/"+newFileName ,toClient)
+        fs.writeFileSync("./Temp/TempServer/"+newFileName ,toServer)
     }
 })
 

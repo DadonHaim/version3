@@ -1,6 +1,8 @@
 import { AvatarClient, UserClient } from "../importAll";
-
 const reducers = {
+    set : (state:IStore , action:{payload:{type:allStoreType,value:any}})=>{
+        state[action.payload.type] = action.payload.value ;
+    },
     setIsLogin : (state:IStore , action:IAction<boolean>)=>{
         state.isLogin   = action.payload;
         if(action.payload == true)
@@ -11,7 +13,9 @@ const reducers = {
             UserClient.KillToken();
         }
     },
-    setUser     : (state:IStore , action:IAction<UserClient>)       => {state.user     = action.payload},
+    setUser     : (state:IStore , action:IAction<UserClient>)       => {
+        state.user     = action.payload
+    },
     setMainPage : (state:IStore , action:IAction<AllMainPagesType>) => {
         state.mainPage = action.payload;
         if(action.payload == "Game")
@@ -19,9 +23,16 @@ const reducers = {
         if(action.payload == "Guest")
             state.subPage  = "Guest-Home"
     },
-    setSubPage            : (state:IStore , action:IAction<AllSubPagesType>)=> {state.subPage  = action.payload},
-    setActiveAvatar       : (state:IStore , action:IAction<AvatarClient>)   => {state.activeAvatar                = action.payload},
-    setCreateAvatar       : (state:IStore , action:IAction<AvatarClient>)   => {state.createAvatar                = action.payload},
+    setSubPage            : (state:IStore , action:IAction<AllSubPagesType>)=> {
+        state.subPage  = action.payload
+    },
+    setActiveAvatar       : (state:IStore , action:IAction<AvatarClient>)   => {
+        if(Object.keys(action.payload).length>0)
+            for(let key in action.payload) state.activeAvatar[key] = action.payload[key];
+        else
+            state.activeAvatar = action.payload    
+    },
+
     setAllAvatars         : (state:IStore , action:IAction<AvatarClient[]>) => {state.allAvatars                  = action.payload},
     setAvatarName         : (state:IStore , action:IAction<string>)         => {state.activeAvatar.name           = action.payload},
     setAvatarExp          : (state:IStore , action:IAction<number>)         => {state.activeAvatar.exp            = action.payload},

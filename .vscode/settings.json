@@ -2,7 +2,6 @@
     "hide-files.files": [
         "node_modules",
         ".gitignore",
-        "nodemon.json",
         "package-lock.json",
         "package.json",
         ".vscode",
@@ -25,7 +24,11 @@
         "server/node_modules",
         "server/package-lock.json",
         "Temp",
-        "tsconfig.json"
+        "tsconfig.json",
+        "nodemon.json",
+        "server/package.json",
+        "server/tsconfig.json",
+        "client/package.json"
     ],
     "files.exclude": {
         "**/.git": true,
@@ -36,7 +39,6 @@
         "**/Thumbs.db": true,
         "node_modules": true,
         ".gitignore": true,
-        "nodemon.json": true,
         "package-lock.json": true,
         "package.json": true,
         ".vscode": true,
@@ -59,7 +61,11 @@
         "server/node_modules": true,
         "server/package-lock.json": true,
         "Temp": true,
-        "tsconfig.json": true
+        "tsconfig.json": true,
+        "nodemon.json": true,
+        "server/package.json": true,
+        "server/tsconfig.json": true,
+        "client/package.json": true
     },
     "workbench.colorCustomizations": {}
 }

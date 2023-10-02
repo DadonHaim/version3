@@ -1,4 +1,4 @@
-//Server
+
 export default class ItemClient{
     public id              ?: number             ;       
     public name            ?: string             ;   
@@ -10,16 +10,22 @@ export default class ItemClient{
     public categoryItem    ?: CategoryItemsType  ;
     public rank            ?: number             ;
     public maxUpgrade      ?: number             ;
-    public gender          ?: string             ;
+    public gender          ?: IGender            ;
     public isActive        ?: boolean            ;
     public magic           ?: MagicNameType      ;
+    public image           ?: any                ;
 
-
-    public constructor(obj?:ItemClient){
+    public constructor(obj?:ItemClient){ 
         if(obj){
             for(let key in obj)
                 this[key] = obj[key];
         }
+        else{
+            this.name = "nul";
+            this.gender ="boy"
+        }
+        this.image = `./items/${this.gender}/${this.categoryItem||""}/${this.name}`;
     }
+
 
 }   

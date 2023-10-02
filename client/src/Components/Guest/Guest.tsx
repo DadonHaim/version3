@@ -1,12 +1,12 @@
-import {Choice,Container,Copyright,Name,Footer,GuestRegister,GuestHome,GuestLogin,Header,HeaderBackground,Menu,FooterBackground,useSelector, Component, Main} from "../../importAll";
+import {Choice,Container,Copyright,Name,Footer,GuestRegister,GuestHome,GuestLogin,Header,HeaderBackground,Menu,FooterBackground,selector, Component, Main} from "../../importAll";
 const selectStyle:React.CSSProperties ={backgroundColor:"yellow"}
 
-let _Guest = new Component(()=>{
-    console.log("Guest-Component")
-    let settings   = useSelector<IStore,ISettings>(store=>store.settings)
-    let subPage   = useSelector<IStore,any>(store=>store.subPage)
+let _Guest = new Component("Game",()=>{
+    let [settings,subPage] = selector.use2<ISettings,any>(["settings","subPage"])
+
     return(
         <Container grid={settings.CONTAINER_APP_GRID} width="110vh" height="90vh" margin="10px auto" border >
+
             <Header position={settings.GUEST_HEADER_POSITION} bgImg={HeaderBackground}> 
                 <Name>שם המשחק</Name>
             </Header>
@@ -31,8 +31,7 @@ let _Guest = new Component(()=>{
         </Container>
     )
 })
-_Guest.SetLoading(()=><>wait...</>)
-let Guest = _Guest.Get({Logout:true, Login:false})
-export default Guest;
+
+export default _Guest.GetPage({Logout:true, Login:false},()=><>wait...</>);
 
 

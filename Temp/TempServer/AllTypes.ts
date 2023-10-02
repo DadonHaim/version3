@@ -9,10 +9,12 @@ type AllSubPagesType    = AllGamePageType|AllGuestPageType;
 
 type ISettings = IGlobalSettings&IClientSettings;
 
-type client = 
-    "Start: Give-Me-Settings" |
-    "Start: With-Token" |
+type IGender = "boy" | "girl"|"all"
 
+type client = 
+    "Start: Give-Me-Settings" | 
+    "Start: With-Token" | 
+ 
     //Login:
     "Login: Me" |
     
